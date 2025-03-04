@@ -1,0 +1,22 @@
+{% load i18n %}
+
+
+<div class="b-maps-filter  b-maps-filter--{{ filter.name }}"
+     id="{{ filter.name }}">
+    <div class="b-maps-filter-button">
+        <i class="b-maps-filter-icon"></i>{% trans 'fullness'|capfirst %}</div>
+
+    <ul class="b-maps-filter-content">
+        {% for option in filter.options %}
+            <li data-id="{{ option.title }}"
+                class="{{ option.css_class }}">
+                {% if forloop.first %}
+                    {{ option.lower }}+
+                {% else %}
+                    {{ option.lower }}-{{ option.upper }}
+                {% endif %}</li>
+        {% endfor %}
+
+    </ul>
+
+</div>

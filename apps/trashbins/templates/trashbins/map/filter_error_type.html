@@ -1,0 +1,30 @@
+{% load i18n %}
+
+
+<div class="b-maps-filter b-maps-filter--{{ filter.name }}{% if not filter.enabled %} b-maps-filter--disabled{% endif %}"
+     id="{{ filter.name }}">
+    <div class="b-maps-filter-button">
+        <i class="b-maps-filter-icon"></i>{% trans 'errors'|capfirst %}</div>
+    {% if filter.enabled %}
+        {% regroup filter.options by equipment as options %}
+        <div class="b-maps-filter-grouper">
+            {% for option in options %}
+                {% if forloop.counter == 3 %}
+                    </div>
+                    <div class="b-maps-filter-grouper">
+                {% endif %}
+                <div class="b-maps-filter-group">
+                    <div class="b-maps-filter-group-header">{{ option.grouper }}</div>
+                    <ul class="b-maps-filter-content">
+                        {% for item in option.list %}
+                            <li data-id="{{ item.pk }}">
+                                <span class="b-maps-filter-content-not">{{ item.title }}</span>
+                                <span class="b-maps-filter-content-yes">{{ item.title }}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>

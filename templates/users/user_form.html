@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load table_tags i18n %}
+
+
+{% block content %}
+    <div class="tablediv">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <p>
+                <input type="submit" value="{% trans "save"|capfirst %}">
+            </p>
+        </form>
+        <p><a href="{% url 'users:list' %}">{% trans "back to list"|capfirst %}</a></p>
+    </div>
+{% endblock %}

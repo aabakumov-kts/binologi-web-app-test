@@ -1,0 +1,20 @@
+{% load i18n %}
+
+{% if satellites %}
+    <div class="b-container-card-section">
+        <h5>{% trans 'satellites'|capfirst %}</h5>
+        <div class="b-container-card-section-content">
+            {% for satellite in satellites %}
+                <div class="b-container-card-indicator">
+                    <div class="b-container-card-indicator-value {{ satellite.fullness_card_class }}">
+                        <div class="b-container-card-indicator-value-digit">{{ satellite.fullness }}</div>
+                        <div class="b-container-card-indicator-value-text">%</div>
+                    </div>
+                    <div class="b-container-card-indicator-name">
+                        {{ satellite.serial_number }}<br>{{ satellite.waste_type }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endif %}

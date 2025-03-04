@@ -1,0 +1,170 @@
+{% load i18n uac %}
+
+<div class="b-container-card-sensors">
+    {% if no_links %}
+        <div class="b-container-card-indicator">
+            <div class="b-container-card-indicator-value {{ fullness_card_class }}">
+                <div class="b-container-card-indicator-value-digit">{{ object.fullness }}</div>
+                <div class="b-container-card-indicator-value-text">%</div>
+            </div>
+            <div class="b-container-card-indicator-name">
+                {% trans 'fullness'|capfirst %}
+            </div>
+        </div>
+    {% else %}
+        <a href="{% url "reports:trashbin:fullness" %}?container={{ object.id }}">
+            <div class="b-container-card-indicator">
+                <div class="b-container-card-indicator-value {{ fullness_card_class }}">
+                    <div class="b-container-card-indicator-value-digit">{{ object.fullness }}</div>
+                    <div class="b-container-card-indicator-value-text">%</div>
+                </div>
+                <div class="b-container-card-indicator-name">
+                    {% trans 'fullness'|capfirst %}
+                </div>
+            </div>
+        </a>
+    {% endif %}
+    {% if object.is_master %}
+        {% check_feature_enabled feature_flag_model.AIR_QUALITY as air_quality_enabled %}
+        {% if no_links %}
+            <div class="b-container-card-indicator">
+                <div class="b-container-card-indicator-value {{ battery_card_class }}">
+                    <div class="b-container-card-indicator-value-digit">{{ object.battery }}</div>
+                    <div class="b-container-card-indicator-value-text">%</div>
+                </div>
+                <div class="b-container-card-indicator-name">
+                    {% trans 'battery'|capfirst %}
+                </div>
+            </div>
+            <div class="b-container-card-indicator">
+                <div class="b-container-card-indicator-value blue">
+                    <div class="b-container-card-indicator-value-digit">{{ object.temperature }}</div>
+                    <div class="b-container-card-indicator-value-text">&deg;C</div>
+                </div>
+                <div class="b-container-card-indicator-name">
+                    {% trans 'temperature'|capfirst %}
+                </div>
+            </div>
+            <div class="b-container-card-indicator">
+                <div class="b-container-card-indicator-value blue">
+                    <div class="b-container-card-indicator-value-digit">{{ object.pressure }}</div>
+                    <div class="b-container-card-indicator-value-text">
+                        {% trans 'mm' %}
+                    </div>
+                </div>
+                <div class="b-container-card-indicator-name">
+                    {% trans 'pressure'|capfirst %}
+                </div>
+            </div>
+            {#        Traffic sensor was hidden since its absolutely fake at the moment #}
+            {#		<div class="b-container-card-indicator">#}
+            {#			<div class="b-container-card-indicator-value blue">#}
+            {#				<div class="b-container-card-indicator-value-digit">{{ object.traffic }}</div>#}
+            {#				<div class="b-container-card-indicator-value-text">#}
+            {#					{% trans 'pax' %}#}
+            {#				</div>#}
+            {#			</div>#}
+            {#			<div class="b-container-card-indicator-name">#}
+            {#				{% trans 'traffic'|capfirst %}#}
+            {#			</div>#}
+            {#		</div>#}
+            <div class="b-container-card-indicator">
+                <div class="b-container-card-indicator-value blue">
+                    <div class="b-container-card-indicator-value-digit">{{ object.humidity }}</div>
+                    <div class="b-container-card-indicator-value-text">%</div>
+                </div>
+                <div class="b-container-card-indicator-name">
+                    {% trans 'humidity'|capfirst %}
+                </div>
+            </div>
+            {% if air_quality_enabled %}
+                <div class="b-container-card-indicator">
+                    <div class="b-container-card-indicator-value {{ air_quality_card_class }}">
+                        <div class="b-container-card-indicator-value-digit">{{ object.air_quality }}</div>
+                        <div class="b-container-card-indicator-value-text">AQI</div>
+                    </div>
+                    <div class="b-container-card-indicator-name">
+                        {% trans 'air_quality'|capfirst %}
+                        {% include 'info_buttons/air_quality.html' %}
+                    </div>
+                </div>
+            {% endif %}
+        {% else %}
+            <a href="{% url "reports:trashbin:battery_level" %}?container={{ object.id }}">
+                <div class="b-container-card-indicator">
+                    <div class="b-container-card-indicator-value {{ battery_card_class }}">
+                        <div class="b-container-card-indicator-value-digit">{{ object.battery }}</div>
+                        <div class="b-container-card-indicator-value-text">%</div>
+                    </div>
+                    <div class="b-container-card-indicator-name">
+                        {% trans 'battery'|capfirst %}
+                    </div>
+                </div>
+            </a>
+            <a href="{% url "reports:trashbin:temperature" %}?container={{ object.id }}">
+                <div class="b-container-card-indicator">
+                    <div class="b-container-card-indicator-value blue">
+                        <div class="b-container-card-indicator-value-digit">{{ object.temperature }}</div>
+                        <div class="b-container-card-indicator-value-text">&deg;C</div>
+                    </div>
+                    <div class="b-container-card-indicator-name">
+                        {% trans 'temperature'|capfirst %}
+                    </div>
+                </div>
+            </a>
+            <a href="{% url "reports:pressure" %}?container={{ object.id }}">
+                <div class="b-container-card-indicator">
+                    <div class="b-container-card-indicator-value blue">
+                        <div class="b-container-card-indicator-value-digit">{{ object.pressure }}</div>
+                        <div class="b-container-card-indicator-value-text">
+                            {% trans 'mm' %}
+                        </div>
+                    </div>
+                    <div class="b-container-card-indicator-name">
+                        {% trans 'pressure'|capfirst %}
+                    </div>
+                </div>
+            </a>
+            {#        Traffic sensor was hidden since its absolutely fake at the moment #}
+            {#		<div class="b-container-card-indicator">#}
+            {#			<div class="b-container-card-indicator-value blue">#}
+            {#				<div class="b-container-card-indicator-value-digit">{{ object.traffic }}</div>#}
+            {#				<div class="b-container-card-indicator-value-text">#}
+            {#					{% trans 'pax' %}#}
+            {#				</div>#}
+            {#			</div>#}
+            {#			<div class="b-container-card-indicator-name">#}
+            {#				{% trans 'traffic'|capfirst %}#}
+            {#			</div>#}
+            {#		</div>#}
+            <a href="{% url "reports:humidity" %}?container={{ object.id }}">
+                <div class="b-container-card-indicator">
+                    <div class="b-container-card-indicator-value blue">
+                        <div class="b-container-card-indicator-value-digit">{{ object.humidity }}</div>
+                        <div class="b-container-card-indicator-value-text">%</div>
+                    </div>
+                    <div class="b-container-card-indicator-name">
+                        {% trans 'humidity'|capfirst %}
+                    </div>
+                </div>
+            </a>
+            {% if air_quality_enabled %}
+                <a href="{% url "reports:air_quality" %}?container={{ object.id }}">
+                    <div class="b-container-card-indicator">
+                        <div class="b-container-card-indicator-value {{ air_quality_card_class }}">
+                            <div class="b-container-card-indicator-value-digit">{{ object.air_quality }}</div>
+                            <div class="b-container-card-indicator-value-text">AQI</div>
+                        </div>
+                        <div class="b-container-card-indicator-name">
+                            {% trans 'air_quality'|capfirst %}
+                            {% include 'info_buttons/air_quality.html' %}
+                        </div>
+                    </div>
+                </a>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+    {% if not no_links %}
+        <p>{% trans 'Click on sensor icons above to get to corresponding reports' %}</p>
+    {% endif %}
+</div>

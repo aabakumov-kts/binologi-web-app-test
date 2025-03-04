@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load i18n bootstrap3 %}
+
+
+{% block content %}
+    <form action="." method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% buttons %}
+            <button type="submit">{% trans 'save'|capfirst %}</button>
+        {% endbuttons %}
+    </form>
+    <p><a href="{% url 'cities:list' %}">{% trans "back to list"|capfirst %}</a></p>
+{% endblock %}

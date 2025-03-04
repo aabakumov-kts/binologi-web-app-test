@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block extrahead %}
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+{% endblock %}
+
+{% block content %}
+    <section class="b-login">
+        <form action="{% url 'main:login' %}?{{ request.GET.urlencode }}" method="post">
+            <h1></h1>
+            {% csrf_token %}
+
+            <div class="form-controls">
+                <label>
+                    <i class="b-login-icon login"></i>
+                    <input placeholder="{% trans "Login" %}" type="text" name="email">
+                </label>
+                <label>
+                    <i class="b-login-icon password"></i>
+                    <input placeholder="{% trans "password"|capfirst %}" type="password" name="password">
+                </label>
+                <label>
+                    <i class="b-login-icon submit"></i>
+                    <input type="submit" value="{% trans "SignIn" %}">
+                </label>
+            </div>
+
+            {% if bad_login %}
+                <div class="b-login-bad-login-panel">
+                    {% trans "bad login"|capfirst %}
+                </div>
+            {% endif %}
+        </form>
+
+        <div class="b-requests-panel">
+            <a href="{% trans 'demo_request_form_url' %}" target="_self">
+                {% trans "request demo access"|capfirst %}
+            </a>
+        </div>
+
+        <div class="cookie-notification alert alert-info" role="alert" style="display: none">
+            <span>{% trans 'cookie_notification_text' %}</span>
+            <a href="https://www.learn-about-cookies.com"
+               target="_blank"
+               rel="nofollow noindex noopener noreferrer">{% trans 'cookie_notification_link' %}</a>
+            <button class="btn btn-primary">{% trans 'ok' %}</button>
+        </div>
+    </section>
+{% endblock %}
+
+{% block top_nav %}{% endblock %}
+
+{% block footer %}{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+          cleanupSession();
+
+          var cookieNotificationKey = "binology:cookies-accepted";
+          if (!localStorage.getItem(cookieNotificationKey)) {
+            $('.cookie-notification').show();
+            $('.cookie-notification button').on('click',function() {
+              localStorage.setItem(cookieNotificationKey, 'true');
+                $('.cookie-notification').hide();
+            });
+          }
+        });
+    </script>
+{% endblock %}

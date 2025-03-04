@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+    <h1>{% trans 'confirm delete'|capfirst %}</h1>
+    <p><strong>{{ object }}</strong></p>
+    <form action="{% url 'drivers:delete_unavailability_period' object.pk %}" method="post">
+        {% csrf_token %}
+        <p><button type="submit">{% trans 'delete'|capfirst %}</button></p>
+    </form>
+    <p><a href="{% url 'drivers:detail' object.driver.id %}">{% trans "back"|capfirst %}</a></p>
+{% endblock %}

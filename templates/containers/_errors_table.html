@@ -1,0 +1,24 @@
+{% load i18n %}
+
+{% if errors %}
+    <div class="b-container-card-section">
+        <h5>{% trans 'errors'|capfirst %}</h5>
+        <div class="b-container-card-section-content">
+            {% if errors|length_is:"0" %}
+                <table>
+                    <tr>
+                        <td>{% trans 'no_records_message' %}</td>
+                    </tr>
+                </table>
+            {% else %}
+                <table class="errors-table">
+                    {% for error_type in errors %}
+                        <tr>
+                            <td>{{ error_type }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+        </div>
+    </div>
+{% endif %}

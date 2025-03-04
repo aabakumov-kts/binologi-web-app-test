@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load table_tags i18n static bootstrap3 %}
+
+{% block extrahead %}
+    {{ form.media.css }}
+{% endblock %}
+
+{% block content %}
+    <div class="tablediv">
+        <form method="post">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            {% buttons %}
+                <button type="submit" class="btn btn-default">
+                    {% trans "save"|capfirst %}</button>
+            {% endbuttons %}
+        </form>
+        <p>
+            {% if return_to_url %}
+                <a href="{{ return_to_url }}">{% trans 'back'|capfirst %}</a>
+            {% else %}
+                <a href="{% url 'sensors:list' %}">{% trans 'back to list'|capfirst %}</a>
+            {% endif %}
+            {% if object %}
+                <span>•</span>
+                <a href="{% url 'sensors:control-main' object.pk %}">{% trans 'control'|capfirst %}</a>
+            {% endif %}
+        </p>
+    </div>
+{% endblock %}
+
+{% block js %}
+    {{ form.media.js }}
+{% endblock %}
+
+{% block title %}
+    {% trans 'sensor form'|capfirst %}
+{% endblock %}

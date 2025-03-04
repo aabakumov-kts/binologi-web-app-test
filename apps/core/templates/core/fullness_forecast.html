@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load i18n table_tags static bootstrap3 %}
+
+{% block content %}
+    <div class="fullness-forecast-page">
+        <h3 class="page_header">{% trans 'fullness forecast'|capfirst %}</h3>
+        <h5><strong>{{ device_serial }}</strong></h5>
+
+        {% if error_message %}
+            <h4>{{ error_message }}</h4>
+            <button class="btn btn-primary" id="go-back-button">{% trans 'back'|capfirst %}</button>
+        {% else %}
+            {% include 'reports/_common_deps.html' %}
+
+            <div class="graphs-container">
+                <div>
+                    <div id="fact-chart-container"></div>
+                    <p>{% trans 'Latest fullness measurements' %}</p>
+                </div>
+                <div>
+                    <div id="forecast-chart-container"></div>
+                    <p>{% trans 'Fullness measurements forecast' %}</p>
+                </div>
+            </div>
+
+            <p>
+                {% trans 'Start date of optimal pick up (90&#37;+ fullness) window:' %}
+                <strong>{{ optimal_pickup_start_date }}</strong>
+            </p>
+            <p>
+                {% trans 'Start date of near optimal pick up (75&#37;+ fullness) window:' %}
+                <strong>{{ near_optimal_pickup_start_date }}</strong>
+            </p>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="//cdn.fusioncharts.com/fusioncharts/3.14.0/fusioncharts.js"></script>
+    <script src="//cdn.fusioncharts.com/fusioncharts/3.14.0/themes/fusioncharts.theme.fint.js"></script>
+    {{ latest_json_source|json_script:'latest_json_source' }}
+    {{ forecast_json_source|json_script:'forecast_json_source' }}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var goBackButtonSelector = $('#go-back-button');
+            if (goBackButtonSelector.length > 0) {
+                goBackButtonSelector.on('click', function() {
+                    history.back();
+                });
+            } else {
+                FusionCharts.ready(function () {
+                    var charts = [
+                        { cntId: 'fact-chart-container', srcId: 'latest_json_source' },
+                        { cntId: 'forecast-chart-container', srcId: 'forecast_json_source' },
+                    ]
+                    for (var chartInfo of charts) {
+                        var chartContainerId = chartInfo.cntId;
+                        var dataSource = JSON.parse(document.getElementById(chartInfo.srcId).textContent);
+                        var chart = new FusionCharts({
+                            dataEmptyMessage: '{% trans 'no_data_to_display'|capfirst %}',
+                            dataFormat: 'json',
+                            dataLoadErrorMessage: '{% trans 'failed_to_load_data'|capfirst %}',
+                            dataLoadStartMessage: '{% trans 'fetching_data'|capfirst %}',
+                            dataSource: dataSource,
+                            height: '400',
+                            renderAt: chartContainerId,
+                            type: "{{ chart_type }}",
+                            width: '500',
+                        });
+                        var credsRemover = (function(id) {
+                          return function() {
+                            removeFusionChartsCredits(id);
+                          };
+                        })(chartContainerId);
+                        chart.addEventListener('renderComplete', credsRemover);
+                        chart.addEventListener('noDataToDisplay', credsRemover);
+                        chart.render();
+                    }
+                });
+            }
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load i18n core_tags %}
+
+{% block content %}
+    <h3>{% trans 'manage drivers'|capfirst %}</h3>
+
+    <div class="tablediv">
+        {% render_table_with_django2_compat drivers_table %}
+    </div>
+{% endblock %}

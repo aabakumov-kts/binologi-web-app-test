@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load table_tags i18n static bootstrap3 %}
+
+{% block extrahead %}
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {{ form.media.css }}
+{% endblock %}
+
+{% block content %}
+    <div class="tablediv notification-settings-page">
+        <h1>{% trans 'notifications settings'|capfirst %}</h1>
+
+        <div class="form-group">
+            <label class="control-label">{% trans 'Push notifications' %}</label>
+            <p>
+                <button class="btn btn-info btn-sm open-push-subscription">
+                    <i class="far fa-bell"></i>
+                </button>
+            </p>
+            <div class="help-block">{% trans "You'll get push notifications via browser on your device." %}</div>
+        </div>
+
+        <form method="post">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            {% buttons %}
+                <button type="submit" class="btn btn-default">
+                    {% trans "save"|capfirst %}
+                </button>
+            {% endbuttons %}
+        </form>
+
+        <p>
+            <a href="{% url 'notifications_list' %}">{% trans 'back'|capfirst %}</a>
+        </p>
+    </div>
+{% endblock %}
+
+{% block title %}
+    {% trans 'notifications settings'|capfirst %}
+{% endblock %}
+
+{% block js %}
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+    <script>
+        window.OneSignal = window.OneSignal || [];
+        var initSettings = {
+          appId: '{{ onesignal_app_id }}',
+          welcomeNotification: {
+            disable: true,
+          },
+          notifyButton: {
+            enable: false,
+          },
+        };
+        {% if debug %}
+          initSettings.allowLocalhostAsSecureOrigin = true;
+        {% endif %}
+        var autoShowSubscriptionModal = false;
+        OneSignal.push(function() {
+          OneSignal.init(initSettings);
+        });
+        OneSignal.push(function() {
+          OneSignal.setExternalUserId("{{ user.pk }}");
+        });
+    </script>
+    <script src="{% static 'js/notifications-settings.js' %}"></script>
+{% endblock %}

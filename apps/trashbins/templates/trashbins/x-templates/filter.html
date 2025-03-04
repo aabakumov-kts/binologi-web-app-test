@@ -1,0 +1,35 @@
+{% load i18n table_tags tables static filters %}
+
+<div class="row">
+    <div class="col-md-5">
+        {% include 'core/x-templates/_filter_common.html' %}
+    </div>
+
+    <div class="col-md-6">
+        <ul class="b-report-filter-errors b-report-filter-errors_route" id="errors">
+            {% for eq in equipment %}
+                <li>
+                    <h5>{{ eq.title }}</h5>
+                    <ul class="b-route-filter-content">
+                        {% for item in error_types %}
+                            {% if item.equipment__id == eq.id %}
+                                <li id="error{{ item.id }}" class="{% is_selected item 'id' 'error_type' %}">
+                                    <label for="error{{ item.id }}">
+                                        {{ item.title }}
+                                    </label>
+                                </li>
+                                <input id="input_error{{ item.id }}"
+                                       {% is_checked item 'id' 'error_type' %}
+                                       style="display: none"
+                                       type="checkbox"
+                                       :value="{{ item.id }}"
+                                       name="errors"
+                                       v-model="errors"/>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+{% load i18n %}
+
+<div class="form-group">
+    <input type="search" placeholder="{% trans 'Address, container serial, SiM'|capfirst %}" class="b-report-search" id="q_search">
+</div>
+
+{% include "reports/_customer_filter.html" %}
+
+<div class="form-group row" style="margin-right: 0;">
+    <div class="col-md-6">
+        <label for="country">{% trans 'country'|capfirst %}</label>
+        <select class="form-control b-report-select" id="country" name="report_filter_country">
+            <option value=""></option>
+            {% for item in countries %}
+                <option value="{{ item.id }}">{{ item.name }}</option>
+            {% endfor %}
+        </select>
+        <div class="b-report-select-arrow"></div>
+    </div>
+    <div class="col-md-6">
+        <label for="city">{% trans 'city'|capfirst %}</label>
+        <select class="form-control b-report-select" id="city" name="report_filter_city">
+            <option value=""></option>
+            {% for item in cities %}
+                <option value="{{ item.id }}">{{ item.title }}</option>
+            {% endfor %}
+        </select>
+        <div class="b-report-select-arrow"></div>
+    </div>
+</div>

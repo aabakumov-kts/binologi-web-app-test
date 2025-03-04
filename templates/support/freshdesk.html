@@ -1,0 +1,21 @@
+{% load i18n %}
+
+{% if request.user.is_authenticated %}
+    <script>
+        window.fwSettings={ 'widget_id': 47000005081 };
+        !function(){if("function"!=typeof window.FreshworksWidget){var n=function(){n.q.push(arguments)};n.q=[],window.FreshworksWidget=n}}()
+        FreshworksWidget("setLabels", {
+          'en': {
+            banner: "{% trans 'support_widget_banner' %}",
+            launcher: "{% trans 'support_widget_launcher' %}",
+          },
+        });
+        FreshworksWidget('identify', 'ticketForm', {
+          email: "{{ freshdesk_widget_email }}",
+        });
+        FreshworksWidget('prefill', 'ticketForm', {
+          subject: "{{ freshdesk_widget_subject }}",
+        });
+    </script>
+    <script type='text/javascript' src='https://widget.freshworks.com/widgets/47000005081.js' async defer></script>
+{% endif %}

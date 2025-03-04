@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+
+{% block content %}
+    <h1 class="page_header">{% trans 'confirm delete'|capfirst %}</h1>
+    <p>{{ object }}</p>
+    <form action="{% url 'companies:delete' object.pk %}" method="post">
+        {% csrf_token %}
+        <p><button type="submit">{% trans 'delete'|capfirst %}</button></p>
+    </form>
+    <p><a href="{% url 'companies:list' %}">{% trans "back to list"|capfirst %}</a></p>
+{% endblock %}

@@ -1,0 +1,27 @@
+{
+  "name": "static",
+  "homepage": "https://github.com/binologygroup/legacy-web-app",
+  "authors": [],
+  "description": "",
+  "main": "",
+  "license": "UNLICENSED",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "3.4.1",
+    "bootstrap-datepicker": "git://github.com/smalot/bootstrap-datetimepicker#2.4.4",
+    "jquery": "3.5.1",
+    "vue": "2.6.12",
+    "vue-resource": "1.5.1",
+    "datatables": "1.10.21",
+    "datatables-colreorder": "1.5.2",
+    "datatables-buttons": "1.6.5",
+    "raphael": "2.3.0",
+    "jszip": "3.5.0"
+  }
+}

@@ -1,0 +1,203 @@
+{% extends "base.html" %}
+{% load i18n table_tags static bootstrap3 %}
+
+{% block content %}
+    <h3 class="page_header">{% trans 'report'|capfirst %} {% trans 'collection'|capfirst %}</h3>
+
+    {% include 'reports/_common_filters_form.html' %}
+
+    <!--suppress JSJQueryEfficiency -->
+
+    {% include 'reports/_common_deps.html' %}
+    {% include 'trashbins/reports/_common_js_api.html' %}
+
+    <div class="b-table-chart-switcher" id="b-table-chart-switcher-js">
+        <a href="#" id="show_table" class="selected">{% trans 'table'|capfirst %}</a>
+        <a href="#" id="show_chart_errors">{% trans 'errors'|capfirst %}</a>
+        <a href="#" id="show_chart_types">{% trans 'waste types'|capfirst %}</a>
+        <a href="#" id="show_chart_sectors">{% trans 'sectors'|capfirst %}</a>
+        <a href="#" id="show_chart_fullness">{% trans 'fullness'|capfirst %}</a>
+    </div>
+
+    <div id="table-container" class="visible">
+        <table id={{ table.opts.id }} {{ table.opts.attrs }} cellpadding="0" cellspacing="0" border="0">
+            {% include 'table/_common_thead.html' %}
+            {% include 'table/_common_tbody.html' %}
+        </table>
+    </div>
+
+    <div id="chart-container" style='display: none;'>
+        <div style="display:inline-block; width: 250px" id="main-chart-container-fullness">
+            <div id="chart-container-fullness"></div>
+        </div>
+
+        <div style="display:inline-block; width: 400px" id="main-chart-container-types">
+            <div id="chart-container-types"></div>
+        </div>
+
+        <div style="display:inline-block; width: 350px" id="main-chart-container-sectors">
+            <div id="chart-container-sectors"></div>
+        </div>
+
+        <div style="display:inline-block;" id="main-chart-container-errors">
+            <div id="chart-container-errors"></div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+      $(document).ready(function () {
+        var table = createTable(prepare_query, "{% url "reports:trashbin:collection_table_data" %}", []);
+
+        function serialize_fullness(obj) {
+            delete obj['ctime'];
+            return serialize(obj);
+        }
+
+        function update_containers() {
+            if ($('#table-container').hasClass('visible')) {
+                table.api().ajax.reload();
+            }
+
+            var preparedQuery = prepare_query({});
+            var serializedQuery = serialize(preparedQuery);
+
+            if ($('#main-chart-container-errors').hasClass('visible')) {
+                var errors_chart_source = "{% url 'reports:trashbin:collection_chart_data_errors' %}" + "?" + serializedQuery;
+                updateFusionChart(fusionChartTypes.pie, 'chart-container-errors', errors_chart_source);
+            }
+
+            if ($('#main-chart-container-fullness').hasClass('visible')) {
+                var fullness_chart_source = "{% url 'reports:trashbin:collection_chart_data_fullness' %}" + "?" + serialize_fullness(preparedQuery);
+                updateFusionChart(fusionChartTypes.pie, 'chart-container-fullness', fullness_chart_source);
+            }
+
+            if ($('#main-chart-container-types').hasClass('visible')) {
+                var types_chart_source = "{% url 'reports:trashbin:collection_chart_data_waste_types' %}" + "?" + serializedQuery;
+                updateFusionChart(fusionChartTypes.pie, 'chart-container-types', types_chart_source);
+            }
+
+            if ($('#main-chart-container-sectors').hasClass('visible')) {
+                var sectors_chart_source = "{% url 'reports:trashbin:collection_chart_data_sectors' %}" + "?" + serializedQuery;
+                updateFusionChart(fusionChartTypes.pie, 'chart-container-sectors', sectors_chart_source);
+            }
+        }
+
+        addCommonEventHandlers(update_containers);
+
+        $('#show_table').on('click',function(){
+            $('#table-container').addClass('visible');
+
+            update_containers();
+
+            $('#table-container').show();
+            $('#chart-container').hide();
+            $('#chart-container').removeClass('visible');
+            $('#b-table-chart-switcher-js').find('a').removeClass('selected');
+            $(this).addClass('selected');
+        });
+
+        $('#show_chart_errors').on('click',function(){
+            $('#table-container').hide();
+            $('#main-chart-container-fullness').hide();
+            $('#main-chart-container-types').hide();
+            $('#main-chart-container-sectors').hide();
+
+            $('#table-container').removeClass('visible');
+            $('#main-chart-container-fullness').removeClass('visible');
+            $('#main-chart-container-types').removeClass('visible');
+            $('#main-chart-container-sectors').removeClass('visible');
+
+            $('#main-chart-container-errors').addClass('visible');
+            $('#chart-container').addClass('visible');
+
+            update_containers();
+
+            $('#chart-container').show();
+            $('#main-chart-container-errors').show();
+
+            $('#b-table-chart-switcher-js').find('a').removeClass('selected');
+            $(this).addClass('selected');
+        });
+
+        $('#show_chart_fullness').on('click',function(){
+            $('#table-container').hide();
+            $('#main-chart-container-errors').hide();
+            $('#main-chart-container-types').hide();
+            $('#main-chart-container-sectors').hide();
+
+            $('#table-container').removeClass('visible');
+            $('#main-chart-container-errors').removeClass('visible');
+            $('#main-chart-container-types').removeClass('visible');
+            $('#main-chart-container-sectors').removeClass('visible');
+
+            $('#main-chart-container-fullness').addClass('visible');
+            $('#chart-container').addClass('visible');
+
+            update_containers();
+
+            $('#chart-container').show();
+            $('#main-chart-container-fullness').show();
+
+            $('#b-table-chart-switcher-js').find('a').removeClass('selected');
+            $(this).addClass('selected');
+        });
+
+        $('#show_chart_sectors').on('click',function(){
+            $('#table-container').hide();
+            $('#main-chart-container-fullness').hide();
+            $('#main-chart-container-types').hide();
+            $('#main-chart-container-errors').hide();
+
+            $('#table-container').removeClass('visible');
+            $('#main-chart-container-fullness').removeClass('visible');
+            $('#main-chart-container-types').removeClass('visible');
+            $('#main-chart-container-errors').removeClass('visible');
+
+            $('#main-chart-container-sectors').addClass('visible');
+            $('#chart-container').addClass('visible');
+
+            update_containers();
+
+            $('#chart-container').show();
+            $('#main-chart-container-sectors').show();
+
+            $('#b-table-chart-switcher-js').find('a').removeClass('selected');
+            $(this).addClass('selected');
+        });
+
+        $('#show_chart_types').on('click',function(){
+            $('#table-container').hide();
+            $('#main-chart-container-fullness').hide();
+            $('#main-chart-container-errors').hide();
+            $('#main-chart-container-sectors').hide();
+
+            $('#table-container').removeClass('visible');
+            $('#main-chart-container-fullness').removeClass('visible');
+            $('#main-chart-container-errors').removeClass('visible');
+            $('#main-chart-container-sectors').removeClass('visible');
+
+            $('#main-chart-container-types').addClass('visible');
+            $('#chart-container').addClass('visible');
+
+            update_containers();
+
+            $('#chart-container').show();
+            $('#main-chart-container-types').show();
+
+            $('#b-table-chart-switcher-js').find('a').removeClass('selected');
+            $(this).addClass('selected');
+        });
+
+        update_containers();
+      });
+    </script>
+{% endblock %}
+
+{% block js %}
+    <script src="//cdn.fusioncharts.com/fusioncharts/3.14.0/fusioncharts.js"></script>
+    <script src="//cdn.fusioncharts.com/fusioncharts/3.14.0/themes/fusioncharts.theme.fint.js"></script>
+{% endblock %}
+
+{% block title %}
+    {% trans 'report'|capfirst %} {% trans 'collection'|capfirst %}
+{% endblock %}

@@ -1,0 +1,14 @@
+{% load i18n table_tags static bootstrap3 tables %}
+
+<div class="b-report-time" id="data-range">
+    <button class="btn" id="date_now" type="button">{% trans 'report button today'|capfirst %}</button>
+    <button class="btn active" id="date_day" type="button">{% trans 'report button day'|capfirst %}</button>
+    <button class="btn" id="date_month" type="button">{% trans 'report button month'|capfirst %}</button>
+    <button class="btn" id="date_period" type="button">
+        {% trans 'report button period'|capfirst %}
+        <span class="b-report-period hidden" id="date_period_filter">
+            {% trans 'report button period from'|capfirst %} <label for="date-picker-from"><input value="" id="date-picker-from" type="text" class="date-picker" /><span class="glyphicon glyphicon-calendar"></span></label>
+            {% trans 'report button period to'|capfirst %} <label for="date-picker-to"><input id="date-picker-to" type="text" class="date-picker" value="" /><span class="glyphicon glyphicon-calendar"></span></label>
+        </span>
+    </button>
+</div>

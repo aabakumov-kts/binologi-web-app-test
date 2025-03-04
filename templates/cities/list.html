@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load i18n core_tags %}
+
+{% block content %}
+    <h3>{% trans "cities"|capfirst %}</h3>
+
+    {% include '_alerts.html' %}
+
+    {% if request.uac.is_superadmin %}
+        <a class="b-table-add" href="{% url 'cities:create' %}">{% trans "add city"|capfirst %}</a>
+    {% endif %}
+    <div class="">
+        {% render_table_with_django2_compat cities %}
+    </div>
+{% endblock %}

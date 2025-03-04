@@ -1,0 +1,37 @@
+aiocontextvars==0.2.2
+boto3==1.16.62
+celery==4.4.7
+channels==2.4.0
+channels-redis==3.1.0
+dj-database-url==0.5.0
+Django==2.2.17
+django-bootstrap3==14.1.0
+django-celery-beat==1.6.0
+django-colorfield==0.3.2
+django-datatable==0.3.1
+django-datatables-view==1.19.1
+django-extensions==3.1.0
+django-modeltranslation==0.16.1
+django-notifications-hq==1.6.0
+django-phonenumber-field==5.0.0
+django-push-notifications==2.0.0
+django-redis==4.12.1
+django-smart-selects==1.5.9
+django-sslserver==0.22
+# This is pinned to 3.1 because of django-celery-beat 1.6.0
+django-timezone-field==3.1
+djangorestframework==3.12.1
+Faker==8.1.1
+fbprophet==0.7.1
+flake8==3.8.4
+gunicorn==20.0.4
+paho-mqtt==1.5.1
+# This is required by django-phonenumber-field 4.0.0 but doesn't install on its own
+phonenumberslite==8.12.11
+psycopg2==2.8.6
+python-slugify==4.0.1
+pytz==2020.5
+requests==2.25.0
+sentry-sdk==0.19.5
+ujson==4.0.1
+whitenoise==5.2.0

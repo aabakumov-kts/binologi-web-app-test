@@ -1,0 +1,2230 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-11-08 14:35+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+
+#: app/admin.py:99 app/forms.py:59 app/models.py:111 app/models.py:778
+#: app/serializers.py:32 apps/main/templates/main/home_login.html:23
+msgid "password"
+msgstr "пароль"
+
+#: app/forms.py:54 apps/core/forms.py:12
+msgid "same as company"
+msgstr "такой же как у компании"
+
+#: app/forms.py:66 app/models.py:43 app/models.py:233 app/models.py:412
+#: app/tables.py:55 app/tables.py:126 app/tables.py:173 app/tables.py:251
+#: app/tables.py:563 apps/core/admin.py:80 apps/core/admin.py:106
+#: apps/core/models.py:82 apps/core/models.py:103 apps/core/models.py:164
+#: apps/sensors/models.py:214 apps/sensors/models.py:417
+#: apps/trashbins/models.py:11 templates/drivers/detail.html:14
+msgid "company"
+msgstr "компания"
+
+#: app/forms.py:72 app/tables.py:60 apps/core/admin.py:101
+#: apps/core/models.py:107
+msgid "role"
+msgstr "роль"
+
+#: app/forms.py:75 apps/core/models.py:75 apps/core/models.py:112
+msgid "timezone"
+msgstr "часовой пояс"
+
+#: app/forms.py:76 app/tables.py:51 app/tables.py:543 app/tables.py:562
+#: apps/core/models.py:113 apps/main/tables.py:32
+#: templates/drivers/detail.html:10 templates/x-templates/drivers.html:26
+msgid "comment"
+msgstr "комментарий"
+
+#: app/forms.py:82 apps/main/templates/main/home_login.html:19
+msgid "Login"
+msgstr "Логин"
+
+#: app/forms.py:121
+msgid "Choice a company."
+msgstr "Выберите компанию."
+
+#: app/forms.py:146
+#, python-format
+msgid "Too many users of role per company, limit is %(value)s"
+msgstr ""
+"Слишком много пользователей этой роли в компании, максимальное количество - "
+"%(value)s"
+
+#: app/forms.py:163 app/tables.py:100
+msgid "username prefix"
+msgstr "Префикс логинов пользователей"
+
+#: app/forms.py:179 apps/sensors/forms.py:16
+msgid "city_upper"
+msgstr "Город"
+
+#: app/models.py:25 app/tables.py:122 app/tables.py:283 app/tables.py:418
+#: app/tables.py:471 app/tables.py:540 app/tables.py:541
+#: apps/sensors/models.py:224 apps/sensors/tables.py:19
+#: apps/sensors/tables.py:50 apps/sensors/tables.py:90
+#: apps/sensors/tables.py:123 apps/sensors/tables.py:156
+#: apps/trashbins/tables.py:26 apps/trashbins/tables.py:84
+#: apps/trashbins/tables.py:135 apps/trashbins/tables.py:186
+msgid "serial number"
+msgstr "серийный номер"
+
+#: app/models.py:29 app/tables.py:364 apps/sensors/models.py:225
+#: apps/sensors/templates/sensors/map_card.html:59
+#: templates/containers/detail.html:50 templates/containers/map_card.html:65
+msgid "phone number"
+msgstr "телефон"
+
+#: app/models.py:34 apps/sensors/models.py:236
+#: apps/sensors/templates/sensors/map_card.html:41
+#: apps/sensors/templates/sensors/onboard_sensor.html:97
+msgid "container type"
+msgstr "вид контейнера"
+
+#: app/models.py:38
+msgid "is master"
+msgstr "ведущий?"
+
+#: app/models.py:47 app/tables.py:92 app/tables.py:201 app/tables.py:259
+#: apps/core/models.py:24 apps/core/models.py:25 apps/core/models.py:34
+#: apps/core/models.py:59 apps/sensors/models.py:218 apps/sensors/tables.py:20
+#: apps/sensors/templates/sensors/map_card.html:29
+#: templates/containers/detail.html:26 templates/containers/map_card.html:31
+#: templates/reports/_left_column_filters.html:11
+msgid "country"
+msgstr "страна"
+
+#: app/models.py:53 app/tables.py:205 app/tables.py:266 apps/core/models.py:43
+#: apps/sensors/models.py:219 apps/sensors/tables.py:76
+#: apps/sensors/templates/sensors/map_card.html:33 apps/trashbins/tables.py:63
+#: templates/containers/detail.html:28 templates/containers/map_card.html:35
+#: templates/reports/_left_column_filters.html:21
+msgid "city"
+msgstr "город"
+
+#: app/models.py:59 app/tables.py:271 app/tables.py:404 app/tables.py:457
+#: apps/sensors/models.py:220 apps/sensors/tables.py:43
+#: apps/sensors/tables.py:83 apps/sensors/tables.py:116
+#: apps/sensors/tables.py:149 apps/sensors/templates/sensors/map_card.html:37
+#: apps/trashbins/tables.py:12 apps/trashbins/tables.py:70
+#: apps/trashbins/tables.py:121 apps/trashbins/tables.py:172
+#: templates/containers/detail.html:30 templates/containers/map_card.html:39
+msgid "address"
+msgstr "адрес"
+
+#: app/models.py:63 app/tables.py:131 app/tables.py:290 apps/core/models.py:167
+#: apps/core/models.py:168 apps/sensors/models.py:221
+#: apps/sensors/templates/sensors/map_card.html:53
+#: apps/sensors/templates/sensors/reports/_sensor_spec_filter.html:17
+#: apps/sensors/templates/sensors/x-templates/points.html:36
+#: apps/trashbins/tables.py:33 apps/trashbins/tables.py:91
+#: apps/trashbins/tables.py:142
+#: apps/trashbins/templates/trashbins/x-templates/points.html:42
+#: templates/containers/detail.html:33 templates/containers/map_card.html:44
+#: templates/map/filter_sector.html:12
+#: templates/reports/_container_spec_filter.html:29
+msgid "sector"
+msgstr "сектор"
+
+#: app/models.py:64 app/tables.py:276 app/tables.py:411 app/tables.py:464
+#: apps/core/models.py:195
+#: apps/core/templates/core/x-templates/_filter_common.html:28
+#: apps/main/views.py:246 apps/sensors/models.py:222
+#: apps/sensors/templates/sensors/map_card.html:46
+#: apps/sensors/templates/sensors/onboard_sensor.html:112
+#: apps/sensors/templates/sensors/reports/_sensor_spec_filter.html:5
+#: apps/trashbins/tables.py:19 apps/trashbins/tables.py:77
+#: apps/trashbins/tables.py:128 apps/trashbins/tables.py:179
+#: templates/containers/detail.html:45 templates/containers/map_card.html:58
+#: templates/map/filter_waste_type.html:6
+#: templates/reports/_container_spec_filter.html:5
+msgid "waste type"
+msgstr "тип мусора"
+
+#: app/models.py:66 app/models.py:438 app/models.py:480 app/models.py:521
+#: app/models.py:540 app/models.py:559 app/models.py:604 app/models.py:629
+#: app/models.py:648 apps/sensors/models.py:217
+msgid "location"
+msgstr "местоположение"
+
+#: app/models.py:70 app/tables.py:545 apps/core/reports.py:46
+#: apps/core/templates/core/x-templates/_filter_common.html:3
+#: apps/main/templates/main/top_nav/sensors.html:33
+#: apps/main/templates/main/top_nav/trashbins.html:33 apps/main/views.py:251
+#: apps/sensors/models.py:229 apps/sensors/tables.py:182
+#: apps/sensors/templates/sensors/map_card.html:84
+#: apps/sensors/templates/sensors/map_card.html:113
+#: apps/trashbins/tables.py:212
+#: apps/trashbins/templates/trashbins/reports/collection.html:19
+#: templates/containers/_sensors.html:11 templates/containers/_sensors.html:22
+#: templates/map/filter_fullness.html:7
+#: templates/reports/_fullness_filter.html:5
+msgid "fullness"
+msgstr "заполненность"
+
+#: app/models.py:71 app/models.py:77 app/models.py:93
+#: apps/sensors/models.py:229 apps/sensors/models.py:230
+msgid "in percents (%)"
+msgstr "в процентах (%)"
+
+#: app/models.py:76 apps/sensors/models.py:230
+msgid "battery charge"
+msgstr "заряд батареи"
+
+#: app/models.py:81 apps/main/templates/main/top_nav/sensors.html:43
+#: apps/main/templates/main/top_nav/trashbins.html:43
+#: apps/sensors/models.py:231 apps/sensors/models.py:294
+#: apps/sensors/models.py:295 apps/sensors/templates/sensors/map_card.html:102
+#: apps/sensors/templates/sensors/map_card.html:135
+#: templates/containers/_sensors.html:45 templates/containers/_sensors.html:111
+msgid "temperature"
+msgstr "температура"
+
+#: app/models.py:82 apps/sensors/models.py:231
+msgid "in celsius (C)"
+msgstr "в градусах Цельсия (С)"
+
+#: app/models.py:86 apps/main/templates/main/top_nav/trashbins.html:45
+#: templates/containers/_sensors.html:56 templates/containers/_sensors.html:124
+#: templates/reports/pressure.html:5 templates/reports/pressure.html:19
+msgid "pressure"
+msgstr "давление"
+
+#: app/models.py:87
+msgid "in milimeters (mm)"
+msgstr "в милиметрах (мм)"
+
+#: app/models.py:92 apps/main/templates/main/top_nav/trashbins.html:52
+#: templates/containers/_sensors.html:77 templates/containers/_sensors.html:147
+#: templates/reports/humidity.html:5 templates/reports/humidity.html:19
+msgid "humidity"
+msgstr "влажность"
+
+#: app/models.py:97 app/tables.py:478
+#: apps/main/templates/main/top_nav/trashbins.html:56
+#: templates/containers/_sensors.html:87 templates/containers/_sensors.html:159
+#: templates/reports/air_quality.html:6 templates/reports/air_quality.html:22
+msgid "air_quality"
+msgstr "качество воздуха"
+
+#: app/models.py:103 app/tables.py:432 app/tables.py:485
+#: apps/sensors/models.py:211 apps/sensors/models.py:449
+msgid "create time"
+msgstr "создано"
+
+#: app/models.py:107 app/tables.py:542 apps/sensors/models.py:212
+msgid "update time"
+msgstr "обновлено"
+
+#: app/models.py:137 app/models.py:148 app/models.py:669 app/tables.py:87
+#: app/tables.py:169 apps/core/models.py:20 apps/core/models.py:38
+#: apps/core/models.py:55 apps/core/models.py:163 apps/core/models.py:181
+#: apps/sensors/models.py:304
+msgid "title"
+msgstr "название"
+
+#: app/models.py:171 app/models.py:334 app/models.py:431 app/models.py:453
+#: app/models.py:473 app/models.py:499 app/models.py:514 app/models.py:533
+#: app/models.py:552 app/models.py:577 app/models.py:598 app/models.py:622
+#: app/models.py:641 app/models.py:694 app/models.py:743
+#: apps/trashbins/templates/trashbins/x-templates/points.html:40
+#: apps/trashbins/templates/trashbins/x-templates/points.html:59
+#: templates/reports/_container_filter.html:7
+msgid "container"
+msgstr "контейнер"
+
+#: app/models.py:177 apps/main/views.py:271 apps/main/views.py:286
+#: apps/sensors/models.py:307 apps/sensors/models.py:317
+#: apps/sensors/tables.py:130 apps/trashbins/tables.py:149
+msgid "error type"
+msgstr "тип ошибки"
+
+#: app/models.py:182 app/tables.py:307 app/tables.py:339 app/tables.py:379
+#: apps/sensors/tables.py:64 apps/sensors/tables.py:104
+#: apps/sensors/tables.py:137 apps/sensors/tables.py:170
+#: apps/trashbins/tables.py:47 apps/trashbins/tables.py:105
+#: apps/trashbins/tables.py:156 apps/trashbins/tables.py:200
+msgid "error create time"
+msgstr "создано"
+
+#: app/models.py:186 app/models.py:443 app/models.py:463 app/models.py:507
+#: app/models.py:526 app/models.py:545 app/models.py:564 app/models.py:585
+#: app/models.py:609 app/models.py:634 app/models.py:653
+#: apps/sensors/models.py:267 apps/sensors/models.py:283
+#: apps/sensors/models.py:291 apps/sensors/models.py:319
+#: apps/sensors/models.py:335 apps/trashbins/models.py:25
+msgid "actual data"
+msgstr ""
+
+#: app/models.py:258
+msgid "new"
+msgstr "новый"
+
+#: app/models.py:259
+msgid "started"
+msgstr "начат"
+
+#: app/models.py:260
+msgid "moving home"
+msgstr "движение на базу"
+
+#: app/models.py:261
+msgid "completed"
+msgstr "завершен"
+
+#: app/models.py:262 app/models.py:325
+msgid "aborted by operator"
+msgstr "отменено оператором"
+
+#: app/models.py:263 app/models.py:326
+msgid "aborted by driver"
+msgstr "отменено водителем"
+
+#: app/models.py:275 app/models.py:736 apps/core/models.py:98
+#: apps/sensors/models.py:448
+msgid "user"
+msgstr "пользователь"
+
+#: app/models.py:279 app/models.py:292 app/models.py:376
+#: apps/main/templates/main/map.html:30
+msgid "route"
+msgstr "маршрут"
+
+#: app/models.py:283 app/models.py:350 app/models.py:744 app/models.py:768
+#: apps/sensors/models.py:463
+msgid "created at"
+msgstr "создано"
+
+#: app/models.py:300 app/models.py:380 apps/sensors/views.py:332
+msgid "unknown"
+msgstr "неизвестно"
+
+#: app/models.py:322
+msgid "not collected"
+msgstr "не собрана"
+
+#: app/models.py:323
+msgid "collected"
+msgstr "собрана"
+
+#: app/models.py:324
+msgid "collection issue"
+msgstr "проблема при сборе"
+
+#: app/models.py:342 apps/sensors/models.py:264 apps/sensors/models.py:279
+#: apps/sensors/models.py:288 apps/sensors/models.py:316
+#: apps/sensors/models.py:332
+#: apps/sensors/templates/sensors/reports/_sensor_filter.html:7
+#: apps/sensors/templates/sensors/x-templates/points.html:34
+#: apps/sensors/templates/sensors/x-templates/points.html:53
+#: apps/sensors/views.py:95
+msgid "sensor"
+msgstr "датчик"
+
+#: app/models.py:401 app/models.py:485 app/models.py:710 app/tables.py:513
+#: app/tables.py:561 apps/core/models.py:93
+#: apps/main/templates/main/reports/track.html:13
+#: templates/routes/detail.html:10
+msgid "driver"
+msgstr "водитель"
+
+#: app/models.py:711 app/tables.py:583 apps/sensors/models.py:418
+#: apps/trashbins/models.py:12
+msgid "period begin"
+msgstr "начало периода"
+
+#: app/models.py:712 app/tables.py:584 apps/sensors/models.py:419
+#: apps/trashbins/models.py:13
+msgid "period end"
+msgstr "конец периода"
+
+#: app/models.py:713 app/tables.py:585
+msgid "reason"
+msgstr "причина"
+
+#: app/models.py:721
+msgid "Begin of the period should be earlier than its end."
+msgstr "Начало периода должно быть раньше конца."
+
+#: app/models.py:777 app/serializers.py:31 app/tables.py:47
+#: apps/main/tables.py:25 templates/drivers/detail.html:7
+#: templates/x-templates/drivers.html:25
+msgid "username"
+msgstr "логин"
+
+#: app/shared.py:18
+#, python-format
+msgid "Route #%(route_id)s"
+msgstr "Маршрут #%(route_id)s"
+
+#: app/shared.py:32
+#, python-format
+msgid "Point %(point_serial)s of route #%(route_id)s"
+msgstr "Точка %(point_serial)s маршрута #%(route_id)s"
+
+#: app/shared.py:41
+msgid "Route is aborted by driver"
+msgstr "Маршрут отменен водителем"
+
+#: app/shared.py:43
+msgid "Route is completed"
+msgstr "Маршрут завершен"
+
+#: app/shared.py:45
+#, python-format
+msgid "Driver commented about point collection issue: %(comment)s"
+msgstr "Водитель сообщил о проблеме при сборе точки: %(comment)s"
+
+#: app/tables.py:64 app/tables.py:103 app/tables.py:134 app/tables.py:145
+#: app/tables.py:177 app/tables.py:208 app/tables.py:518 app/tables.py:566
+#: app/tables.py:587 apps/core/tables.py:41 apps/sensors/tables.py:23
+msgid "action"
+msgstr "действие"
+
+#: app/tables.py:66 app/tables.py:106 app/tables.py:139 app/tables.py:150
+#: app/tables.py:181 app/tables.py:212 app/tables.py:591
+#: apps/sensors/tables.py:27
+msgid "edit"
+msgstr "ред."
+
+#: app/tables.py:67 app/tables.py:107 app/tables.py:140 app/tables.py:182
+#: app/tables.py:213 app/tables.py:592 templates/cities/confirm_delete.html:10
+#: templates/companies/confirm_delete.html:10
+#: templates/containers/confirm_delete.html:10
+#: templates/drivers/unavailability_period_confirm_delete.html:9
+#: templates/sectors/confirm_delete.html:15
+#: templates/users/confirm_delete.html:13
+msgid "delete"
+msgstr "удалить"
+
+#: app/tables.py:75 app/tables.py:115 app/tables.py:162 app/tables.py:194
+#: app/tables.py:222 app/tables.py:325 app/tables.py:357 app/tables.py:397
+#: app/tables.py:450 app/tables.py:507 app/tables.py:535 app/tables.py:550
+#: app/tables.py:578 app/tables.py:598 apps/core/tables.py:14
+#: apps/core/tables.py:53 apps/main/tables.py:42 apps/sensors/tables.py:36
+#: templates/containers/_errors_table.html:10
+msgid "no_records_message"
+msgstr "Нет записей"
+
+#: app/tables.py:76 app/tables.py:116 app/tables.py:163 app/tables.py:195
+#: app/tables.py:223 app/tables.py:326 app/tables.py:358 app/tables.py:398
+#: app/tables.py:451 app/tables.py:508 app/tables.py:536 app/tables.py:551
+#: app/tables.py:579 app/tables.py:599 apps/core/tables.py:15
+#: apps/core/tables.py:54 apps/main/tables.py:43 apps/sensors/tables.py:37
+msgid "total_records_template"
+msgstr "Всего _TOTAL_"
+
+#: app/tables.py:96 apps/core/models.py:65
+msgid "minimal SIM balance"
+msgstr "минимальный баланс SIM"
+
+#: app/tables.py:138 app/tables.py:149 app/tables.py:522 app/tables.py:570
+#: templates/containers/map_card.html:127
+msgid "detail"
+msgstr "подробнее"
+
+#: app/tables.py:300
+msgid "pressure_header"
+msgstr "давление, мм рт. ст."
+
+#: app/tables.py:314 app/tables.py:346 app/tables.py:386 app/tables.py:439
+#: app/tables.py:492 apps/core/tables.py:27
+msgid "elapsed"
+msgstr "прошло"
+
+#: app/tables.py:332 templates/reports/traffic.html:5
+#: templates/reports/traffic.html:19
+msgid "traffic"
+msgstr "трафик"
+
+#: app/tables.py:372
+msgid "balance"
+msgstr "баланс"
+
+#: app/tables.py:425
+msgid "humidity_header"
+msgstr "влажность, %"
+
+#: app/tables.py:512
+msgid "route_no"
+msgstr "Номер маршрута"
+
+#: app/tables.py:514 templates/routes/detail.html:12
+msgid "route created"
+msgstr "создан"
+
+#: app/tables.py:515
+msgid "points count"
+msgstr "количество точек"
+
+#: app/tables.py:516 app/tables.py:544 templates/routes/detail.html:14
+msgid "status"
+msgstr "статус"
+
+#: app/tables.py:523
+msgid "abort"
+msgstr "отменить"
+
+#: app/tables.py:546 apps/sensors/tables.py:198
+msgid "volume"
+msgstr "объем"
+
+#: app/tables.py:557 apps/sensors/tables.py:15 templates/drivers/detail.html:19
+#: templates/drivers/detail.html:26 templates/routes/create.html:116
+msgid "yes"
+msgstr "да"
+
+#: app/tables.py:557 apps/sensors/tables.py:15 templates/drivers/detail.html:22
+#: templates/drivers/detail.html:28 templates/routes/create.html:117
+msgid "no"
+msgstr "нет"
+
+#: app/tables.py:564
+msgid "available?"
+msgstr "свободен?"
+
+#: app/templatetags/humanize.py:16
+#, python-format
+msgid "%(count)d day"
+msgid_plural "%(count)d days"
+msgstr[0] "%(count)d день"
+msgstr[1] "%(count)d дня"
+msgstr[2] "%(count)d дней"
+
+#: app/templatetags/humanize.py:27
+#, python-format
+msgid "%(count)d hour"
+msgid_plural "%(count)d hours"
+msgstr[0] "%(count)d час"
+msgstr[1] "%(count)d часа"
+msgstr[2] "%(count)d часов"
+
+#: app/templatetags/humanize.py:38
+#, python-format
+msgid "%(count)d minute"
+msgid_plural "%(count)d minutes"
+msgstr[0] "%(count)d минута"
+msgstr[1] "%(count)d минуты"
+msgstr[2] "%(count)d минут"
+
+#: app/templatetags/humanize.py:49
+#, python-format
+msgid "%(count)d second"
+msgid_plural "%(count)d seconds"
+msgstr[0] "%(count)d секунда"
+msgstr[1] "%(count)d секунды"
+msgstr[2] "%(count)d секунд"
+
+#: app/views.py:119
+#, python-format
+msgid "New user \"%(username)s\" created successfully"
+msgstr "Новый пользователь \"%(username)s\" создан успешно"
+
+#: app/views.py:141
+#, python-format
+msgid "User \"%(username)s\" updated successfully"
+msgstr "Пользователь \"%(username)s\" успешно изменен"
+
+#: app/views.py:184
+#, python-format
+msgid "User \"%(username)s\" deleted successfully"
+msgstr "Пользователь \"%(username)s\" успешно удален"
+
+#: app/views.py:261
+#, python-format
+msgid "New company \"%(company_name)s\" created successfully"
+msgstr "Новая компания \"%(company_name)s\" создана успешно"
+
+#: app/views.py:278
+#, python-format
+msgid "Company \"%(company_name)s\" updated successfully"
+msgstr "Компания \"%(company_name)s\" успешно изменена"
+
+#: app/views.py:297
+#, python-format
+msgid "Company \"%(company_name)s\" deleted successfully"
+msgstr "Компания \"%(company_name)s\" успешно удалена"
+
+#: app/views.py:373
+#, python-format
+msgid "New container \"%(serial)s\" created successfully"
+msgstr "Новая урна \"%(serial)s\" создана успешно"
+
+#: app/views.py:395
+#, python-format
+msgid "Container \"%(serial)s\" updated successfully"
+msgstr "Урна \"%(serial)s\" успешно изменена"
+
+#: app/views.py:428
+#, python-format
+msgid "Container \"%(serial)s\" deleted successfully"
+msgstr "Урна \"%(serial)s\" успешно удалена"
+
+#: app/views.py:462
+msgid "satellite bin"
+msgstr "урна-спутник"
+
+#: app/views.py:464
+msgid "bin"
+msgstr "урна"
+
+#: app/views.py:464
+msgid "master bin"
+msgstr "мастер-урна"
+
+#: app/views.py:483
+msgid "There were no collections during last 30 days."
+msgstr "За последние 30 дней сборов не было."
+
+#: app/views.py:487
+#, python-format
+msgid "There was %(count)d collection during last 30 days."
+msgid_plural "There were %(count)d collections during last 30 days."
+msgstr[0] "За последние 30 дней был %(count)d сбор."
+msgstr[1] "За последние 30 дней было %(count)d сбора."
+msgstr[2] "За последние 30 дней было %(count)d сборов."
+
+#: app/views.py:494
+#, python-format
+msgid "Last collection was on %(date)s."
+msgstr "Последний сбор был %(date)s."
+
+#: app/views.py:501
+msgid "There were no trash receiver openings during last 7 days."
+msgstr "За последние 7 дней открытий мусороприемника не было."
+
+#: app/views.py:504
+#, python-format
+msgid "There was %(count)d trash receiver opening during last 7 days."
+msgid_plural "There were %(count)d trash receiver openings during last 7 days."
+msgstr[0] "За последние 7 дней было %(count)d открытие мусороприемника."
+msgstr[1] "За последние 7 дней было %(count)d открытия мусороприемника."
+msgstr[2] "За последние 7 дней было %(count)d открытий мусороприемника."
+
+#: app/views.py:616
+#, python-format
+msgid "New sector \"%(sector_name)s\" created successfully"
+msgstr "Новый сектор \"%(sector_name)s\" создан успешно"
+
+#: app/views.py:639
+#, python-format
+msgid "Sector \"%(sector_name)s\" updated successfully"
+msgstr "Сектор \"%(sector_name)s\" успешно изменен"
+
+#: app/views.py:682
+#, python-format
+msgid "Sector \"%(sector_name)s\" deleted successfully"
+msgstr "Сектор \"%(sector_name)s\" успешно удален"
+
+#: app/views.py:726
+#, python-format
+msgid "New city \"%(city_title)s\" created successfully"
+msgstr "Новый город \"%(city_title)s\" создан успешно"
+
+#: app/views.py:745
+#, python-format
+msgid "City \"%(city_title)s\" updated successfully"
+msgstr "Город \"%(city_title)s\" успешно изменен"
+
+#: app/views.py:762
+#, python-format
+msgid "City \"%(city_title)s\" deleted successfully"
+msgstr "Город \"%(city_title)s\" успешно удален"
+
+#: app/views.py:846
+#, python-format
+msgid "Route #%(route_id)s aborted successfully"
+msgstr "Маршрут #%(route_id)s успешно отменен"
+
+#: app/views.py:863
+#, python-format
+msgid "Existing route #%(route_id)s resent successfully"
+msgstr "Существующий маршрут #%(route_id)s успешно отправлен повторно"
+
+#: app/views.py:960
+msgid "New unavailability period created successfully"
+msgstr "Новый период недоступности создан успешно"
+
+#: app/views.py:985
+msgid "Unavailability period updated successfully"
+msgstr "Период недоступности успешно изменен"
+
+#: app/views.py:1014
+msgid "Unavailability period deleted successfully"
+msgstr "Период недоступности успешно удален"
+
+#: apps/core/admin.py:81 apps/core/models.py:83
+#: apps/main/templates/main/top_nav/sensors.html:69
+#: apps/main/templates/main/top_nav/trashbins.html:87
+#: templates/companies/list.html:5
+msgid "companies"
+msgstr "компании"
+
+#: apps/core/context_processors.py:69
+#, python-format
+msgid "New support request from user #%(user_id)s"
+msgstr "Новый запрос в поддержку от пользователя #%(user_id)s"
+
+#: apps/core/forms.py:21
+msgid "Email"
+msgstr ""
+
+#: apps/core/forms.py:21
+msgid "If specified you will receive email notifications at this box."
+msgstr "Если указан вы будете получать email-уведомления на этот ящик."
+
+#: apps/core/models.py:44 apps/main/templates/main/top_nav/sensors.html:88
+#: apps/main/templates/main/top_nav/trashbins.html:106
+#: templates/cities/list.html:5
+msgid "cities"
+msgstr "города"
+
+#: apps/core/models.py:91
+msgid "administrator"
+msgstr "администратор"
+
+#: apps/core/models.py:92
+msgid "operator"
+msgstr "оператор"
+
+#: apps/core/models.py:186
+msgid "waste code"
+msgstr "код отходов"
+
+#: apps/core/models.py:196
+#: apps/sensors/templates/sensors/reports/collection.html:16
+#: apps/trashbins/templates/trashbins/reports/collection.html:17
+msgid "waste types"
+msgstr "типы мусора"
+
+#: apps/core/reports.py:246
+#, python-format
+msgid "%d yr"
+msgstr "%d г."
+
+#: apps/core/reports.py:247
+#, python-format
+msgid "%d mo"
+msgstr "%d мес."
+
+#: apps/core/reports.py:248
+#, python-format
+msgid "%d w"
+msgstr "%d нед."
+
+#: apps/core/reports.py:249
+#, python-format
+msgid "%d d"
+msgstr "%d дн."
+
+#: apps/core/reports.py:250
+#, python-format
+msgid "%d hr"
+msgstr "%d ч."
+
+#: apps/core/reports.py:251
+#, python-format
+msgid "%d min"
+msgstr "%d мин."
+
+#: apps/core/signals.py:16
+msgid "Default"
+msgstr "По умолчанию"
+
+#: apps/core/tables.py:23
+msgid "priority"
+msgstr "приоритет"
+
+#: apps/core/tables.py:33
+msgid "notification type"
+msgstr "тип"
+
+#: apps/core/tables.py:37
+msgid "source"
+msgstr "источник"
+
+#: apps/core/tables.py:44 apps/main/templates/main/map.html:57
+msgid "view"
+msgstr "просмотр"
+
+#: apps/core/tasks.py:104
+msgid "email-notification-ses-template-name"
+msgstr "notifications-template-ru"
+
+#: apps/core/templates/core/account/change_password.html:18
+#: apps/core/templates/core/account/change_timezone.html:19
+#: apps/core/templates/core/notifications/settings.html:28
+#: apps/sensors/templates/sensors/form.html:15
+#: apps/sensors/templates/sensors/onboard_sensor.html:137
+#: templates/cities/city_form.html:10 templates/companies/company_form.html:10
+#: templates/containers/container_form.html:15
+#: templates/drivers/unavailability_period_form.html:10
+#: templates/sectors/sector_form.html:10 templates/users/user_form.html:11
+msgid "save"
+msgstr "сохранить"
+
+#: apps/core/templates/core/account/change_password.html:24
+#: apps/core/templates/core/account/change_timezone.html:25
+#: apps/core/templates/core/fullness_forecast.html:11
+#: apps/core/templates/core/notifications/settings.html:34
+#: apps/sensors/templates/sensors/form.html:20
+#: templates/containers/container_form.html:20
+#: templates/drivers/unavailability_period_confirm_delete.html:11
+#: templates/drivers/unavailability_period_form.html:13
+msgid "back"
+msgstr "назад"
+
+#: apps/core/templates/core/account/change_timezone.html:10
+#: apps/core/templates/core/account/change_timezone.html:31
+#: templates/_modals.html:36
+msgid "change timezone"
+msgstr "изменить часовой пояс"
+
+#: apps/core/templates/core/account/change_timezone.html:12
+msgid "company timezone"
+msgstr "часовой пояс компании"
+
+#: apps/core/templates/core/fullness_forecast.html:6
+#: templates/containers/map_card.html:123
+msgid "fullness forecast"
+msgstr "прогноз заполненности"
+
+#: apps/core/templates/core/fullness_forecast.html:18
+msgid "Latest fullness measurements"
+msgstr "Последние измерения заполненности"
+
+#: apps/core/templates/core/fullness_forecast.html:22
+msgid "Fullness measurements forecast"
+msgstr "Прогноз измерений заполненности"
+
+#: apps/core/templates/core/fullness_forecast.html:27
+msgid "Start date of optimal pick up (90&#37;+ fullness) window:"
+msgstr "Дата начала окна оптимального сбора (заполненность 90&#37;+):"
+
+#: apps/core/templates/core/fullness_forecast.html:31
+msgid "Start date of near optimal pick up (75&#37;+ fullness) window:"
+msgstr ""
+"Дата начала окна близкого к оптимальному сбора (заполненность 75&#37;+):"
+
+#: apps/core/templates/core/fullness_forecast.html:60
+#: templates/reports/_common_deps.html:21
+msgid "no_data_to_display"
+msgstr "Нет данных для отображения"
+
+#: apps/core/templates/core/fullness_forecast.html:62
+#: apps/main/templates/main/account/info.html:35
+#: templates/reports/_common_deps.html:23
+msgid "failed_to_load_data"
+msgstr "Не удалось загрузить данные"
+
+#: apps/core/templates/core/fullness_forecast.html:63
+#: templates/reports/_common_deps.html:24
+msgid "fetching_data"
+msgstr "Загружаем данные, пожалуйста, подождите…"
+
+#: apps/core/templates/core/notifications/list.html:13
+msgid "notifications"
+msgstr "уведомления"
+
+#: apps/core/templates/core/notifications/list.html:19
+#: apps/core/templates/core/notifications/settings.html:11
+#: apps/core/templates/core/notifications/settings.html:40
+msgid "notifications settings"
+msgstr "настройки уведомлений"
+
+#: apps/core/templates/core/notifications/list.html:22
+msgid "mark all as read"
+msgstr "отметить все прочитанными"
+
+#: apps/core/templates/core/notifications/settings.html:14
+msgid "Push notifications"
+msgstr "Push-уведомления"
+
+#: apps/core/templates/core/notifications/settings.html:20
+msgid "You'll get push notifications via browser on your device."
+msgstr "Вы будете получать push-уведомления через браузер на вашем устройстве."
+
+#: apps/core/views.py:251 templates/_modals.html:10
+msgid "route_added_modal_title"
+msgstr "новый маршрут успешно создан!"
+
+#: apps/core/views.py:251 templates/_modals.html:11
+msgid "route_added_modal_description"
+msgstr "назначенные водители получат уведомление о маршруте."
+
+#: apps/core/views.py:304
+msgid "Forecast for this SmartCity Bin can't created at the moment"
+msgstr "Прогноз для этой урны SmartCity в настоящее время не может быть создан"
+
+#: apps/core/views.py:390
+msgid "High"
+msgstr "Высокий"
+
+#: apps/core/views.py:391
+msgid "Medium"
+msgstr "Средний"
+
+#: apps/core/views.py:392
+msgid "Low"
+msgstr "Низкий"
+
+#: apps/core/views.py:473
+msgid "Notifications settings saved successfully"
+msgstr "Настройки уведомлений сохранены успешно"
+
+#: apps/core/widgets.py:30
+msgid "latitude"
+msgstr "Широта"
+
+#: apps/core/widgets.py:30
+msgid "longitude"
+msgstr "Долгота"
+
+#: apps/core/widgets.py:46
+msgid "start to type city then select it from the dropdown if present"
+msgstr "начните вводить город и затем выберите его из списка если есть"
+
+#: apps/main/context_processors.py:25
+#, python-format
+msgid "Feedback survey form url with \"%(company_name)s\" param"
+msgstr "# - %(company_name)s"
+
+#: apps/main/forms.py:6 apps/main/templates/main/account/info.html:7
+msgid "company_name"
+msgstr "Название компании"
+
+#: apps/main/forms.py:7
+msgid "contact_email"
+msgstr "Контактный email"
+
+#: apps/main/forms.py:8 apps/main/forms.py:12
+msgid "license_key"
+msgstr "Лицензионный ключ"
+
+#: apps/main/tables.py:11
+msgid "count containers"
+msgstr "количество контейнеров"
+
+#: apps/main/tables.py:18 templates/routes/detail.html:36
+msgid "track_full"
+msgstr "полный пробег, м"
+
+#: apps/main/templates/main/account/info.html:4
+msgid "superadmin_account_info"
+msgstr "Вы используете учетную запись <strong>суперадмина</strong>"
+
+#: apps/main/templates/main/account/info.html:6
+msgid "account_plan_header"
+msgstr "Тарифный план: <strong>Базовый</strong>"
+
+#: apps/main/templates/main/account/info.html:9
+msgid "account_license_started"
+msgstr "Начало действия лицензии"
+
+#: apps/main/templates/main/account/info.html:10
+msgid "account_license_ends"
+msgstr "Окончание действия лицензии"
+
+#: apps/main/templates/main/account/info.html:12
+msgid "sensors_account_license_usage_balance"
+msgstr "Остаток баланса использования"
+
+#: apps/main/templates/main/account/info.html:15
+msgid "subscription is expired or otherwise invalid"
+msgstr "подпискла истекла или недействительна по другой причине"
+
+#: apps/main/templates/main/account/info.html:22
+msgid "extend the license"
+msgstr "продлить лицензию"
+
+#: apps/main/templates/main/account/info.html:29
+msgid "trashbins_account_plan_description"
+msgstr ""
+"<p>Доступные возможности:</p><ul><li>Отображение урн на карте</li><li>Отчет "
+"'Заполненность'</li><li>Отчет 'Заряд'</li><li>Отчет 'Ошибки'</li><li>Отчет "
+"'Баланс SIM'</li><li>Отчет 'Сбор контейнеров'</li><li>Отчет 'Пробег'</"
+"li><li>Отчет 'Температура'</li><li>Отчет 'Давление'</li><li>Отчет "
+"'Влажность'</li><li>Отчет 'Качество воздуха'</li><li>Планирование маршрутов "
+"вывоза мусора</li></ul>"
+
+#: apps/main/templates/main/account/info.html:31
+msgid "sensors_account_plan_description"
+msgstr ""
+"<p>Доступные возможности:</p><ul><li>Отображение датчиков на карте</"
+"li><li>Отчет 'Заполненность'</li><li>Отчет 'Сбор контейнеров'</li><li>Отчет "
+"'Заряд'</li><li>Отчет 'Ошибки'</li><li>Отчет 'Пробег'</li><li>Отчет "
+"'Температура'</li><li>Планирование маршрутов вывоза мусора</li></ul>"
+
+#: apps/main/templates/main/efficiency_monitor/index.html:7
+#, python-format
+msgid "Last week collection efficiency %(current_week_effectiveness)s%%"
+msgstr ""
+"Эффективность сбора за последнюю неделю %(current_week_effectiveness)s%%"
+
+#: apps/main/templates/main/efficiency_monitor/index.html:14
+#, python-format
+msgid "%(effectiveness_diff)s%% in comparison to previous week"
+msgstr "%(effectiveness_diff)s%% по сравнению с предыдущей неделей"
+
+#: apps/main/templates/main/efficiency_monitor/index.html:18
+msgid "There were no collections last week"
+msgstr "За последнюю неделю не было сборов"
+
+#: apps/main/templates/main/efficiency_monitor/index.html:23
+#, python-format
+msgid ""
+"\n"
+"        One bin (%(filled_bins_percent)s%%) has fill-level more than 80%%\n"
+"    "
+msgid_plural ""
+"\n"
+"        %(bins_count)s bins (%(filled_bins_percent)s%%) have fill-level more "
+"than 80%%\n"
+"    "
+msgstr[0] ""
+"\n"
+"        У %(bins_count)s урны (%(filled_bins_percent)s%%) уровень "
+"заполненности больше 80%%\n"
+"    "
+msgstr[1] ""
+"\n"
+"        У %(bins_count)s урн (%(filled_bins_percent)s%%) уровень "
+"заполненности больше 80%%\n"
+"    "
+msgstr[2] ""
+"\n"
+"        У %(bins_count)s урн (%(filled_bins_percent)s%%) уровень "
+"заполненности больше 80%%\n"
+"    "
+
+#: apps/main/templates/main/efficiency_monitor/index.html:31
+#, python-format
+msgid ""
+"\n"
+"        One bin (%(bins_without_collection_percent)s%%) without collection "
+"in last 4 weeks\n"
+"    "
+msgid_plural ""
+"\n"
+"        %(bins_count)s bins (%(bins_without_collection_percent)s%%) without "
+"collection in last 4 weeks\n"
+"    "
+msgstr[0] ""
+"\n"
+"        У %(bins_count)s урны (%(bins_without_collection_percent)s%%) не "
+"было сборов последние 4 недели\n"
+"    "
+msgstr[1] ""
+"\n"
+"        У %(bins_count)s урн (%(bins_without_collection_percent)s%%) не было "
+"сборов последние 4 недели\n"
+"    "
+msgstr[2] ""
+"\n"
+"        У %(bins_count)s урн (%(bins_without_collection_percent)s%%) не было "
+"сборов последние 4 недели\n"
+"    "
+
+#: apps/main/templates/main/efficiency_monitor/index.html:39
+#, python-format
+msgid ""
+"\n"
+"        One bin (%(bins_with_errors_percent)s%%) work with issues\n"
+"    "
+msgid_plural ""
+"\n"
+"        %(bins_count)s bins (%(bins_with_errors_percent)s%%) work with "
+"issues\n"
+"    "
+msgstr[0] ""
+"\n"
+"        %(bins_count)s урна (%(bins_with_errors_percent)s%%) имеют "
+"затруднения в работе\n"
+"    "
+msgstr[1] ""
+"\n"
+"        %(bins_count)s урны (%(bins_with_errors_percent)s%%) имеют "
+"затруднения в работе\n"
+"    "
+msgstr[2] ""
+"\n"
+"        %(bins_count)s урн (%(bins_with_errors_percent)s%%) имеют "
+"затруднения в работе\n"
+"    "
+
+#: apps/main/templates/main/home_login.html:27
+msgid "SignIn"
+msgstr "Войти"
+
+#: apps/main/templates/main/home_login.html:33
+msgid "bad login"
+msgstr "Неправильный логин или пароль"
+
+#: apps/main/templates/main/home_login.html:39
+msgid "demo_request_form_url"
+msgstr "https://forms.yandex.ru/u/5e5fa523a5e4b2062b28c63c/"
+
+#: apps/main/templates/main/home_login.html:40
+msgid "request demo access"
+msgstr "запросить демо-доступ"
+
+#: apps/main/templates/main/home_login.html:45
+msgid "cookie_notification_text"
+msgstr ""
+"Мы используем cookies, чтобы обеспечить максимальное удобство посетителей и "
+"лучшую работу системы."
+
+#: apps/main/templates/main/home_login.html:48
+msgid "cookie_notification_link"
+msgstr "Узнать подробнее"
+
+#: apps/main/templates/main/home_login.html:49
+msgid "ok"
+msgstr "Ясно"
+
+#: apps/main/templates/main/invalid_license.html:6
+msgid "We're sorry but your software license is invalid"
+msgstr "К сожалению ваша лицензия на ПО недействительна"
+
+#: apps/main/templates/main/invalid_license.html:7
+msgid ""
+"It's mostly likely that your license is expired but it could be some other "
+"issue too."
+msgstr ""
+"Вероятнее всего ваша лицензия истекла, но она может быть недействительна и "
+"по другой причине."
+
+#: apps/main/templates/main/invalid_license.html:9
+msgid "Click here"
+msgstr "Нажмите здесь"
+
+#: apps/main/templates/main/invalid_license.html:10
+msgid ""
+"to view your account & license info which is also available by clicking user "
+"info panel in the upper right corner of the page."
+msgstr ""
+"чтобы увидеть информацию о вашей учетной записи и лицензии. Эта информация "
+"так же доступна по нажатию на панель с информацией о пользователе в верхнем "
+"правом углу страницы."
+
+#: apps/main/templates/main/invalid_license.html:12
+msgid ""
+"If your license is expired then contact your Binology representative to "
+"renew it."
+msgstr ""
+"Если ваша лицензия истекла, то свяжитесь с вашим представителем Binology для "
+"её обновления."
+
+#: apps/main/templates/main/invalid_license.html:13
+#: apps/sensors/templates/sensors/onboard_sensor.html:83
+msgid ""
+"If you think it's a mistake please contact our customer support service."
+msgstr ""
+"Если вы считаете, что это ошибка, то пожалуйста обратитесь в нашу службу "
+"поддержки клиентов."
+
+#: apps/main/templates/main/map.html:22
+msgid "clear filters"
+msgstr "очистить фильтры"
+
+#: apps/main/templates/main/map.html:44
+msgid "drag marker here to include in route"
+msgstr "перетащите маркер сюда чтобы включить в маршрут"
+
+#: apps/main/templates/main/map.html:47
+msgid "maximum containers count already selected"
+msgstr "максимальное количество контейнеров уже выбрано"
+
+#: apps/main/templates/main/map.html:52
+msgid "itinerary list"
+msgstr "маршрутный лист"
+
+#: apps/main/templates/main/map.html:60
+#: apps/sensors/templates/sensors/x-templates/points.html:47
+#: apps/trashbins/templates/trashbins/x-templates/points.html:53
+msgid "remove"
+msgstr "удалить"
+
+#: apps/main/templates/main/map.html:66
+msgid "remove all"
+msgstr "удалить все"
+
+#: apps/main/templates/main/map.html:108
+msgid "Click to open efficiency monitor"
+msgstr "Нажмите чтобы открыть монитор эффективности"
+
+#: apps/main/templates/main/register_company.html:12
+msgid "Register a Company"
+msgstr "Регистрация организации"
+
+#: apps/main/templates/main/register_company.html:20
+#: apps/sensors/templates/sensors/onboard_sensor.html:89
+msgid "register"
+msgstr "регистрация"
+
+#: apps/main/templates/main/reports/track.html:5
+#: apps/main/templates/main/reports/track.html:109
+#: apps/sensors/templates/sensors/reports/collection.html:5
+#: apps/sensors/templates/sensors/reports/collection.html:124
+#: apps/sensors/templates/sensors/reports/fullness.html:5
+#: apps/sensors/templates/sensors/reports/fullness.html:63
+#: apps/sensors/templates/sensors/reports/generic.html:5
+#: apps/sensors/templates/sensors/reports/generic.html:52
+#: apps/trashbins/templates/trashbins/reports/collection.html:5
+#: apps/trashbins/templates/trashbins/reports/collection.html:202
+#: apps/trashbins/templates/trashbins/reports/generic.html:5
+#: apps/trashbins/templates/trashbins/reports/generic.html:51
+#: templates/reports/air_quality.html:6 templates/reports/air_quality.html:22
+#: templates/reports/humidity.html:5 templates/reports/humidity.html:19
+#: templates/reports/pressure.html:5 templates/reports/pressure.html:19
+#: templates/reports/sim.html:5 templates/reports/sim.html:47
+#: templates/reports/traffic.html:5 templates/reports/traffic.html:19
+msgid "report"
+msgstr "отчет"
+
+#: apps/main/templates/main/reports/track.html:5
+#: apps/main/templates/main/reports/track.html:109
+#: apps/main/templates/main/top_nav/sensors.html:41
+#: apps/main/templates/main/top_nav/trashbins.html:41
+#: templates/routes/detail.html:32
+msgid "track"
+msgstr "пробег"
+
+#: apps/main/templates/main/reports/track.html:26
+#: apps/sensors/templates/sensors/reports/_common_filters_form.html:26
+#: templates/reports/_common_filters_form.html:47 templates/reports/sim.html:34
+msgid "clear"
+msgstr "очистить"
+
+#: apps/main/templates/main/top_nav/sensors.html:26
+#: apps/main/templates/main/top_nav/trashbins.html:26
+msgid "map"
+msgstr "карта"
+
+#: apps/main/templates/main/top_nav/sensors.html:30
+#: apps/main/templates/main/top_nav/trashbins.html:30
+msgid "reports"
+msgstr "отчеты"
+
+#: apps/main/templates/main/top_nav/sensors.html:35
+#: apps/main/templates/main/top_nav/trashbins.html:35
+#: apps/sensors/templates/sensors/map_card.html:149
+#: apps/sensors/templates/sensors/reports/collection.html:5
+#: apps/sensors/templates/sensors/reports/collection.html:124
+#: apps/trashbins/templates/trashbins/reports/collection.html:5
+#: apps/trashbins/templates/trashbins/reports/collection.html:202
+#: templates/containers/map_card.html:110
+msgid "collection"
+msgstr "сбор контейнеров"
+
+#: apps/main/templates/main/top_nav/sensors.html:37
+#: apps/main/templates/main/top_nav/trashbins.html:37
+msgid "battery_level"
+msgstr "заряд"
+
+#: apps/main/templates/main/top_nav/sensors.html:39
+#: apps/main/templates/main/top_nav/trashbins.html:39
+#: apps/sensors/models.py:323
+#: apps/sensors/templates/sensors/map/filter_error_type.html:7
+#: apps/sensors/templates/sensors/map_card.html:150
+#: apps/trashbins/templates/trashbins/map/filter_error_type.html:7
+#: apps/trashbins/templates/trashbins/reports/collection.html:16
+#: templates/containers/_errors_table.html:5
+#: templates/containers/map_card.html:112
+msgid "errors"
+msgstr "ошибки"
+
+#: apps/main/templates/main/top_nav/sensors.html:48
+#: apps/main/templates/main/top_nav/trashbins.html:61
+msgid "routes"
+msgstr "маршруты"
+
+#: apps/main/templates/main/top_nav/sensors.html:52
+#: apps/main/templates/main/top_nav/trashbins.html:65
+msgid "journal"
+msgstr "журнал"
+
+#: apps/main/templates/main/top_nav/sensors.html:57
+#: apps/main/templates/main/top_nav/trashbins.html:76
+#: templates/drivers/list.html:5
+msgid "manage drivers"
+msgstr "управление водителями"
+
+#: apps/main/templates/main/top_nav/sensors.html:64
+#: apps/main/templates/main/top_nav/trashbins.html:82
+#: apps/sensors/templates/sensors/control_main.html:22
+#: apps/sensors/templates/sensors/map_card.html:158
+#: templates/containers/detail.html:120
+msgid "settings"
+msgstr "настройки"
+
+#: apps/main/templates/main/top_nav/sensors.html:74 apps/sensors/admin.py:123
+#: apps/sensors/templates/sensors/list.html:5
+#: apps/sensors/templates/sensors/map_card.html:74
+#: apps/sensors/templates/sensors/x-templates/points.html:5
+#: templates/containers/detail.html:78 templates/containers/map_card.html:98
+msgid "sensors"
+msgstr "датчики"
+
+#: apps/main/templates/main/top_nav/sensors.html:78
+#: apps/main/templates/main/top_nav/trashbins.html:96
+#: apps/sensors/templates/sensors/reports/collection.html:17
+#: apps/sensors/templates/sensors/x-templates/points.html:10
+#: apps/trashbins/templates/trashbins/reports/collection.html:18
+#: apps/trashbins/templates/trashbins/x-templates/points.html:10
+#: templates/routes/create.html:33 templates/routes/create.html:48
+#: templates/sectors/list.html:5
+msgid "sectors"
+msgstr "секторы"
+
+#: apps/main/templates/main/top_nav/sensors.html:83
+#: apps/main/templates/main/top_nav/trashbins.html:101
+#: templates/users/list.html:5
+msgid "users"
+msgstr "пользователи"
+
+#: apps/main/templates/main/top_nav/trashbins.html:47
+#: apps/sensors/models.py:270 apps/sensors/models.py:271
+#: templates/reports/sim.html:5 templates/reports/sim.html:47
+msgid "sim balance"
+msgstr "баланс SIM"
+
+#: apps/main/templates/main/top_nav/trashbins.html:92
+#: apps/trashbins/templates/trashbins/x-templates/points.html:5
+#: templates/containers/list.html:5
+msgid "containers"
+msgstr "контейнеры"
+
+#: apps/main/views.py:341
+msgid ""
+"No such license key. Please double check the input or contact our support "
+"service."
+msgstr ""
+"Лицензионный ключ не найден. Убедитесь в корректности ввода или обратитесь в "
+"нашу службу поддержки клиентов."
+
+#: apps/main/views.py:347
+msgid ""
+"License key was already used. Please double check the input or contact our "
+"support service."
+msgstr ""
+"Лицензионный ключ уже был использован. Убедитесь в корректности ввода или "
+"обратитесь в нашу службу поддержки клиентов."
+
+#: apps/main/views.py:359
+msgid ""
+"This company name is already taken. Please try another or contact our "
+"support service."
+msgstr ""
+"Название организации уже используется. Попробуйте другое или обратитесь в "
+"нашу службу поддержки клиентов."
+
+#: apps/main/views.py:382
+msgid "register-company-ses-template-name"
+msgstr "register-company-template-ru"
+
+#: apps/sensors/forms.py:34
+msgid "SIM/eSIM number / ICCID"
+msgstr "Номер SIM/eSIM / ICCID"
+
+#: apps/sensors/forms.py:56
+msgid "Connection schedule start"
+msgstr "Начало работы"
+
+#: apps/sensors/forms.py:57
+msgid "0-24 hours with 0 as default"
+msgstr "0-24 час суток, по умолчанию 0"
+
+#: apps/sensors/forms.py:59
+msgid "Connection schedule stop"
+msgstr "Окончание работы"
+
+#: apps/sensors/forms.py:60
+msgid "0-24 hours with 24 as default"
+msgstr "0-24 час суток, по умолчанию 24"
+
+#: apps/sensors/forms.py:62
+msgid "Connection interval"
+msgstr "Частота выхода на связь"
+
+#: apps/sensors/forms.py:63
+msgid "5-1440 minutes with 30 as default"
+msgstr "5-1440 минут, по умолчанию 30"
+
+#: apps/sensors/forms.py:65
+msgid "Require GPS position in every connection"
+msgstr "GPS в каждом сеансе связи"
+
+#: apps/sensors/forms.py:67
+msgid "Minimal temperature for fire alarm"
+msgstr "Температура срабатывания датчика пожара"
+
+#: apps/sensors/forms.py:68
+msgid "50-80 °C with 70 as default"
+msgstr "50-80 °C, по умолчанию 70"
+
+#: apps/sensors/forms.py:70
+msgid "Accelerometer sensitivity"
+msgstr "Чувствительность акселерометра"
+
+#: apps/sensors/forms.py:71
+msgid "20-125 with 50 as default"
+msgstr "20-125, по умолчанию 50"
+
+#: apps/sensors/forms.py:73
+msgid "Enable close range measurement mode"
+msgstr "Измерения в ближнем диапазоне включены"
+
+#: apps/sensors/forms.py:75
+msgid "Enable mid range measurement mode"
+msgstr "Измерения в среднем диапазоне включены"
+
+#: apps/sensors/forms.py:77
+msgid "Enable far range measurement mode"
+msgstr "Измерения в дальнем диапазоне включены"
+
+#: apps/sensors/forms.py:79
+msgid "Delay of accelerometer response"
+msgstr "Задержка перед измерением после срабатывания акселерометра"
+
+#: apps/sensors/forms.py:80
+msgid "0-300 seconds 0 as default"
+msgstr "0-300 секунд, по умолчанию 0"
+
+#: apps/sensors/models.py:239 apps/sensors/tables.py:21
+msgid "disabled"
+msgstr "отключен"
+
+#: apps/sensors/models.py:303
+msgid "code error"
+msgstr "код ошибки"
+
+#: apps/sensors/models.py:308
+msgid "error types"
+msgstr "типы ошибок"
+
+#: apps/sensors/models.py:322
+msgid "error"
+msgstr "ошибка"
+
+#: apps/sensors/shared.py:23
+#, python-format
+msgid "Sensor %(serial_number)s"
+msgstr "Датчик %(serial_number)s"
+
+#: apps/sensors/shared.py:38
+#, python-format
+msgid "Sensor fullness is %(fullness)s percent"
+msgstr "Заполненность по датчику в процентах %(fullness)s"
+
+#: apps/sensors/shared.py:40
+#, python-format
+msgid "Sensor battery level is %(battery)s percent"
+msgstr "Заряд батареи датчика в процентах %(battery)s"
+
+#: apps/sensors/shared.py:42
+msgid "Fire and/or high temperature detected"
+msgstr "Обнаружены пожар и/или высокая температура"
+
+#: apps/sensors/tables.py:28 apps/sensors/templates/sensors/form.html:26
+#: apps/sensors/templates/sensors/map_card.html:155
+msgid "control"
+msgstr "управление"
+
+#: apps/sensors/tables.py:57 apps/trashbins/tables.py:40
+msgid "fullness_header"
+msgstr "заполненность, %"
+
+#: apps/sensors/tables.py:97 apps/trashbins/tables.py:98
+msgid "battery_level_header"
+msgstr "заряд, %"
+
+#: apps/sensors/tables.py:163 apps/trashbins/tables.py:193
+msgid "temperature_header"
+msgstr "температура, °C"
+
+#: apps/sensors/tables.py:190 apps/trashbins/tables.py:221
+msgid "count"
+msgstr "количество"
+
+#: apps/sensors/tables.py:206 apps/trashbins/tables.py:245
+msgid "weight"
+msgstr "вес, кг"
+
+#: apps/sensors/templates/sensors/_job_request_panel.html:13
+#, python-format
+msgid "Request for %(request_type)s succeeded at %(job_timestamp)s"
+msgstr ""
+"Запрос типа \"%(request_type)s\" был успешно выполнен %(job_timestamp)s"
+
+#: apps/sensors/templates/sensors/_job_request_panel.html:16
+#, python-format
+msgid "Request for %(request_type)s failed at %(job_timestamp)s"
+msgstr "Запрос типа \"%(request_type)s\" завершился неудачей %(job_timestamp)s"
+
+#: apps/sensors/templates/sensors/_job_request_panel.html:23
+#, python-format
+msgid "We can't find any completed %(request_type)s requests"
+msgstr "Мы не можем найти выполненных запросов типа \"%(request_type)s\""
+
+#: apps/sensors/templates/sensors/_job_request_panel.html:30
+#, python-format
+msgid "Request %(request_type)s"
+msgstr "Выполнить запрос типа \"%(request_type)s\""
+
+#: apps/sensors/templates/sensors/control_main.html:5
+#: apps/sensors/templates/sensors/control_main.html:43
+msgid "sensor control"
+msgstr "управление датчиком"
+
+#: apps/sensors/templates/sensors/control_main.html:14
+#: apps/sensors/views.py:352
+msgid "GPS position"
+msgstr "GPS положение"
+
+#: apps/sensors/templates/sensors/control_main.html:16
+#: apps/sensors/views.py:358
+msgid "calibration"
+msgstr "калибровка"
+
+#: apps/sensors/templates/sensors/control_main.html:18
+#: apps/sensors/views.py:364
+msgid "orientation"
+msgstr "ориентация"
+
+#: apps/sensors/templates/sensors/control_main.html:26
+#: apps/sensors/templates/sensors/control_main.html:48
+msgid "Changing these settings may decrease the device battery lifespan!"
+msgstr ""
+"Изменение этих настроек может сократить срок автономной работы устройства!"
+
+#: apps/sensors/templates/sensors/control_main.html:34
+msgid "send settings request"
+msgstr "Отправить запрос настройки"
+
+#: apps/sensors/templates/sensors/control_main.html:48
+msgid "Are you sure?"
+msgstr "Вы уверены?"
+
+#: apps/sensors/templates/sensors/form.html:22
+#: templates/cities/city_form.html:13 templates/cities/confirm_delete.html:12
+#: templates/companies/company_form.html:13
+#: templates/companies/confirm_delete.html:12
+#: templates/containers/confirm_delete.html:12
+#: templates/containers/container_form.html:22
+#: templates/sectors/confirm_delete.html:18
+#: templates/sectors/sector_form.html:13 templates/users/confirm_delete.html:16
+#: templates/users/user_form.html:14
+msgid "back to list"
+msgstr "назад к списку"
+
+#: apps/sensors/templates/sensors/form.html:37
+msgid "sensor form"
+msgstr "форма датчика"
+
+#: apps/sensors/templates/sensors/map_card.html:19
+#: templates/containers/map_card.html:21
+msgid "information"
+msgstr "информация"
+
+#: apps/sensors/templates/sensors/map_card.html:24
+#: templates/containers/detail.html:23 templates/containers/map_card.html:26
+msgid "client"
+msgstr "клиент"
+
+#: apps/sensors/templates/sensors/map_card.html:38
+#: templates/containers/detail.html:31 templates/containers/map_card.html:40
+msgid "unspecified"
+msgstr "не указано"
+
+#: apps/sensors/templates/sensors/map_card.html:65
+#: templates/containers/detail.html:71 templates/containers/map_card.html:85
+msgid "low battery level"
+msgstr "низкий уровень заряда"
+
+#: apps/sensors/templates/sensors/map_card.html:68
+#: templates/containers/detail.html:74 templates/containers/map_card.html:88
+msgid "currently on route to be collected"
+msgstr "ожидает сбора на маршруте"
+
+#: apps/sensors/templates/sensors/map_card.html:93
+#: apps/sensors/templates/sensors/map_card.html:124
+#: templates/containers/_sensors.html:36 templates/containers/_sensors.html:100
+msgid "battery"
+msgstr "батарея"
+
+#: apps/sensors/templates/sensors/map_card.html:139
+#: templates/containers/_sensors.html:168
+msgid "Click on sensor icons above to get to corresponding reports"
+msgstr "Нажмите на иконки датчиков выше чтобы перейти в соответствующие отчеты"
+
+#: apps/sensors/templates/sensors/map_card.html:146
+#: templates/containers/map_card.html:107
+msgid "other reports"
+msgstr "другие отчеты"
+
+#: apps/sensors/templates/sensors/onboard_sensor.html:28
+msgid "sensor registration"
+msgstr "регистрация датчика"
+
+#: apps/sensors/templates/sensors/onboard_sensor.html:32
+msgid "You are about to register the sensor with the following serial number:"
+msgstr "Вы собираетесь зарегистрировать датчик со следующим серийным номером:"
+
+#: apps/sensors/templates/sensors/onboard_sensor.html:41
+msgid ""
+"To proceed please log in into system using credentials received from your "
+"administrator:"
+msgstr ""
+"Для продолжения пожалуйста войдите в систему с помощью учетных данных, "
+"которые вам предоставил ваш администратор:"
+
+#: apps/sensors/templates/sensors/onboard_sensor.html:45
+msgid "Log In"
+msgstr "Войти"
+
+#: apps/sensors/templates/sensors/onboard_sensor.html:51
+msgid ""
+"If your company is not yet registered in the system please register first:"
+msgstr ""
+"Если ваша компания еще не зарегистрирована в системе, то сначала "
+"зарегистрируйте её:"
+
+#: apps/sensors/templates/sensors/onboard_sensor.html:55
+msgid "Register"
+msgstr "Зарегистрировать"
+
+#: apps/sensors/templates/sensors/onboard_sensor.html:63
+#: apps/sensors/templates/sensors/onboard_sensor.html:159
+msgid "Against the following company:"
+msgstr "На следующую компанию:"
+
+#: apps/sensors/templates/sensors/onboard_sensor.html:71
+msgid "This sensor is already registered against this company"
+msgstr "Этот датчик уже зарегистрирован на эту компанию"
+
+#: apps/sensors/templates/sensors/onboard_sensor.html:74
+#: apps/sensors/templates/sensors/onboard_sensor.html:165
+msgid ""
+"To register another sensor open URL from the QR code on it using this very "
+"device."
+msgstr ""
+"Чтобы зарегистрировать еще один датчик перейдите по ссылке из QR-кода на "
+"нем, используя это же самое устройство."
+
+#: apps/sensors/templates/sensors/onboard_sensor.html:76
+#: apps/sensors/templates/sensors/onboard_sensor.html:167
+msgid "Or view the map"
+msgstr "Или перейдите к карте"
+
+#: apps/sensors/templates/sensors/onboard_sensor.html:80
+msgid ""
+"There is no sensor with such serial number or it was already registered."
+msgstr "Датчик с таким серийным номером не найден или уже зарегистрирован."
+
+#: apps/sensors/templates/sensors/onboard_sensor.html:86
+msgid ""
+"Attention! This operation can be done once per sensor! Do you want to "
+"proceed?"
+msgstr ""
+"Внимание! Эта операция может быть произведена для каждого датчика только "
+"один раз! Вы уверены, что хотите продолжить?"
+
+#: apps/sensors/templates/sensors/onboard_sensor.html:95
+msgid "Please provide additional info about container sensor is installed in."
+msgstr ""
+"Пожалуйста предоставьте информацию о контейнере, в который устанавливается "
+"датчик."
+
+#: apps/sensors/templates/sensors/onboard_sensor.html:108
+msgid "If you don't see a suitable container type please contact our"
+msgstr "Если вы не нашли подходящего типа контейнера пожалуйста свяжитесь с"
+
+#: apps/sensors/templates/sensors/onboard_sensor.html:109
+msgid "customer support service."
+msgstr "службой поддержки клиентов."
+
+#: apps/sensors/templates/sensors/onboard_sensor.html:123
+msgid "To learn more about waste type check out corresponding article in"
+msgstr ""
+"Чтобы узнать больше о типах мусора ознакомьтесь с соответствующей статьей в"
+
+#: apps/sensors/templates/sensors/onboard_sensor.html:124
+#: templates/info_buttons/waste_types.html:3
+msgid "helpdesk_article_url_waste_types"
+msgstr "https://binology.freshdesk.com/support/solutions/articles/47000732005"
+
+#: apps/sensors/templates/sensors/onboard_sensor.html:124
+msgid "our knowledge bage."
+msgstr "нашей базе знаний."
+
+#: apps/sensors/templates/sensors/onboard_sensor.html:127
+msgid "mount type"
+msgstr "тип крепления"
+
+#: apps/sensors/templates/sensors/onboard_sensor.html:140
+#: templates/_modals.html:29
+msgid "loading"
+msgstr "идет загрузка..."
+
+#: apps/sensors/templates/sensors/onboard_sensor.html:143
+msgid "Failed to register sensor."
+msgstr "Не удалось зарегистрировать датчик."
+
+#: apps/sensors/templates/sensors/onboard_sensor.html:144
+#: templates/_modals.html:155 templates/routes/create.html:65
+msgid "please try again or contact our customer support service."
+msgstr "Попробуйте снова или обратитесь в нашу службу поддержки клиентов."
+
+#: apps/sensors/templates/sensors/onboard_sensor.html:148
+msgid "Congratulations!"
+msgstr "Поздравляем!"
+
+#: apps/sensors/templates/sensors/onboard_sensor.html:151
+msgid "You successfully registered sensor with the following serial number:"
+msgstr "Вы успешно зарегистрировали датчик со следующим серийным номером:"
+
+#: apps/sensors/templates/sensors/reports/_sensor_filter.html:8
+#: templates/reports/_container_filter.html:8
+msgid "see on map"
+msgstr "посмотреть на карте"
+
+#: apps/sensors/templates/sensors/reports/collection.html:15
+#: apps/sensors/templates/sensors/reports/fullness.html:14
+#: apps/trashbins/templates/trashbins/reports/collection.html:15
+#: templates/table/_common_switcher.html:5
+msgid "table"
+msgstr "таблица"
+
+#: apps/sensors/templates/sensors/reports/fullness.html:13
+#: templates/table/_common_switcher.html:4
+msgid "graph"
+msgstr "график"
+
+#: apps/sensors/templates/sensors/reports/fullness.html:17
+msgid "exclude zero data"
+msgstr "исключить недостоверные измерения"
+
+#: apps/sensors/templates/sensors/reports/fullness.html:21
+msgid "exclude effects of moisture on measurements"
+msgstr "исключить влияние конденсата на измерения"
+
+#: apps/sensors/templates/sensors/x-templates/points.html:7
+#: apps/trashbins/templates/trashbins/x-templates/points.html:7
+#: templates/x-templates/drivers.html:7
+msgid "selected"
+msgstr "выбрано"
+
+#: apps/sensors/templates/sensors/x-templates/points.html:13
+msgid "edit sensors list"
+msgstr "Отредактируйте список датчиков"
+
+#: apps/sensors/templates/sensors/x-templates/points.html:22
+#: apps/trashbins/templates/trashbins/x-templates/points.html:22
+msgid "apply filtering by visible map area"
+msgstr "применить фильтрацию по видимой области карты"
+
+#: apps/sensors/templates/sensors/x-templates/points.html:28
+#: apps/trashbins/templates/trashbins/x-templates/points.html:34
+msgid "apply filtering by sectors"
+msgstr "применить фильтрацию по секторам"
+
+#: apps/sensors/templates/sensors/x-templates/points.html:39
+#: apps/trashbins/templates/trashbins/x-templates/points.html:45
+msgid "options"
+msgstr "опции"
+
+#: apps/sensors/templates/sensors/x-templates/points.html:53
+#: apps/sensors/templates/sensors/x-templates/points.html:62
+#: apps/trashbins/templates/trashbins/x-templates/points.html:59
+#: apps/trashbins/templates/trashbins/x-templates/points.html:68
+msgid "add"
+msgstr "добавить"
+
+#: apps/sensors/templates/sensors/x-templates/points.html:65
+#: apps/trashbins/templates/trashbins/x-templates/points.html:71
+#: templates/x-templates/drivers.html:64
+msgid "next"
+msgstr "далее"
+
+#: apps/sensors/views.py:63
+#, python-format
+msgid "Sensor \"%(serial)s\" updated successfully"
+msgstr "Датчик \"%(serial)s\" успешно изменен"
+
+#: apps/sensors/views.py:169
+msgid "At the side"
+msgstr "Сбоку"
+
+#: apps/sensors/views.py:170
+msgid "On the cap"
+msgstr "На крышке"
+
+#: apps/sensors/views.py:283
+#, python-format
+msgid ""
+"The latest value of this setting is \"%(field_value)s\" received at "
+"%(timestamp)s"
+msgstr ""
+"Последнее значение этой настройки \"%(field_value)s\", получено %(timestamp)s"
+
+#: apps/sensors/views.py:288
+msgid "We don't know the latest value of this setting"
+msgstr "Нам неизвестно последнее значение этой настройки"
+
+#: apps/sensors/views.py:317
+msgid "Successfully sent a settings request"
+msgstr "Запрос настройки успешно отправлен"
+
+#: apps/sensors/views.py:341
+#, python-format
+msgid "There's an in-flight %(request_type)s request already"
+msgstr "Запрос типа \"%(request_type)s\" уже отправлен"
+
+#: apps/sensors/views.py:345
+#, python-format
+msgid "Successfully created a %(request_type)s request"
+msgstr "Запрос типа \"%(request_type)s\" успешно отправлен"
+
+#: apps/trashbins/shared.py:22
+#, python-format
+msgid "Bin %(serial_number)s"
+msgstr "Урна %(serial_number)s"
+
+#: apps/trashbins/shared.py:40
+#, python-format
+msgid "Bin fullness is %(fullness)s percent"
+msgstr "Заполненность урны в процентах %(fullness)s"
+
+#: apps/trashbins/shared.py:42
+#, python-format
+msgid "Bin battery level is %(battery)s percent"
+msgstr "Уровень заряда батареи урны в процентах %(battery)s"
+
+#: apps/trashbins/shared.py:44
+msgid "Fire, smoke and/or high temperature detected"
+msgstr "Обнаружены пожар, дым и/или высокая температура"
+
+#: apps/trashbins/shared.py:46
+msgid "Possible vandalism detected"
+msgstr "Обнаружены возможные вандальные действия"
+
+#: apps/trashbins/shared.py:48
+msgid "Trash receiver is blocked"
+msgstr "Мусороприемник заблокирован"
+
+#: apps/trashbins/shared.py:50
+msgid "One or more doors are open"
+msgstr "Одна или больше дверей открыты"
+
+#: apps/trashbins/tables.py:229
+msgid "volume_before_pressed"
+msgstr "объём до прессования, л"
+
+#: apps/trashbins/tables.py:237
+msgid "volume_after_pressed"
+msgstr "объём после прессования, л"
+
+#: apps/trashbins/templates/trashbins/x-templates/points.html:13
+msgid "edit containers list"
+msgstr "Отредактируйте список контейнеров"
+
+#: apps/trashbins/templates/trashbins/x-templates/points.html:28
+msgid "apply filtering by itinerary list"
+msgstr "применить фильтрацию по маршрутному листу"
+
+#: apps/trashbins/views.py:40
+msgid ""
+"SmartCity Bin has fullness over 90 percent already, there's nothing to "
+"forecast at the moment"
+msgstr ""
+"Текущая заполненность урны SmartCity больше 90 процентов, нечего "
+"прогнозировать в настоящий момент"
+
+#: apps/trashbins/views.py:46
+msgid ""
+"There's not enough collections of this SmartCity Bin yet, can't forecast at "
+"the moment"
+msgstr ""
+"Недостаточно сборов это урны SmartCity, нет возможности построить прогноз в "
+"настоящий момент"
+
+#: apps/trashbins/views.py:56
+msgid ""
+"There's was no fullness measurements of this SmartCity Bin after the last "
+"collection, can't forecast at the moment"
+msgstr ""
+"Еще не было измерений заполненности этой урны SmartCity после её последнего "
+"сбора, нет возможности построить прогноз в настоящий момент"
+
+#: apps/trashbins/views.py:67
+msgid ""
+"There's was not enough fullness measurements between latest collections of "
+"this SmartCity Bin, can't forecast at the moment"
+msgstr ""
+"Недостаточно измерений заполненности между последними сборами этой урны "
+"SmartCity, нет возможности построить прогноз в настоящий момент"
+
+#: templates/_alerts.html:7 templates/_modals.html:7 templates/_modals.html:47
+#: templates/_modals.html:57 templates/_modals.html:70
+#: templates/_modals.html:85 templates/_modals.html:124
+#: templates/_modals.html:137 templates/_modals.html:150 templates/base.html:63
+msgid "close"
+msgstr "закрыть"
+
+#: templates/_footer.html:5
+msgid "binology_com_url"
+msgstr "https://www.binology.ru/"
+
+#: templates/_footer.html:9
+msgid "help and support center"
+msgstr "Центр справки и поддержки"
+
+#: templates/_modals.html:13 templates/drivers/detail.html:20
+#: templates/x-templates/drivers.html:58
+msgid "view routes journal"
+msgstr "перейти в журнал маршрутов"
+
+#: templates/_modals.html:26
+msgid "account information"
+msgstr "информация об аккаунте"
+
+#: templates/_modals.html:44
+msgid "change password"
+msgstr "изменить пароль"
+
+#: templates/_modals.html:60
+msgid "password changed successfully"
+msgstr "пароль успешно изменен"
+
+#: templates/_modals.html:73
+msgid "timezone changed successfully"
+msgstr "часовой пояс успешно изменен"
+
+#: templates/_modals.html:107
+msgid "Subscribe to Notifications"
+msgstr "Подписаться на уведомления"
+
+#: templates/_modals.html:113
+msgid "Subscribe"
+msgstr "Подписаться"
+
+#: templates/_modals.html:114
+msgid "Unsubscribe"
+msgstr "Отписаться"
+
+#: templates/_modals.html:127
+msgid "All notifications marked as read"
+msgstr "Все уведомления отмечены как прочитанные"
+
+#: templates/_modals.html:140
+msgid "License extended successfully"
+msgstr "Лицензия продлена успешно"
+
+#: templates/_modals.html:153
+msgid "Failed to extend the license"
+msgstr "Не удалось продлить лицензию"
+
+#: templates/_modals.html:154
+msgid ""
+"No such license key or license key was already used, please double check the "
+"input."
+msgstr ""
+"Лицензионный ключ не найден или уже был использован, убедитесь в "
+"корректности ввода."
+
+#: templates/cities/confirm_delete.html:6
+#: templates/companies/confirm_delete.html:6
+#: templates/containers/confirm_delete.html:6
+#: templates/drivers/unavailability_period_confirm_delete.html:5
+#: templates/sectors/confirm_delete.html:5
+#: templates/users/confirm_delete.html:5
+msgid "confirm delete"
+msgstr "подтвердите удаление"
+
+#: templates/cities/list.html:10
+msgid "add city"
+msgstr "добавить город"
+
+#: templates/companies/list.html:12
+msgid "add company"
+msgstr "добавить компанию"
+
+#: templates/containers/_satellites.html:5
+msgid "satellites"
+msgstr "урны-спутники"
+
+#: templates/containers/_sensors.html:52 templates/containers/_sensors.html:120
+msgid "mm"
+msgstr "мм"
+
+#: templates/containers/container_form.html:33
+msgid "container form"
+msgstr "форма контейнера"
+
+#: templates/containers/detail.html:6
+msgid "container details"
+msgstr "Подробности урны"
+
+#: templates/containers/detail.html:40 templates/containers/map_card.html:51
+#: templates/reports/_container_spec_filter.html:17
+msgid "bin type"
+msgstr "вид урны"
+
+#: templates/containers/detail.html:53
+msgid "start of use"
+msgstr "начало эксплуатации"
+
+#: templates/containers/detail.html:55
+msgid "warranty period"
+msgstr "гарантийный период"
+
+#: templates/containers/detail.html:56
+msgid "3 years"
+msgstr "3 года"
+
+#: templates/containers/list.html:11
+msgid "add container"
+msgstr "добавить контейнер"
+
+#: templates/containers/map_card.html:82
+msgid "there are active errors"
+msgstr "есть активные ошибки"
+
+#: templates/containers/map_card.html:118
+msgid "add to itinerary list"
+msgstr "добавить в маршрутный лист"
+
+#: templates/drivers/detail.html:5
+msgid "driver details"
+msgstr "подробнее о водителе"
+
+#: templates/drivers/detail.html:17 templates/x-templates/drivers.html:28
+msgid "any routes in progress?"
+msgstr "есть незаконченные маршруты?"
+
+#: templates/drivers/detail.html:24
+msgid "any unavailability period is active?"
+msgstr "есть активный период недоступности?"
+
+#: templates/drivers/detail.html:31
+msgid "unavailability periods"
+msgstr "периоды недоступности"
+
+#: templates/drivers/detail.html:35 templates/routes/list.html:10
+msgid "create"
+msgstr "создать"
+
+#: templates/info_buttons/air_quality.html:3
+msgid "helpdesk_article_url_air_quality"
+msgstr "https://binology.freshdesk.com/support/solutions/articles/47000732361"
+
+#: templates/info_buttons/bin_equipment.html:3
+msgid "helpdesk_article_url_bin_equipment"
+msgstr "https://binology.freshdesk.com/support/solutions/articles/47001119605"
+
+#: templates/info_buttons/drivers_availability.html:3
+msgid "helpdesk_article_url_drivers_availability"
+msgstr "https://binology.freshdesk.com/support/solutions/articles/47001145265"
+
+#: templates/info_buttons/sector.html:3
+msgid "helpdesk_article_url_sector"
+msgstr "https://binology.freshdesk.com/support/solutions/articles/47000688376"
+
+#: templates/reports/_common_deps.html:174 templates/table/table.html:92
+msgid "filtered"
+msgstr "отфильтровано"
+
+#: templates/reports/_common_deps.html:174 templates/table/table.html:92
+msgid "from"
+msgstr "из"
+
+#: templates/reports/_common_deps.html:174
+#: templates/reports/_common_deps.html:175 templates/table/table.html:92
+msgid "entries"
+msgstr "записей"
+
+#: templates/reports/_common_deps.html:175
+msgid "show"
+msgstr "показать"
+
+#: templates/reports/_common_deps.html:278
+msgid "fit column width to content"
+msgstr "Растянуть колонку по контенту"
+
+#: templates/reports/_common_deps.html:279
+msgid "fit table width to content"
+msgstr "Растянуть таблицу по контенту"
+
+#: templates/reports/_customer_filter.html:5
+msgid "customer"
+msgstr "клиент"
+
+#: templates/reports/_left_column_filters.html:4
+msgid "Address, container serial, SiM"
+msgstr "Адрес, серийный номер, SiM"
+
+#: templates/reports/_report_time_picker.html:4
+msgid "report button today"
+msgstr "самая последняя запись"
+
+#: templates/reports/_report_time_picker.html:5
+msgid "report button day"
+msgstr "последние 24 часа"
+
+#: templates/reports/_report_time_picker.html:6
+msgid "report button month"
+msgstr "последние 30 дней"
+
+#: templates/reports/_report_time_picker.html:8
+msgid "report button period"
+msgstr "период"
+
+#: templates/reports/_report_time_picker.html:10
+msgid "report button period from"
+msgstr "с"
+
+#: templates/reports/_report_time_picker.html:11
+msgid "report button period to"
+msgstr "по"
+
+#: templates/reports/sim.html:21
+msgid "Balance from"
+msgstr "баланс от"
+
+#: templates/reports/sim.html:25
+msgid "Balance to"
+msgstr "баланс до"
+
+#: templates/routes/confirm_abort.html:5
+msgid "confirm route abort"
+msgstr "подтвердите отмену маршрута"
+
+#: templates/routes/confirm_abort.html:8
+msgid "route_aborting_not_supported_by_status_warning"
+msgstr "Отмена маршрута в этом состоянии невозможна."
+
+#: templates/routes/confirm_abort.html:12
+msgid "confirm"
+msgstr "подтвердить"
+
+#: templates/routes/create.html:8 templates/routes/create.html:138
+msgid "create routes"
+msgstr "создать маршруты"
+
+#: templates/routes/create.html:36
+msgid "sectors total"
+msgstr "всего секторов"
+
+#: templates/routes/create.html:38
+msgid "choose sectors"
+msgstr "выберите секторы"
+
+#: templates/routes/create.html:47 templates/x-templates/drivers.html:5
+msgid "drivers"
+msgstr "водители"
+
+#: templates/routes/create.html:64
+msgid "failed to send routes."
+msgstr "не удалось отправить маршруты."
+
+#: templates/routes/create.html:69
+msgid "start route"
+msgstr "отправить на маршрут"
+
+#: templates/routes/detail.html:6
+msgid "route details"
+msgstr "подробности маршрута"
+
+#: templates/routes/detail.html:20
+msgid "route started"
+msgstr "начат"
+
+#: templates/routes/detail.html:24
+msgid "route finished"
+msgstr "завершен"
+
+#: templates/routes/detail.html:28
+msgid "route duration"
+msgstr "длительность маршрута"
+
+#: templates/routes/detail.html:43
+msgid "route points"
+msgstr "точки маршрута"
+
+#: templates/routes/detail.html:52
+msgid "resend route"
+msgstr "отправить маршрут повторно"
+
+#: templates/routes/list.html:5
+msgid "routes journal"
+msgstr "журнал маршрутов"
+
+#: templates/sectors/confirm_delete.html:8
+msgid "last_company_sector_warning"
+msgstr "Этот сектор нельзя удалить, так как это единственный сектор компании."
+
+#: templates/sectors/confirm_delete.html:10
+msgid "sector_is_referenced_warning"
+msgstr ""
+"Этот сектор нельзя удалить, так как к нему привязаны устройства. Чтобы "
+"удалить этот сектор сначала привяжите устройства к другому сектору."
+
+#: templates/sectors/list.html:10
+msgid "create sector"
+msgstr "добавить сектор"
+
+#: templates/support/freshdesk.html:9
+msgid "support_widget_banner"
+msgstr "Справка и поддержка"
+
+#: templates/support/freshdesk.html:10
+msgid "support_widget_launcher"
+msgstr "Помощь"
+
+#: templates/table/table.html:101
+msgid "search"
+msgstr "поиск"
+
+#: templates/users/confirm_delete.html:8
+msgid "deleting_self_user_warning"
+msgstr "Вы не можете удалить самого себя"
+
+#: templates/users/list.html:10
+msgid "add user"
+msgstr "добавить пользователя"
+
+#: templates/x-templates/drivers.html:9
+msgid "choose drivers"
+msgstr "выберите водителей"
+
+#: templates/x-templates/drivers.html:50
+msgid "some drivers are unavailable at the moment."
+msgstr "некоторые водители в настоящее время недоступны."
+
+#: templates/x-templates/drivers.html:51
+msgid "view availability"
+msgstr "просмотр доступности"
+
+#: templates/x-templates/drivers.html:57
+msgid "some drivers have routes in progress."
+msgstr "у некоторых водителей есть незаконченные маршруты."
+
+#: views/report_pressure.py:65
+msgid "pressure_units"
+msgstr "мм{br}рт{br}cт"

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+    <section class="invalid-license-page">
+        <h1>{% trans "We're sorry but your software license is invalid" %}</h1>
+        <p>{% trans "It's mostly likely that your license is expired but it could be some other issue too." %}</p>
+        <p>
+            <a class="show-account-modal" href="#">{% trans 'Click here' %}</a>
+            {% trans 'to view your account & license info which is also available by clicking user info panel in the upper right corner of the page.' %}
+        </p>
+        <p class="text-success">{% trans "If your license is expired then contact your Binology representative to renew it." %}</p>
+        <p class="text-warning">{% trans "If you think it's a mistake please contact our customer support service." %}</p>
+    </section>
+{% endblock %}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<django-objects version="1.0">
+    <object model="app.containertype" pk="1">
+        <field name="title" type="CharField">FLMS only</field>
+        <field name="title_ru" type="CharField">Только СИУН</field>
+        <field name="description" type="CharField">Fill level measurement system (FLMS) only.</field>
+        <field name="description_ru" type="CharField">Только система измерения уровня наполненности (СИУН).</field>
+    </object>
+    <object model="app.containertype" pk="2">
+        <field name="title" type="CharField">No built-in systems</field>
+        <field name="title_ru" type="CharField">Нет встроенных систем</field>
+    </object>
+    <object model="app.containertype" pk="3">
+        <field name="title" type="CharField">FLMS, TC, IoT-module</field>
+        <field name="title_ru" type="CharField">СИУН, ПК и IoT-модуль</field>
+        <field name="description" type="CharField">Fill level measurement system (FLMS), trash compactor (TC), IoT-module.</field>
+        <field name="description_ru" type="CharField">Система измерения уровня наполненности (СИУН), пресс-компактор (ПК) и IoT-модуль.</field>
+    </object>
+</django-objects>

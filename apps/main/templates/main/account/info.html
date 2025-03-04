@@ -1,0 +1,36 @@
+{% load i18n bootstrap3 %}
+
+{% if request.uac.is_superadmin %}
+    <p>{% trans 'superadmin_account_info' %}</p>
+{% elif request.uac.has_per_company_access and license_info %}
+    <p>{% trans 'account_plan_header' %}</p>
+    <p>{% trans 'company_name' %}: <strong>{{ company_name }}</strong></p>
+    <hr/>
+    <p>{% trans 'account_license_started' %}: <strong>{{ license_info.start }}</strong></p>
+    <p>{% trans 'account_license_ends' %}: <strong>{{ license_info.end }}</strong></p>
+    {% if license_info.usage_balance %}
+        <p>{% trans 'sensors_account_license_usage_balance' %}: <strong>{{ license_info.usage_balance }}</strong></p>
+    {% endif %}
+    {% if license_info.invalid %}
+        <p class="text-danger">{% trans 'subscription is expired or otherwise invalid'|capfirst %}</p>
+    {% endif %}
+    {% if extend_license_form %}
+        <form action="{% url "extend-license" %}" method="post" class="form-inline">
+            {% csrf_token %}
+            {% bootstrap_form extend_license_form layout='inline' %}
+            {% buttons %}
+                <button class="btn btn-success" type="submit">{% trans 'extend the license'|capfirst %}</button>
+            {% endbuttons %}
+        </form>
+    {% endif %}
+    {% if not request.uac.is_driver %}
+        <hr/>
+        {% if is_trashbin_company %}
+            {% trans 'trashbins_account_plan_description' %}
+        {% elif is_sensor_company %}
+            {% trans 'sensors_account_plan_description' %}
+        {% endif %}
+    {% endif %}
+{% else %}
+    <p>{% trans 'failed_to_load_data' %}</p>
+{% endif %}

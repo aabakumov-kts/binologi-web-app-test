@@ -1,0 +1,18 @@
+{% load i18n %}
+
+<div class="form-group">
+    <div class="b-report-filter--{{ fullness.name }}">
+        {% trans 'fullness'|capfirst %}
+        <ul class="b-report-filter-content" id="{{ fullness.name }}">
+            {% for option in fullness.options %}
+                <li data-id="{{ option.title }}"
+                    class="{{ option.css_class }}">
+                    {% if forloop.last %}
+                        {{ option.lower }}+
+                    {% else %}
+                        {{ option.lower }}-{{ option.upper }}
+                    {% endif %}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

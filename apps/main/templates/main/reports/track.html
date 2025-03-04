@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% load i18n table_tags static bootstrap3 %}
+
+{% block content %}
+    <h3 class="page_header">{% trans 'report'|capfirst %} {% trans 'track'|capfirst %}</h3>
+
+    <form class="b-report-filter">
+        {% include "reports/_report_time_picker.html" %}
+        <div class="row">
+            <div class="col-md-4">
+                {% include "reports/_customer_filter.html" %}
+                <div class="form-group">
+                    <label for="driver">{% trans 'driver'|capfirst %}</label>
+                    <select class="form-control b-report-select" id="driver" name="report_filter_company">
+                        <option value=""></option>
+                        {% for item in drivers %}
+                            <option value="{{ item.id }}">
+                                {{ item.username }} - {{ item.comment }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                    <div class="b-report-select-arrow"></div>
+                </div>
+            </div>
+        </div>
+        <a class="clear-filters" href="#">{% trans 'clear'|capfirst %}</a>
+    </form>
+
+    {% include 'reports/_common_deps.html' %}
+    {% include 'trashbins/reports/_common_js_api.html' %}
+
+    <div id="table-container" class="visible">
+        <table id={{ table.opts.id }} {{ table.opts.attrs }} cellpadding="0" cellspacing="0" border="0">
+            {% include 'table/_common_thead.html' %}
+            {% include 'table/_common_tbody.html' %}
+            <tfoot>
+                <tr></tr>
+                <tr>
+                    <td role="row" class="odd table">
+                        <span style="float:left; font-weight:bold" id ='totalContainers'></span>
+                    </td>
+                    <td role="row" class="odd table">
+                        <span style="float:left;font-weight:bold" id ='totalTrack'></span>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <script type="text/javascript">
+      $(document).ready(function () {
+        function footerCallback() {
+          var api = this.api();
+          // Remove the formatting to get integer data for summation
+          var intVal = function ( i ) {
+              return typeof i === 'string' ? i.replace(/[\$,]/g, '')*1 : typeof i === 'number' ?  i : 0;
+          };
+
+          // total over all pages
+          var total_containers = api.column( 0 ).data().reduce( function (a, b) {
+              return intVal(a) + intVal(b);
+          },0 );
+          var total_track = api.column( 1 ).data().reduce( function (a, b) {
+              return intVal(a) + intVal(b);
+          },0 );
+
+          // Update footer
+          $('#totalTrack').html(parseFloat(total_track).toFixed(0));
+          $('#totalContainers').html(parseFloat(total_containers).toFixed(0));
+        }
+
+        function prepareQueryWrapper(d) {
+          var result = prepare_query(d);
+
+          if ($("#driver").val()) {
+            result.driver = $("#driver").val();
+          }
+
+          return result;
+        }
+
+        var table = createTable(prepareQueryWrapper, "{% url 'reports:common:track_table_data' %}", [], footerCallback, "RfrlptBp");
+
+        function update_containers() {
+          table.api().ajax.reload();
+        }
+
+        function additionalFilterCleanup() {
+          $('#driver').val('');
+        }
+
+        addCommonEventHandlers(update_containers, additionalFilterCleanup);
+
+        $('#driver').on('change', function () {
+          update_containers();
+        });
+
+        update_containers();
+      });
+    </script>
+{% endblock %}
+
+{% block js %}
+    <script src="//cdn.fusioncharts.com/fusioncharts/3.14.0/fusioncharts.js"></script>
+    <script src="//cdn.fusioncharts.com/fusioncharts/3.14.0/themes/fusioncharts.theme.fint.js"></script>
+{% endblock %}
+
+{% block title %}
+    {% trans 'report'|capfirst %} {% trans 'track'|capfirst %}
+{% endblock %}

@@ -1,0 +1,18 @@
+{% load i18n %}
+
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label for="container">{% trans 'container'|capfirst %}</label>
+            <a id="container-link" style="display: none" href="{% url "main:map" %}">{% trans 'see on map'|capfirst %}</a>
+            <select class="form-control b-report-select" id="container" name="report_filter_container">
+                <option value=""></option>
+                {% for item in containers %}
+                    <option value="{{ item.id }}">{{ item.serial_number }}</option>
+                {% endfor %}
+            </select><div class="b-report-select-arrow"></div>
+        </div>
+    </div>
+    <div class="col-md-4"></div>
+</div>

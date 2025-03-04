@@ -1,0 +1,27 @@
+{% load i18n %}
+
+<form class="b-report-filter">
+    {% include "reports/_report_time_picker.html" %}
+    <hr/>
+    <div class="row device-filters">
+        <fieldset>
+            <div class="col-md-4">
+                {% include "reports/_left_column_filters.html" %}
+            </div>
+            <div class="col-md-8">
+                {% include "reports/_fullness_filter.html" %}
+                <div class="row">
+                    <div class="col-md-4">
+                        {% include "sensors/reports/_sensor_spec_filter.html" %}
+                    </div>
+                    <div class="col-md-8">
+                        {% include "sensors/reports/_errors_filter.html" %}
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <hr/>
+    {% include "sensors/reports/_sensor_filter.html" %}
+    <a class="clear-filters" href="#">{% trans 'clear'|capfirst %}</a>
+</form>

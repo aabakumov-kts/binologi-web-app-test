@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% load i18n static uac %}
+
+{% block content %}
+    <div id="map"></div>
+    <div id="map-google-js"></div>
+
+    <section id="b-container-card" class="b-container-card">
+    </section>
+
+    {% include 'map/filter_waste_type.html' with filter=filters.waste_type %}
+    {% include 'map/filter_fullness.html' with filter=filters.fullness %}
+    {% if is_sensor_company %}
+        {% include 'sensors/map/filter_error_type.html' with filter=filters.error_type %}
+    {% else %}
+        {% include 'trashbins/map/filter_error_type.html' with filter=filters.error_type %}
+    {% endif %}
+
+    <div class="b-maps-clear-filters" id="clear-filters">
+        <div class="b-maps-filter-button">
+            <i class="fas fa-times"></i>
+            <span>{% trans 'clear filters'|capfirst %}</span>
+        </div>
+    </div>
+
+    <div id="raphaelDiv" style="display: none"></div>
+
+    <div class="b-maps-filter b-maps-filter--route">
+        <div class="b-maps-filter-button" id="build-route">
+            <i class="b-maps-filter-icon"></i>{% trans 'route'|capfirst %}</div>
+    </div>
+
+    {% if filters.sector.enabled %}
+        {% include 'map/filter_sector.html' with filter=filters.sector %}
+    {% endif %}
+
+    <div id="binPickerDiv">
+        {% verbatim %}
+        <transition name="transition-wrapper">
+            <div v-if="!collapsed && !expanded" class="binsCounter" v-on:click="expanded = true">{{ containers.length }}</div>
+            <div v-if="!collapsed && expanded && expectingDragDrop" class="dragDropPrompt">
+                <span class="close-icon" v-on:click="closeBinsList()">+</span>
+                <span v-if="containers.length < maxContainers">
+                    {% endverbatim %}{% trans 'drag marker here to include in route'|capfirst %}{% verbatim %}
+                </span>
+                <span v-else>
+                    {% endverbatim %}{% trans 'maximum containers count already selected'|capfirst %}{% verbatim %}
+                </span>
+            </div>
+            <div v-if="!collapsed && expanded && !expectingDragDrop" class="binsList">
+                <span class="close-icon" v-on:click="closeBinsList()">+</span>
+                <h3>{% endverbatim %}{% trans 'itinerary list'|capfirst %}{% verbatim %}</h3>
+                <ul v-if="containers.length > 0">
+                    <li v-for="bin in containers" v-bind:key="bin.id" v-on:click="selectBin(bin)">
+                        <span v-if="selectedBin === bin">
+                            <a href="#" class="btn btn-info btn-xs" v-on:click="viewSelected()">
+                                {% endverbatim %}{% trans 'view'|capfirst %}{% verbatim %}
+                            </a>
+                            <a href="#" class="btn btn-warning btn-xs" v-on:click="removeSelected()">
+                                {% endverbatim %}{% trans 'remove'|capfirst %}{% verbatim %}
+                            </a>
+                        </span>
+                        <span v-else>{{ bin.serial }}</span>
+                    </li>
+                </ul>
+                <span v-on:click="removeAll()">{% endverbatim %}{% trans 'remove all'|capfirst %}{% verbatim %}</span>
+            </div>
+        </transition>
+        {% endverbatim %}
+    </div>
+
+    {% if efficiency_monitor_enabled %}
+        <div id="efficiency-monitor" class="b-maps-efficiency-monitor"></div>
+    {% endif %}
+{% endblock %}
+
+{% block footer %}
+    <div class="sticky-footer-container">
+        {% include '_footer.html' %}
+    </div>
+{% endblock %}
+
+{% block js %}
+    {% get_current_language as lang %}
+    <script src="{% static 'third-party-js/markerclustererplus.min.js' %}"></script>
+    <script
+        defer
+        src="https://maps.googleapis.com/maps/api/js?libraries=drawing&key={{ maps_api_key }}&callback=initMap&language={{ lang }}">
+    </script>
+    {% if debug %}
+        <script src="{% static 'external/raphael/raphael.js' %}"></script>
+    {% else %}
+        <script src="{% static 'external/raphael/raphael.min.js' %}"></script>
+    {% endif %}
+    <script src="{% static 'third-party-js/raphael.export.js' %}"></script>
+    <script type="text/javascript">
+        var mapPositioning = {{ map_positioning|safe }};
+        var lowBatteryIconUrl = '{{ low_battery_level_icon_url }}';
+        var binOnRouteIconUrl = '{{ bin_on_route_icon_url }}';
+        var warningIconUrl = '{{ warning_icon_url }}';
+        var clusterImagesUrls = [
+          '{% static 'images/cluster1.png' %}',
+          '{% static 'images/cluster2.png' %}',
+          '{% static 'images/cluster3.png' %}',
+          '{% static 'images/cluster4.png' %}',
+          '{% static 'images/cluster5.png' %}',
+        ];
+        var efficiencyMonitorCta = "{% trans 'Click to open efficiency monitor' %}";
+        var fetchTrashbins = {{ is_trashbin_company|lower }};
+        var fetchSensors = {{ is_sensor_company|lower }};
+        {% if open_device_info %}
+            var autoOpenCard = {{ open_device_info|safe }};
+        {% endif %}
+    </script>
+    <script src="{% static 'js/map/utils.js' %}"></script>
+    <script src="{% static 'js/map/draw.js' %}"></script>
+    <script src="{% static 'js/map/print.js' %}"></script>
+    <script src="{% static 'js/map/cards.js' %}"></script>
+    {% if is_trashbin_company %}
+        <script src="{% static 'js/map/pick-markers.js' %}"></script>
+    {% endif %}
+    <script src="{% static 'js/map/area-select.js' %}"></script>
+    {% if efficiency_monitor_enabled %}
+        <script src="{% static 'js/map/efficiency-monitor.js' %}"></script>
+    {% endif %}
+    <script src="{% static 'js/map/main.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load i18n core_tags messages %}
+
+{% block content %}
+    <h3>{% trans 'routes journal'|capfirst %}</h3>
+
+    {% include '_alerts.html' %}
+
+    <div class="tablediv">
+        <a class="b-table-add" href="{% url 'routes:create' %}">{% trans 'create'|capfirst %}</a>
+        {% render_table_with_django2_compat routes_table %}
+    </div>
+{% endblock %}

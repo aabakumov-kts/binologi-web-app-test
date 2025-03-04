@@ -1,0 +1,46 @@
+{% load i18n filters %}
+
+<h4 class="b-route-filter-header">{% trans 'fullness'|capfirst %}</h4>
+
+<div class="b-report-filter--fullness b-report-filter--fullness_route">
+
+    <ul class="b-route-filter-content">
+        {% for item in fullness %}
+            <li data-id="{{ item.title }}"
+                class="{{ item.css_class }} {% is_selected item 'title' 'fullness' %}"
+                id="fullness{{ item.title }}">
+                {% if forloop.last %}
+                    {{ item.lower }}+
+                {% else %}
+                    {{ item.lower }}-{{ item.upper }}
+                {% endif %}
+            </li>
+            <input id="input_fullness{{ item.title }}"
+                   {% is_checked item 'title' 'fullness' %}
+                   type="checkbox"
+                   style="display: none"
+                   value="{{ item.title }}"
+                   v-model="fullness" />
+        {% endfor %}
+    </ul>
+</div>
+
+<h4 class="b-route-filter-header">{% trans 'waste type'|capfirst %}</h4>
+
+<div class="form-group b-route-filter-waste">
+    <ul class="b-route-filter-content">
+        {% for item in waste_types %}
+            <li class="{% is_selected item 'id' 'waste_type' %}" id="waste{{ item.id }}">
+                <label for="waste{{ item.id }}">
+                    <b>{{ item.code }}</b>{{ item.title }}
+                </label>
+            </li>
+            <input id="input_waste{{ item.id }}"
+                   {% is_checked item 'id' 'waste_type' %}
+                   type="checkbox"
+                   style="display: none"
+                   :value="{{ item.id }}"
+                   v-model="waste" />
+        {% endfor %}
+    </ul>
+</div>

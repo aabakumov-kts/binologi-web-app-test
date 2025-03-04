@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+
+{% block content %}
+    <div>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <p><input type="submit" value="{% trans 'save'|capfirst %}"></p>
+        </form>
+    </div>
+    <p><a href="{% url 'drivers:detail' driver_id %}">{% trans 'back'|capfirst %}</a></p>
+{% endblock %}
+
+
+{% block js %}
+    {% include '_datepicker_i18n.html' %}
+
+    {% get_current_language as lang %}
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $(".date-picker").datetimepicker({
+          format: "dd.mm.yyyy",
+          autoclose: true,
+          todayBtn: true,
+          pickerPosition: "bottom-left",
+          language: '{{ lang }}',
+          weekStart: 1,
+          minView: 2,
+        });
+      });
+    </script>
+{% endblock %}

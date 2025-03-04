@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+    <h1 class="page_header">{% trans 'confirm delete'|capfirst %}</h1>
+    <p><strong>{{ object }}</strong></p>
+    {% if last_company_sector %}
+        <p>{% trans 'last_company_sector_warning' %}</p>
+    {% elif sector_is_referenced %}
+        <p>{% trans 'sector_is_referenced_warning' %}</p>
+    {% endif %}
+    <form action="{% url 'sectors:delete' object.pk %}" method="post">
+        {% csrf_token %}
+        <p>
+            <button type="submit" {% if button_attrs %}{{ button_attrs }}{% endif %}>{% trans 'delete'|capfirst %}</button>
+        </p>
+    </form>
+    <p><a href="{% url 'sectors:list' %}">{% trans "back to list"|capfirst %}</a></p>
+{% endblock %}

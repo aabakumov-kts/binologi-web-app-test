@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load i18n table_tags static bootstrap3 tables %}
+
+{% block content %}
+    <h3 class="page_header">{% trans 'report'|capfirst %} {% trans 'pressure'|capfirst %}</h3>
+
+    {% include 'reports/_common_filters_form.html' %}
+
+    {% render_pressure_table pressure_data %}
+
+{% endblock %}
+
+{% block js %}
+    <script src="//cdn.fusioncharts.com/fusioncharts/3.14.0/fusioncharts.js"></script>
+    <script src="//cdn.fusioncharts.com/fusioncharts/3.14.0/themes/fusioncharts.theme.fint.js"></script>
+{% endblock %}
+
+{% block title %}
+    {% trans 'report'|capfirst %} {% trans 'pressure'|capfirst %}
+{% endblock %}

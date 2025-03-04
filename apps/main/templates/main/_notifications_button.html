@@ -1,0 +1,8 @@
+<a class="open-push-subscription btn btn-info btn-sm" id="{{ id_value }}" href="{% url 'notifications_list' %}">
+    <i class="far fa-bell"></i>
+    {% if unread_notifications_count %}
+        <span>{{ unread_notifications_count }}</span>
+    {% else %}
+        <span style="display: none"></span>
+    {% endif %}
+</a>

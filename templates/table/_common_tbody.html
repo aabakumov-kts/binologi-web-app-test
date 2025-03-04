@@ -1,0 +1,13 @@
+{% if not table.opts.ajax %}
+    <tbody {% if table.opts.tbody_attrs %}{{ table.opts.tbody_attrs }}{% endif %}>
+        {% for row in table.rows %}
+            <tr>
+                {% for column, td in row.items %}
+                    <td {% if column.attrs %}{{ column.attrs }}{% endif %}>
+                        {% if column.safe %}{{ td }}{% else %}{{ td|safe }}{% endif %}
+                    </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </tbody>
+{% endif %}

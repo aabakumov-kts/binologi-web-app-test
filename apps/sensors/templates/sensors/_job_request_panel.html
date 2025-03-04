@@ -1,0 +1,35 @@
+{% load i18n bootstrap3 %}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4>{{ request_type|capfirst }}</h4>
+    </div>
+    <div class="panel-body">
+        {% if status_info.job_finished %}
+            <p class="{% if status_info.job_successful %}text-success{% else %}text-warning{% endif %}">
+                {% with job_timestamp=status_info.job_timestamp %}
+                    {% if status_info.job_successful %}
+                        <i class="fa fa-check"></i>
+                        {% blocktrans %}Request for {{ request_type }} succeeded at {{ job_timestamp }}{% endblocktrans %}
+                    {% else %}
+                        <i class="fa fa-times"></i>
+                        {% blocktrans %}Request for {{ request_type }} failed at {{ job_timestamp }}{% endblocktrans %}
+                    {% endif %}
+                {% endwith %}
+            </p>
+        {% else %}
+            <p class="text-muted">
+                <i class="far fa-question-circle"></i>
+                {% blocktrans %}We can't find any completed {{ request_type }} requests{% endblocktrans %}
+            </p>
+        {% endif %}
+        <form action="{{ form_url }}" method="post">
+            {% csrf_token %}
+            {% buttons %}
+                <button class="btn btn-primary" type="submit">
+                    {% blocktrans %}Request {{ request_type }}{% endblocktrans %}
+                </button>
+            {% endbuttons %}
+        </form>
+    </div>
+</div>

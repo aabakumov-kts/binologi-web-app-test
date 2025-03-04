@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load i18n bootstrap3 %}
+
+{% block extrahead %}
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+{% endblock %}
+
+{% block content %}
+    <section class="b-login b-register">
+        <form method="post">
+            <h1>{% trans "Register a Company"|capfirst %}</h1>
+            {% csrf_token %}
+            {% bootstrap_field form.company_name show_label=False %}
+            {% bootstrap_field form.contact_email show_label=False %}
+            {% bootstrap_field form.license_key show_label=False %}
+            {% buttons %}
+                <label>
+                    <i class="b-login-icon submit"></i>
+                    <input type="submit" value="{% trans "register"|capfirst %}">
+                </label>
+            {% endbuttons %}
+        </form>
+    </section>
+{% endblock %}
+
+{% block top_nav %}{% endblock %}
+
+{% block footer %}{% endblock %}

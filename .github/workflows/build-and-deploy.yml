@@ -1,0 +1,166 @@
+name: Primary CI/CD workflow
+
+on:
+  push:
+    branches:
+      - develop
+      - 'release**'
+      - 'hotfix**'
+      - master
+
+concurrency: ${{ github.ref_name }}
+
+jobs:
+  build-ci-image:
+    name: "Build & push CI image"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/build-new-image
+        with:
+          dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
+          dockerhub-password: ${{ secrets.DOCKERHUB_TOKEN }}
+          dockerfile-path: ./codeship.Dockerfile
+          image-repo: dibinology/legacy-web-app-ci
+          image-tag: ${{ github.ref_name }}.${{ github.run_id }}
+
+  run-tests:
+    name: "Runs linters & tests"
+    needs: build-ci-image
+    runs-on: ubuntu-latest
+    container:
+      image: dibinology/legacy-web-app-ci:${{ github.ref_name }}.${{ github.run_id }}
+      credentials:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+      env:
+        SENTRY_ORG: binology
+        SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+    services:
+      postgres:
+        image: mdillon/postgis:11-alpine
+      redis:
+        image: redis:5.0.8-alpine
+    steps:
+      - name: Run linter
+        run: cd /app && flake8
+
+      - name: Run unit tests
+        run: cd /app && python -m unittest discover tests/plain
+
+      - name: Run Django tests
+        run: >-
+          cd /app && /bin/sh -c 'until pg_isready -h postgres; do sleep 5; done &&
+          python manage.py test tests/django'
+
+      - name: Update Sentry release info
+        if: startsWith(github.ref_name, 'release')
+        run: >-
+          cd /app && /bin/sh -c 'sentry-cli releases new -p legacy-web-app $(sed "1q;d" release-info.txt) &&
+          sentry-cli releases set-commits
+          --commit "binologygroup/legacy-web-app@$(sed "2q;d" release-info.txt)..$GITHUB_SHA"
+          $(sed "1q;d" release-info.txt)'
+
+  build-main-image:
+    name: "Build & push main image"
+    needs: run-tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/build-new-image
+        with:
+          dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
+          dockerhub-password: ${{ secrets.DOCKERHUB_TOKEN }}
+          dockerfile-path: ./Dockerfile
+          image-repo: dibinology/legacy-web-app
+          image-tag: ${{ github.ref_name }}.${{ github.run_id }}
+
+  deploy-main-image:
+    name: "Deploy new image"
+    needs: build-main-image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Define target host - DEV
+        if: github.ref_name == 'develop'
+        run: echo "TARGET_HOST=dev.saas.binology.com" >> $GITHUB_ENV
+
+      - name: Define target host - STAGE
+        if: startsWith(github.ref_name, 'release') || startsWith(github.ref_name, 'hotfix')
+        run: echo "TARGET_HOST=stage.saas.binology.com" >> $GITHUB_ENV
+
+      - name: Define target host - DEMO
+        if: github.ref_name == 'master'
+        run: echo "TARGET_HOST=demo.saas.binology.com" >> $GITHUB_ENV
+
+      - name: Install Deploy SSH Key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          known_hosts: 'just-a-placeholder-so-we-dont-get-errors'
+
+      - uses: ./.github/actions/deploy-saas-image
+        with:
+          target-host: ${{ env.TARGET_HOST }}
+          image-tag: ${{ github.ref_name }}.${{ github.run_id }}
+
+      - uses: ./.github/actions/deploy-saas-image
+        if: github.ref_name == 'master'
+        with:
+          target-host: saas.binology.com
+          image-tag: ${{ github.ref_name }}.${{ github.run_id }}
+
+  trigger-e2e-tests:
+    name: "Trigger E2E tests"
+    needs: deploy-main-image
+    runs-on: ubuntu-latest
+    if: github.ref_name == 'develop' || startsWith(github.ref_name, 'release') || startsWith(github.ref_name, 'hotfix')
+    steps:
+      - name: Define E2E ref - DEVELOP
+        if: github.ref_name == 'develop'
+        run: echo "E2E_REF=develop" >> $GITHUB_ENV
+
+      - name: Define E2E ref - MASTER
+        if: startsWith(github.ref_name, 'release') || startsWith(github.ref_name, 'hotfix')
+        run: echo "E2E_REF=master" >> $GITHUB_ENV
+
+      - name: Trigger E2E workflow
+        run: >-
+          curl 
+          -X POST
+          -H "Accept: application/vnd.github+json"
+          -H "Authorization: Bearer ${{ secrets.E2E_TRIGGER_PAT }}"
+          -H "X-GitHub-Api-Version: 2022-11-28"
+          https://api.github.com/repos/binologygroup/saas-e2e-tests/actions/workflows/build.yml/dispatches
+          -d '{"ref":"${{ env.E2E_REF }}"}'
+
+  deploy-release-in-sentry:
+    name: "Deploy release in Sentry"
+    needs: deploy-main-image
+    runs-on: ubuntu-latest
+    if: github.ref_name == 'master' || startsWith(github.ref_name, 'release')
+    container:
+      image: dibinology/legacy-web-app-ci:${{ github.ref_name }}.${{ github.run_id }}
+      credentials:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+      env:
+        SENTRY_ORG: binology
+        SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+    steps:
+      - name: Update Sentry release info - STAGE
+        if: startsWith(github.ref_name, 'release')
+        run: cd /app && /bin/sh -c 'sentry-cli releases deploys $(sed "1q;d" release-info.txt) new -e Stage'
+
+      - name: Update Sentry release info - DEMO
+        if: github.ref_name == 'master'
+        run: cd /app && /bin/sh -c 'sentry-cli releases deploys $(sed "1q;d" release-info.txt) new -e Demo'
+
+      - name: Update Sentry release info - PROD
+        if: github.ref_name == 'master'
+        run: cd /app && /bin/sh -c 'sentry-cli releases deploys $(sed "1q;d" release-info.txt) new -e Prod'
+
+      - name: Finalize Sentry release info
+        if: github.ref_name == 'master'
+        run: cd /app && /bin/sh -c 'sentry-cli releases finalize $(sed "1q;d" release-info.txt)'

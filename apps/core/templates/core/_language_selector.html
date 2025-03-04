@@ -1,0 +1,19 @@
+{% load i18n %}
+
+<div class="b-language">
+  {% get_current_language as lang %}
+  {% if lang == 'ru' %}
+    <div class="b-language-selected">Русский<i class="b-language-icon"></i></div>
+    <ul class="b-language-list">
+        {% url "switch_language" "en" as en_switch_url %}
+        <li onclick="location.href='{{ en_switch_url }}' + '?next=' + encodeURIComponent(location.href);">English</li>
+    </ul>
+  {% endif %}
+  {% if lang == 'en' %}
+    <div class="b-language-selected">English<i class="b-language-icon"></i></div>
+    <ul class="b-language-list">
+        {% url "switch_language" "ru" as ru_switch_url %}
+        <li onclick="location.href='{{ ru_switch_url }}' + '?next=' + encodeURIComponent(location.href);">Русский</li>
+    </ul>
+  {% endif %}
+</div>

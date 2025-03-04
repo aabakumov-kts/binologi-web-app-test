@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load table_tags i18n static bootstrap3 %}
+
+{% block extrahead %}
+    {{ form.media.css }}
+{% endblock %}
+
+{% block content %}
+    <div class="tablediv">
+        <h1>{% trans "change timezone"|capfirst %}</h1>
+
+        <p>{% trans "company timezone"|capfirst %}: <strong>{{ company_timezone }} (GMT {{ utc_offset }})</strong></p>
+
+        <form method="post">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            {% buttons %}
+                <button type="submit" class="btn btn-default">
+                    {% trans "save"|capfirst %}
+                </button>
+            {% endbuttons %}
+        </form>
+
+        {% if return_to_url %}
+            <p><a href="{{ return_to_url }}">{% trans 'back'|capfirst %}</a></p>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block title %}
+    {% trans "change timezone"|capfirst %}
+{% endblock %}

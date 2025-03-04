@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load i18n core_tags %}
+
+{% block content %}
+    <h3>{% trans "users"|capfirst %}</h3>
+
+    {% include '_alerts.html' %}
+
+    <div class="tablediv">
+        <a class="b-table-add" href="{% url 'users:create' %}">{% trans "add user"|capfirst %}</a>
+        {% render_table_with_django2_compat users %}
+    </div>
+{% endblock %}

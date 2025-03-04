@@ -1,0 +1,13 @@
+{% load i18n table_tags static bootstrap3 tables %}
+
+{% if request.uac.is_superadmin %}
+    <div class="form-group">
+        <label for="company">{% trans 'customer'|capfirst %}</label>
+        <select class="form-control b-report-select" id="company" name="report_filter_company">
+            <option value=""></option>
+            {% for item in companies %}
+                <option value="{{ item.id }}">{{ item.name }}</option>
+            {% endfor %}
+        </select><div class="b-report-select-arrow"></div>
+    </div>
+{% endif %}

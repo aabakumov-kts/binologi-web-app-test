@@ -1,0 +1,53 @@
+﻿{% extends "base.html" %}
+{% load i18n table_tags static bootstrap3 %}
+
+{% block content %}
+    <h3 class="page_header">{% trans 'report'|capfirst %} {% trans report_name_i18n_key|capfirst %}</h3>
+
+    {% include 'sensors/reports/_common_filters_form.html' %}
+
+    {% include 'reports/_common_deps.html' %}
+    {% include 'sensors/reports/_common_js_api.html' %}
+
+    {% include 'table/_common_switcher.html' %}
+
+    <div id="table-container" style="display: none">
+        <table id={{ table.opts.id }} {{ table.opts.attrs }} cellpadding="0" cellspacing="0" border="0">
+            {% include 'table/_common_thead.html' %}
+            {% include 'table/_common_tbody.html' %}
+            {% include 'table/_common_tfoot.html' %}
+        </table>
+    </div>
+
+    <div id="chart-container" class="visible"></div>
+
+    <script type="text/javascript">
+      $(document).ready(function () {
+        var table = undefined;
+
+        function update_containers() {
+          if ($('#table-container').hasClass('visible')) {
+            if (!table) table = createTable(prepare_query, "{% url table_data_url_name %}");
+            table.api().ajax.reload();
+          } else {
+            var column_chart_source = "{% url chart_data_url_name %}" + "?" + serialize(prepare_query({}));
+            updateFusionChart("{{ chart_type }}", 'chart-container', column_chart_source);
+          }
+        }
+
+        addCoreEventHandlers(update_containers);
+        addSensorEventHandlers(update_containers);
+        addTableChartSwitchEventHandlers(update_containers);
+        update_containers();
+      });
+    </script>
+{% endblock %}
+
+{% block js %}
+    <script src="//cdn.fusioncharts.com/fusioncharts/3.14.0/fusioncharts.js"></script>
+    <script src="//cdn.fusioncharts.com/fusioncharts/3.14.0/themes/fusioncharts.theme.fint.js"></script>
+{% endblock %}
+
+{% block title %}
+    {% trans 'report'|capfirst %} {% trans report_name_i18n_key|capfirst %}
+{% endblock %}

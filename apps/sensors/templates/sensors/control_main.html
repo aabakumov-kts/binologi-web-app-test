@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load i18n bootstrap3 %}
+
+{% block content %}
+    <h2>{% trans 'sensor control'|capfirst %}</h2>
+    <h3>
+        <select>
+            {% for item in sensors_nav_links %}
+                <option value="{{ item.0 }}">{{ item.1 }}</option>
+            {% endfor %}
+        </select>
+    </h3>
+    {% include '_alerts.html' %}
+    {% trans 'GPS position' as gps_request_type %}
+    {% include "sensors/_job_request_panel.html" with request_type=gps_request_type status_info=gps_status_info form_url=gps_form_url %}
+    {% trans 'calibration' as calibration_request_type %}
+    {% include "sensors/_job_request_panel.html" with request_type=calibration_request_type status_info=calibration_status_info form_url=calibration_form_url %}
+    {% trans 'orientation' as orient_request_type %}
+    {% include "sensors/_job_request_panel.html" with request_type=orient_request_type status_info=orient_status_info form_url=orient_form_url %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>{% trans 'settings'|capfirst %}</h4>
+        </div>
+        <div class="panel-body">
+            <p class="text-warning">
+                {% trans 'Changing these settings may decrease the device battery lifespan!' %}
+                {% include 'info_buttons/_helpdesk_link.html' with article_url="https://binology.freshdesk.com/support/home" %}
+            </p>
+            <form id="settings-form" action="{% url 'sensors:control-main' object.pk %}" method="post">
+                {% csrf_token %}
+                {% bootstrap_form settings_form %}
+                {% buttons %}
+                    <button class="btn btn-primary" type="submit">
+                        {% trans 'send settings request'|capfirst %}
+                    </button>
+                {% endbuttons %}
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block title %}
+    {% trans 'sensor control'|capfirst %}
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+        var confirmationMessage = "{% trans 'Changing these settings may decrease the device battery lifespan!' %} {% trans 'Are you sure?' %}";
+        $(document).ready(function () {
+            $('h3 select').on('change', function () {
+              window.location = $(this).children(":selected")[0].value;
+            });
+            $('#settings-form').on('submit', function() {
+                return confirm(confirmationMessage);
+            });
+        });
+    </script>
+{% endblock %}

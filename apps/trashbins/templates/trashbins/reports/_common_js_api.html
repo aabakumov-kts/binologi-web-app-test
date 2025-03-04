@@ -1,0 +1,149 @@
+<script type="text/javascript">
+  var containerFields = ['waste_type', 'country', 'city', 'company', 'sector', 'container_type'];
+
+  function prepare_query(d) {
+    d.country = $('#country').val();
+    d.city = $('#city').val();
+    d.company = $('#company').val();
+    d.waste_type = $('#waste_type').val();
+    d.sector = $('#sector').val();
+
+    // get fullness
+    var fullnessArray = getFullnessSelected();
+    if (fullnessArray != null) {
+      d.fullness = fullnessArray.join(',') + ",";
+    }
+
+    d.container_type = $('#container_type').val();
+
+    // get errors
+    var chkArray = getErrorsSelected();
+    if (chkArray.length > 0) d.errors = chkArray.join(',') + ",";
+
+    if ($("#date-picker-from").val()) {
+      d.datetime_from = $("#date-picker-from").val();
+    }
+    if ($("#date-picker-from").val()) {
+      d.datetime_to = $("#date-picker-to").val();
+    }
+
+    d.date_range = date_range;
+
+    if ($("#container").val()) {
+      d.container = $("#container").val();
+    }
+
+    if ($("#q_search").val()) {
+      d.q_search = $("#q_search").val();
+    }
+
+    return d;
+  }
+
+  function clearContainerFilters() {
+    for (var i = 0; i < containerFields.length; i++) {
+      var field = containerFields[i];
+      $('#' + field).val('');
+    }
+  }
+
+  function initContainerMapLink() {
+    initMapLink($("#container").val(), $('#container-link'), 'bin');
+  }
+
+  {# This should be renamed to addTrashbinEventHandlers by analogy to addSensorEventHandlers #}
+  {# Additionally remove addCoreEventHandlers from function body and prepend calls with it instead #}
+  function addCommonEventHandlers(update_containers, additionalFilterCleanup) {
+    addCoreEventHandlers(update_containers);
+
+    var queryParamContainer = getQueryParam('container');
+    if (queryParamContainer) {
+      $("#container").val(queryParamContainer);
+      sessionFilters.container = queryParamContainer;
+      persistSessionFilters();
+    } else if (sessionFilters.container) {
+      $("#container").val(sessionFilters.container);
+    }
+    initContainerMapLink();
+
+    if (sessionFilters.containerErrors) {
+      $('#errors input').each(function() {
+        if (sessionFilters.containerErrors.indexOf(parseInt($(this).val())) >= 0) {
+          $(this).parent().parent().toggleClass("selected");
+        }
+      });
+    }
+
+    for (var i = 0; i < containerFields.length; i++) {
+      var field = containerFields[i];
+      if (field === 'city') continue; // We can't set city here properly since there's no data yet
+      if (sessionFilters[field]) $('#' + field).val(sessionFilters[field]);
+    }
+
+    initCityDataList('#country', '#city', '#city', {
+      initialLoadCallback: function() {
+        if (sessionFilters['city']) $('#city').val(sessionFilters['city']);
+        update_containers();
+      }
+    });
+
+    if ($("#container").val()) toggleDeviceFiltersAvailability(false);
+
+    $("#errors input").each(function () {
+      $(this).on("click", function () {
+        $(this).parent().parent().toggleClass("selected");
+        sessionFilters.containerErrors = getErrorsSelected();
+        persistSessionFilters();
+        update_containers();
+      })
+    });
+
+    function createHandler(field) {
+      return function() {
+        sessionFilters[field] = $(this).val();
+        persistSessionFilters();
+        update_containers();
+      };
+    }
+
+    for (i = 0; i < containerFields.length; i++) {
+      field = containerFields[i];
+      $('#' + field).on('change', createHandler(field));
+    }
+
+    $('#container').on('change', function() {
+      var containerVal = $(this).val();
+      toggleDeviceFiltersAvailability(!containerVal);
+      if (!!containerVal) {
+        clearCommonFilters();
+        clearContainerFilters();
+        var dateRangeSelected = sessionFilters.date_range;
+        var dateFrom = sessionFilters.date_from;
+        var dateTo = sessionFilters.date_to;
+        sessionFilters = { date_range: dateRangeSelected, container: containerVal };
+        if (dateFrom) sessionFilters.date_from = dateFrom;
+        if (dateTo) sessionFilters.date_to = dateTo;
+      }
+      else {
+        sessionFilters.container = containerVal;
+      }
+      initContainerMapLink();
+      persistSessionFilters();
+      update_containers();
+    });
+
+    $('form.b-report-filter a.clear-filters').on('click', function () {
+      clearCommonFilters();
+      clearContainerFilters();
+      $('#city').prop('disabled', true);
+      $('#container').val('');
+      initDateRange('date_day', true);
+      toggleDeviceFiltersAvailability(true);
+      if (additionalFilterCleanup) additionalFilterCleanup();
+      initContainerMapLink();
+      sessionFilters = {};
+      persistSessionFilters();
+      update_containers();
+    });
+  }
+</script>

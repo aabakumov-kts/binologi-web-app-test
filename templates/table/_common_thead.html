@@ -1,0 +1,19 @@
+{% load i18n %}
+
+<thead {% if table.opts.thead_attrs %}{{ table.opts.thead_attrs }}{% endif %}>
+    {% for row in table.header_rows %}
+        <tr>
+            {% for header in row %}
+                <th {% if header.attrs %}{{ header.attrs }}{% endif %}>
+                    <div>
+                        <div class="ellipsis">{% trans header.text|capfirst %}</div>
+                        {% if header.append_template %}
+                            {% include header.append_template %}
+                        {% endif %}
+                        <div class="resize">&nbsp;</div>
+                    </div>
+                </th>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</thead>

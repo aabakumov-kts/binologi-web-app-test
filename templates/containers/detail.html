@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+{% load i18n uac static l10n %}
+
+{% block content %}
+    <div class="generic-detail-page container-detail-page">
+        <h1>{% trans 'container details'|capfirst %}</h1>
+        <h3>{{ title|capfirst }} <strong>{{ object.serial_number }}</strong></h3>
+        <div class="map-container"></div>
+        <div class="details-flex">
+            <div class="bin-image-container">
+                {% if separation_station_2 %}
+                    <img src="{% static 'images/separation-station-2.png' %}" alt="" />
+                {% elif separation_station_3 %}
+                    <img src="{% static 'images/separation-station-3.png' %}" alt="" />
+                {% elif indoor_tv %}
+                    <img src="{% static 'images/indoor-tv-bin.png' %}" alt="" />
+                {% else %}
+                    <img src="{% static 'images/single-bin.png' %}" alt="" />
+                {% endif %}
+            </div>
+            <dl>
+                {% if request.uac.is_superadmin %}
+                    <dt>{% trans 'client'|capfirst %}</dt>
+                    <dd>{{ object.company }}</dd>
+                {% endif %}
+                <dt>{% trans 'country'|capfirst %}</dt>
+                <dd>{{ object.country }}</dd>
+                <dt>{% trans 'city'|capfirst %}</dt>
+                <dd>{{ object.city }}</dd>
+                <dt>{% trans 'address'|capfirst %}</dt>
+                <dd>{{ object.address|default:_("unspecified") }}</dd>
+                <dt>
+                    <span>{% trans 'sector'|capfirst %}</span>
+                    {% include 'info_buttons/sector.html' %}
+                </dt>
+                <dd>{{ object.sector }}</dd>
+            </dl>
+            <dl>
+                <dt>
+                    <span>{% trans 'bin type'|capfirst %}</span>
+                    {% include 'info_buttons/bin_equipment.html' %}
+                </dt>
+                <dd>{{ bin_type_description }}</dd>
+                <dt>
+                    <span>{% trans 'waste type'|capfirst %}</span>
+                    {% include 'info_buttons/waste_types.html' %}
+                </dt>
+                <dd>{{ object.waste_type }}</dd>
+                {% if object.is_master %}
+                    <dt>{% trans 'phone number'|capfirst %}</dt>
+                    <dd>{{ object.phone_number }}</dd>
+                {% endif %}
+                <dt>{% trans 'start of use'|capfirst %}</dt>
+                <dd>{{ object.ctime|date:'m.Y' }}</dd>
+                <dt>{% trans 'warranty period'|capfirst %}</dt>
+                <dd>{% trans '3 years' %}</dd>
+            </dl>
+        </div>
+        <p>{# This is a spacer #}</p>
+        <p>
+            <span>{{ collection_stats_summary }}</span>
+            {% if last_collection_info %}
+                <span>{{ last_collection_info }}</span>
+            {% endif %}
+        </p>
+        {% if trash_recv_stats_summary %}
+            <p>{{ trash_recv_stats_summary }}</p>
+        {% endif %}
+        <div class="status-icons-panel">
+            {% if low_battery_level %}
+                <p class=""><img src="{{ low_battery_level_icon_url }}" alt="" /> {% trans 'low battery level'|capfirst %}</p>
+            {% endif %}
+            {% if any_active_routes %}
+                <p><img src="{{ bin_on_route_icon_url }}" alt="" /> {% trans 'currently on route to be collected'|capfirst %}</p>
+            {% endif %}
+        </div>
+        <hr/>
+        <h3>{% trans 'sensors'|capfirst %}</h3>
+        {% include 'containers/_sensors.html' %}
+        <hr/>
+        {# Following section is commented out because there's no info ready yet to be displayed #}
+{#        <h3>{% trans 'model description'|capfirst %}</h3>#}
+{#        TODO: Replace with actual model description #}
+{#        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse scelerisque urna eu feugiat fermentum.#}
+{#            Sed risus dolor, dapibus eu erat non, sagittis suscipit erat. Aliquam erat volutpat. Nam in lorem in nulla#}
+{#            viverra facilisis a ut mi. Suspendisse sed turpis sit amet diam consequat viverra sit amet in sapien.#}
+{#            Proin feugiat quis lectus eget placerat. Cras neque mi, finibus eget pretium at, blandit vitae eros.#}
+{#            Aliquam blandit justo a ex dictum, vitae bibendum nisl blandit. Praesent et aliquet augue.#}
+{#            Proin id tempus odio. Donec a nulla dolor. Class aptent taciti sociosqu ad litora torquent per conubia#}
+{#            nostra, per inceptos himenaeos.#}
+{#            <a href="{% trans 'binology_com_url' %}" target="_blank">{% trans 'detail'|capfirst %}</a>#}
+{#        </p>#}
+{#        <h4>{% trans 'standard options'|capfirst %}</h4>#}
+{#        <div class="option-info">#}
+{#            <img src="{% static 'images/lock.png' %}" alt="" />#}
+{#            <span>{% trans 'anti-vandal sensor'|capfirst %}</span>#}
+{#        </div>#}
+{#        <div class="option-info">#}
+{#            <img src="{% static 'images/data-exchange.png' %}" alt="" />#}
+{#            <span>{% trans 'GSM data exchange'|capfirst %}</span>#}
+{#        </div>#}
+{#        <div class="option-info">#}
+{#            <img src="{% static 'images/weather-station.png' %}" alt="" />#}
+{#            <span>{% trans 'weather station'|capfirst %}</span>#}
+{#        </div>#}
+{#        <h4>{% trans 'additional options'|capfirst %}</h4>#}
+{#        <div class="option-info">#}
+{#            <img src="{% static 'images/ash-tray.png' %}" alt="" />#}
+{#            <span>{% trans 'ash tray'|capfirst %}</span>#}
+{#        </div>#}
+{#        <div class="option-info">#}
+{#            <img src="{% static 'images/dog-dispenser.png' %}" alt="" />#}
+{#            <span>{% trans 'dispenser for dogs'|capfirst %}</span>#}
+{#        </div>#}
+{#        <hr/>#}
+        <p>
+            <a
+                href="{% url 'containers:update' object.id %}?returnTo={% url 'containers:detail' object.id %}"
+                class="btn btn-primary">
+                {% trans 'settings'|capfirst %}
+            </a>
+        </p>
+    </div>
+{% endblock %}
+
+{% block js %}
+    {% get_current_language as lang %}
+    <script
+        defer
+        src="https://maps.googleapis.com/maps/api/js?key={{ maps_api_key }}&callback=initMap&language={{ lang }}">
+    </script>
+    <script type="text/javascript">
+        var binPosition = {
+          lat: {{ object.location.y|unlocalize }},
+          lng: {{ object.location.x|unlocalize }},
+        };
+    </script>
+    <script src="{% static 'js/bin-details.js' %}"></script>
+{% endblock %}

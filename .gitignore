@@ -1,0 +1,9 @@
+.venv*/
+*.log
+.idea/
+static/external/
+static_root/
+.env
+*.mo
+raw-profiler-data/*.prof
+raw-profiler-data/*.pstat

@@ -1,0 +1,44 @@
+{% load i18n %}
+
+<span class="close-icon">+</span>
+<p>
+{% if current_week_effectiveness %}
+    {% include 'main/efficiency_monitor/_item_status.html' with percentage=current_week_effectiveness only %}
+    {% blocktrans %}Last week collection efficiency {{ current_week_effectiveness }}%{% endblocktrans %}
+    {% if effectiveness_diff != 0 %}
+        ({% if effectiveness_diff > 0 %}
+            <i class="fas fa-angle-double-up"></i>
+        {% elif effectiveness_diff < 0 %}
+            <i class="fas fa-angle-double-down"></i>
+        {% endif %}
+        {% blocktrans %}{{ effectiveness_diff }}% in comparison to previous week{% endblocktrans %})
+    {% endif %}
+{% else %}
+    <span class="item-status"><i class="fas fa-square status-unknown"></i></span>
+    {% trans 'There were no collections last week' %}
+{% endif %}
+</p>
+<p>
+    {% include 'main/efficiency_monitor/_item_status.html' with percentage=filled_bins_percent inverse=True only %}
+    {% blocktrans count bins_count=filled_bins_count %}
+        One bin ({{ filled_bins_percent }}%) has fill-level more than 80%
+    {% plural %}
+        {{ bins_count }} bins ({{ filled_bins_percent }}%) have fill-level more than 80%
+    {% endblocktrans %}
+</p>
+<p>
+    {% include 'main/efficiency_monitor/_item_status.html' with percentage=bins_without_collection_percent inverse=True only %}
+    {% blocktrans count bins_count=bins_without_collection_count %}
+        One bin ({{ bins_without_collection_percent }}%) without collection in last 4 weeks
+    {% plural %}
+        {{ bins_count }} bins ({{ bins_without_collection_percent }}%) without collection in last 4 weeks
+    {% endblocktrans %}
+</p>
+<p>
+    {% include 'main/efficiency_monitor/_item_status.html' with percentage=bins_with_errors_percent inverse=True only %}
+    {% blocktrans count bins_count=bins_with_errors_count %}
+        One bin ({{ bins_with_errors_percent }}%) work with issues
+    {% plural %}
+        {{ bins_count }} bins ({{ bins_with_errors_percent }}%) work with issues
+    {% endblocktrans %}
+</p>

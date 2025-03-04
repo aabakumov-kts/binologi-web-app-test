@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<django-objects version="1.0">
+    <object model="sensors.errortype" pk="1">
+        <field name="code" type="IntegerField">2</field>
+        <field name="title" type="CharField">Temperature is too high, probably fire</field>
+        <field name="title_ru" type="CharField">Высокая температура, вероятно пожар</field>
+    </object>
+    <object model="sensors.errortype" pk="2">
+        <field name="code" type="IntegerField">1</field>
+        <field name="title" type="CharField">Shock or tipping over detected</field>
+        <field name="title_ru" type="CharField">Обнаружен удар или опрокидывание</field>
+    </object>
+</django-objects>

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load i18n core_tags %}
+
+{% block content %}
+    <h3>{% trans "companies"|capfirst %}</h3>
+
+    {% include '_alerts.html' %}
+
+    <div class="">
+        {% if request.uac.is_superadmin %}
+            <a class="b-table-add" href="{% url 'companies:add' %}">
+                {% trans "add company"|capfirst %}</a>
+        {% endif %}
+
+        {% render_table_with_django2_compat companies %}
+    </div>
+{% endblock %}

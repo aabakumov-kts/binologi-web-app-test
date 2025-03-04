@@ -1,0 +1,20 @@
+{% load i18n %}
+
+
+<div class="b-maps-filter b-maps-filter--{{ filter.name }}{% if not filter.enabled %} b-maps-filter--disabled{% endif %}"
+     id="{{ filter.name }}">
+    <div class="b-maps-filter-button">
+        <i class="b-maps-filter-icon"></i>{% trans 'errors'|capfirst %}</div>
+    {% if filter.enabled %}
+        <div class="b-maps-filter-grouper">
+            <div class="b-maps-filter-group open-permanently">
+                <div class="b-maps-filter-group-header" style="display: none;"></div>
+                <ul class="b-maps-filter-content">
+                    {% for item in filter.options %}
+                        <li data-id="{{ item.pk }}">{{ item.title }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    {% endif %}
+</div>

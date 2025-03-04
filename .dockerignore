@@ -1,0 +1,7 @@
+.venv
+.git
+Dockerfile
+create-release-info.sh
+raw-profiler-data
+clear-raw-profiler-data.sh
+docker-compose.yml

@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load i18n core_tags humanize %}
+
+{% block content %}
+    <div class="generic-detail-page">
+        <h1>{% trans 'route details'|capfirst %}</h1>
+        <h3><strong>{{ object }}</strong></h3>
+        <div class="details-flex">
+            <dl>
+                <dt>{% trans 'driver'|capfirst %}</dt>
+                <dd>{{ object.user.username }}</dd>
+                <dt>{% trans 'route created'|capfirst %}</dt>
+                <dd>{{ object.ctime|date:'SHORT_DATETIME_FORMAT' }}</dd>
+                <dt>{% trans 'status'|capfirst %}</dt>
+                <dd>{{ object.humanized_status }}</dd>
+            </dl>
+            {% if object.route_driver is not None %}
+                <dl>
+                    {% if object.route_driver.start_time %}
+                        <dt>{% trans 'route started'|capfirst %}</dt>
+                        <dd>{{ object.route_driver.start_time|date:'SHORT_DATETIME_FORMAT' }}</dd>
+                    {% endif %}
+                    {% if object.route_driver.finish_time %}
+                        <dt>{% trans 'route finished'|capfirst %}</dt>
+                        <dd>{{ object.route_driver.finish_time|date:'SHORT_DATETIME_FORMAT' }}</dd>
+                    {% endif %}
+                    {% if route_duration %}
+                        <dt>{% trans 'route duration'|capfirst %}</dt>
+                        <dd>{{ route_duration|smooth_timedelta }}</dd>
+                    {% endif %}
+                    {% if object.route_driver.track %}
+                        <dt>{% trans 'track'|capfirst %}</dt>
+                        <dd>{{ object.route_driver.track }}</dd>
+                    {% endif %}
+                    {% if object.route_driver.track_full %}
+                        <dt>{% trans 'track_full'|capfirst %}</dt>
+                        <dd>{{ object.route_driver.track_full }}</dd>
+                    {% endif %}
+                </dl>
+            {% endif %}
+        </div>
+        <hr />
+        <h2>{% trans 'route points'|capfirst %}</h2>
+        <div class="tablediv">
+            {% render_table_with_django2_compat points_table %}
+            <div class="clear-fix"></div>
+        </div>
+        {% if can_be_resent %}
+            <hr />
+            <form action="{% url 'routes:resend' object.pk %}" method="post">
+                {% csrf_token %}
+                <button class="btn btn-primary" type="submit">{% trans 'resend route'|capfirst %}</button>
+            </form>
+        {% endif %}
+    </div>
+{% endblock %}

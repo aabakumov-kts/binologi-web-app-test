@@ -1,0 +1,66 @@
+{% load i18n table_tags %}
+
+{% verbatim %}
+<div class="b-route-parameters-row">
+    <h3 class="b-route-parameters-name">{% endverbatim %}{% trans 'sensors'|capfirst %}{% verbatim %}</h3>
+    <div class="b-route-parameters-count">
+        {% endverbatim %}{% trans 'selected'|capfirst %}:{% verbatim %}
+            {{ filtered.length }}
+        <br>
+        {% endverbatim %}{% trans 'sectors'|capfirst %}:{% verbatim %}
+            {{ getSectors().length }}
+    </div>
+    <div class="b-route-parameters-comment">{% endverbatim %}{% trans 'edit sensors list'|capfirst %}{% verbatim %}</div>
+    <div  class="b-route-parameters-expand-container">
+        <button class="b-route-parameters-expand" v-on:click="setStep(0)" v-bind:class="{'selected-section' : isStep(0)}"></button>
+    </div>
+</div>
+<div v-show="isStep(0)">
+    <p v-show="boundsSpecified">
+        <label for="apply-bounds-checkbox">
+            <input id="apply-bounds-checkbox" type="checkbox" v-model="applyBounds" />
+            <span>{% endverbatim %}{% trans 'apply filtering by visible map area'|capfirst %}{% verbatim %}</span>
+        </label>
+    </p>
+    <p v-show="sectorsFilterSpecified">
+        <label for="apply-sectors-filter-checkbox">
+            <input id="apply-sectors-filter-checkbox" type="checkbox" v-model="applySectorsFilter" />
+            <span>{% endverbatim %}{% trans 'apply filtering by sectors'|capfirst %}{% verbatim %}</span>
+        </label>
+    </p>
+    <table class="b-route-table">
+        <tr>
+            {% endverbatim %}
+            <th>{% trans 'sensor'|capfirst %}</th>
+            <th>
+                <span>{% trans 'sector'|capfirst %}</span>
+                {% include 'info_buttons/sector.html' %}
+            </th>
+            <th>{% trans 'options'|capfirst %}</th>
+            {% verbatim %}
+        </tr>
+        <tr v-for="(sensor, index) in filtered">
+            <td>{{ sensor.serial_number }}</td>
+            <td>{{ sensor.sector.name }}</td>
+            <td>
+                <button class="b-route-remove-container" v-on:click="remove(index)">
+                    {% endverbatim %}{% trans 'remove'|capfirst %}{% verbatim %}
+                </button>
+            </td>
+        </tr>
+    </table>
+    <div class="b-route-add-container" v-show="heap.length > 0">
+        <div class="b-route-add-label">{% endverbatim %}{% trans 'add'|capfirst %} {% trans 'sensor'|capfirst %}{% verbatim %}</div>
+        <div class="b-route-select-container">
+            <select class="b-route-select" v-model="selected">
+                <option v-for="(sensor, index) in heap" v-bind:value="index">
+                    {{ sensor.serial_number }}
+                </option>
+            </select>
+            <div class="b-route-select-arrow"></div>
+        </div>
+        <button class="b-route-add" v-on:click="add()">{% endverbatim %}{% trans 'add'|capfirst %}</button>
+    </div>
+    {% verbatim %}
+    <button class="b-route-next" v-on:click="setStep(1)">{% endverbatim %}{% trans 'next'|capfirst %}</button>
+</div>

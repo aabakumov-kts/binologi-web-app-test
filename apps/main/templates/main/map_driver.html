@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load i18n static uac %}
+
+{% block extrahead %}
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+{% endblock %}
+
+{% block content %}
+    <div id="map"></div>
+    <div id="map-google-js"></div>
+
+    <section id="b-container-card" class="b-container-card">
+    </section>
+
+    <div id="raphaelDiv" style="display: none"></div>
+    {% include 'main/_notifications_button.html' with id_value='mobileOpenNotificationsButton' %}
+{% endblock %}
+
+{% block footer %}
+    <div class="sticky-footer-container">
+        {% include '_footer.html' %}
+    </div>
+{% endblock %}
+
+{% block js %}
+    {% get_current_language as lang %}
+    <script src="{% static 'third-party-js/markerclustererplus.min.js' %}"></script>
+    <script
+        defer
+        src="https://maps.googleapis.com/maps/api/js?libraries=drawing&key={{ maps_api_key }}&callback=initMap&language={{ lang }}">
+    </script>
+    {% if debug %}
+        <script src="{% static 'external/raphael/raphael.js' %}"></script>
+    {% else %}
+        <script src="{% static 'external/raphael/raphael.min.js' %}"></script>
+    {% endif %}
+    <script src="{% static 'third-party-js/raphael.export.js' %}"></script>
+    <script type="text/javascript">
+        var mapPositioning = {{ map_positioning|safe }};
+        var lowBatteryIconUrl = '{{ low_battery_level_icon_url }}';
+        var binOnRouteIconUrl = '{{ bin_on_route_icon_url }}';
+        var warningIconUrl = '{{ warning_icon_url }}';
+        var clusterImagesUrls = [
+          '{% static 'images/cluster1.png' %}',
+          '{% static 'images/cluster2.png' %}',
+          '{% static 'images/cluster3.png' %}',
+          '{% static 'images/cluster4.png' %}',
+          '{% static 'images/cluster5.png' %}',
+        ];
+        var fetchTrashbins = {{ is_trashbin_company|lower }};
+        var fetchSensors = {{ is_sensor_company|lower }};
+    </script>
+    <script src="{% static 'js/map/utils.js' %}"></script>
+    <script src="{% static 'js/map/draw.js' %}"></script>
+    <script src="{% static 'js/map/print.js' %}"></script>
+    <script src="{% static 'js/map/cards.js' %}"></script>
+    <script src="{% static 'js/map/main.js' %}"></script>
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+    <script>
+        window.OneSignal = window.OneSignal || [];
+        var initSettings = {
+          appId: '{{ onesignal_app_id }}',
+          welcomeNotification: {
+            disable: true,
+          },
+          notifyButton: {
+            enable: false,
+          },
+        };
+        {% if debug %}
+          initSettings.allowLocalhostAsSecureOrigin = true;
+        {% endif %}
+        var autoShowSubscriptionModal = true;
+        OneSignal.push(function() {
+          OneSignal.init(initSettings);
+        });
+        OneSignal.push(function() {
+          OneSignal.setExternalUserId("{{ user.pk }}");
+        });
+    </script>
+    <script src="{% static 'js/notifications-settings.js' %}"></script>
+{% endblock %}

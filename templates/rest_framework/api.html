@@ -1,0 +1,31 @@
+{% extends "rest_framework/base.html" %}
+
+{% load rest_framework %}
+
+{% block title %}
+    {% if name %}{{ name }} – {% endif %}Binology SmartCity Management REST API
+{% endblock %}
+
+{% block branding %}
+    <a class='navbar-brand' href="{% url 'api-root' %}">
+        Binology SmartCity Management REST API
+    </a>
+{% endblock %}
+
+{% block breadcrumbs %}
+    {% url 'api-root' as api_root_url %}
+    <ul class="breadcrumb">
+        {% if breadcrumblist %}
+            <li><a href="{{ api_root_url }}">Api Root</a></li>
+            {% for breadcrumb_name, breadcrumb_url in breadcrumblist %}
+                {% if forloop.last %}
+                    <li class="active"><a href="{{ breadcrumb_url }}">{{ breadcrumb_name }}</a></li>
+                {% else %}
+                    <li><a href="{{ breadcrumb_url }}">{{ breadcrumb_name }}</a></li>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <li class="active"><a href="{{ api_root_url }}">Api Root</a></li>
+        {% endif %}
+    </ul>
+{% endblock %}

@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+{% load i18n static %}
+
+{% block extrahead %}
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta id="token" value="{{ csrf_token }}">
+{% endblock %}
+
+{% block top_nav %}{% endblock %}
+
+{% block content %}
+    <div id="onboardSensorAppContainer">
+        <app :sensor-already-registered="{{ sensor_already_registered|lower }}"
+            :sensor-available="{{ sensor_available|lower }}" :user-authenticated="{{ user_authenticated|lower }}"
+            :container-types="containerTypes" :mount-types="mountTypes" :waste-types="wasteTypes">
+        </app>
+    </div>
+{% endblock %}
+
+{% block footer %}{% endblock %}
+
+{% block js %}
+    <script id="app-template" type="text/x-template">
+        <div>
+            <h1>{% trans 'sensor registration'|capfirst %}</h1>
+            <div v-if="isStep(0)">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <p>{% trans 'You are about to register the sensor with the following serial number:' %}</p>
+                    </div>
+                    <div class="panel-body">
+                        <h2>{{ sensor_serial }}</h2>
+                    </div>
+                </div>
+                <div v-if="!userAuthenticated" class="unauthenticated-panel">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <p>{% trans 'To proceed please log in into system using credentials received from your administrator:' %}</p>
+                        </div>
+                        <div class="panel-body">
+                            <p><a class="btn btn-primary" href="{% url 'main:home' %}?next={{ return_url }}">
+                                {% trans "Log In" %}
+                            </a></p>
+                        </div>
+                    </div>
+                    <div class="panel panel-warning">
+                        <div class="panel-heading">
+                            <p>{% trans 'If your company is not yet registered in the system please register first:' %}</p>
+                        </div>
+                        <div class="panel-body">
+                            <p><a class="btn btn-warning" href="{% url 'main:register-company' %}?next={{ return_url }}">
+                                {% trans "Register" %}
+                            </a></p>
+                        </div>
+                    </div>
+                </div>
+                <div v-if="userAuthenticated">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <p>{% trans 'Against the following company:' %}</p>
+                        </div>
+                        <div class="panel-body">
+                            <h2>{{ company_name }}</h2>
+                        </div>
+                    </div>
+                    <div v-if="sensorAlreadyRegistered">
+                        <div class="alert alert-success" role="alert">
+                            <h3>{% trans 'This sensor is already registered against this company' %}</h3>
+                        </div>
+                        <br>
+                        <p>{% trans 'To register another sensor open URL from the QR code on it using this very device.' %}</p>
+                        <p><i class="fas fa-qrcode"></i></p>
+                        <p><a href="{% url 'main:map' %}" target="_self">{% trans 'Or view the map' %}</a></p>
+                    </div>
+                    <div v-if="!sensorAlreadyRegistered">
+                        <div v-if="!sensorAvailable" class="alert alert-danger" role="alert">
+                            <p>{% trans 'There is no sensor with such serial number or it was already registered.' %}</p>
+                        </div>
+                        <p v-if="!sensorAvailable">
+                            {% trans "If you think it's a mistake please contact our customer support service." %}
+                        </p>
+                        <div v-if="sensorAvailable" class="alert alert-warning" role="alert">
+                            <p>{% trans 'Attention! This operation can be done once per sensor! Do you want to proceed?' %}</p>
+                        </div>
+                        <p v-if="sensorAvailable" class="button-container">
+                            <button class="btn btn-primary btn-lg" v-on:click="setStep(1)">{% trans 'register'|capfirst %}</button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div v-if="isStep(1)">
+                <p>{% trans 'Please provide additional info about container sensor is installed in.' %}</p>
+                <div class="form-group">
+                    <label class="control-label" for="container_type">{% trans 'container type'|capfirst %}</label>
+                    {% verbatim %}
+                    <select name="container_type" class="form-control" id="container_type" v-model="containerTypeSelected">
+                        <option v-for="ct in containerTypes" v-bind:value="ct.id">
+                            {{ ct.description }}
+                        </option>
+                    </select>
+                    {% endverbatim %}
+                </div>
+                <p>
+                    <i class="far fa-question-circle"></i>
+                    <small>{% trans "If you don't see a suitable container type please contact our" %}</small>
+                    <a v-on:click="contactSupport()">{% trans "customer support service." %}</a>
+                </p>
+                <div class="form-group">
+                    <label class="control-label" for="waste_type">{% trans 'waste type'|capfirst %}</label>
+                    {% verbatim %}
+                    <select name="waste_type" class="form-control" id="waste_type" v-model="wasteTypeSelected">
+                        <option v-for="wt in wasteTypes" v-bind:value="wt.id">
+                            {{ wt.title }}
+                        </option>
+                    </select>
+                    {% endverbatim %}
+                </div>
+                <p>
+                    <i class="far fa-question-circle"></i>
+                    <small>{% trans "To learn more about waste type check out corresponding article in" %}</small>
+                    <a href="{% trans 'helpdesk_article_url_waste_types' %}" target="_blank">{% trans "our knowledge bage." %}</a>
+                </p>
+                <div class="form-group">
+                    <label class="control-label" for="mount_type">{% trans 'mount type'|capfirst %}</label>
+                    {% verbatim %}
+                    <select name="mount_type" class="form-control" id="mount_type" v-model="mountTypeSelected">
+                        <option v-for="mt in mountTypes" v-bind:value="mt.id">
+                            {{ mt.title }}
+                        </option>
+                    </select>
+                    {% endverbatim %}
+                </div>
+                <p v-if="!isLoading" class="button-container">
+                    <button class="btn btn-primary btn-lg" v-on:click="registerSensor()">{% trans 'save'|capfirst %}</button>
+                </p>
+                <p v-if="isLoading" class="button-container text-success">
+                    {% trans 'loading'|capfirst %}
+                </p>
+                <div v-if="sendFailed" class="alert alert-danger" role="alert">
+                    {% trans 'Failed to register sensor.' %}
+                    {% trans 'please try again or contact our customer support service.'|capfirst %}
+                </div>
+            </div>
+            <div v-if="isStep(2)">
+                <h2>{% trans 'Congratulations!' %}</h2>
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <p>{% trans 'You successfully registered sensor with the following serial number:' %}</p>
+                    </div>
+                    <div class="panel-body">
+                        <h2>{{ sensor_serial }}</h2>
+                    </div>
+                </div>
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <p>{% trans 'Against the following company:' %}</p>
+                    </div>
+                    <div class="panel-body">
+                        <h2>{{ company_name }}</h2>
+                    </div>
+                </div>
+                <p>{% trans 'To register another sensor open URL from the QR code on it using this very device.' %}</p>
+                <p><i class="fas fa-qrcode"></i></p>
+                <p><a href="{% url 'main:map' %}" target="_self">{% trans 'Or view the map' %}</a></p>
+            </div>
+        </div>
+    </script>
+    {{ container_types|json_script:'container-types' }}
+    {{ mount_types|json_script:'mount-types' }}
+    {{ waste_types|json_script:'waste-types' }}
+    <script src="{% static 'js/onboard-sensor.js' %}"></script>
+{% endblock %}

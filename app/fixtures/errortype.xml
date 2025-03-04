@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<django-objects version="1.0">
+    <object model="app.errortype" pk="14">
+        <field name="equipment" rel="ManyToOneRel" to="app.equipment">6</field>
+        <field name="code" type="CharField">1</field>
+        <field name="title" type="CharField">Door opened</field>
+        <field name="title_ru" type="CharField">Открыта передняя дверь</field>
+    </object>
+    <object model="app.errortype" pk="15">
+        <field name="equipment" rel="ManyToOneRel" to="app.equipment">6</field>
+        <field name="code" type="CharField">2</field>
+        <field name="title" type="CharField">Rear door open</field>
+        <field name="title_ru" type="CharField">Открыта задняя дверь</field>
+    </object>
+    <object model="app.errortype" pk="16">
+        <field name="equipment" rel="ManyToOneRel" to="app.equipment">6</field>
+        <field name="code" type="CharField">3</field>
+        <field name="title" type="CharField">Service door open</field>
+        <field name="title_ru" type="CharField">Открыта сервисная дверь</field>
+    </object>
+    <object model="app.errortype" pk="17">
+        <field name="equipment" rel="ManyToOneRel" to="app.equipment">6</field>
+        <field name="code" type="CharField">4</field>
+        <field name="title" type="CharField">Left side door open</field>
+        <field name="title_ru" type="CharField">Открыта левая боковая панель</field>
+    </object>
+    <object model="app.errortype" pk="18">
+        <field name="equipment" rel="ManyToOneRel" to="app.equipment">6</field>
+        <field name="code" type="CharField">5</field>
+        <field name="title" type="CharField">Right side door open</field>
+        <field name="title_ru" type="CharField">Открыта правая боковая панель</field>
+    </object>
+
+    <object model="app.errortype" pk="19">
+        <field name="equipment" rel="ManyToOneRel" to="app.equipment">2</field>
+        <field name="code" type="CharField">6</field>
+        <field name="title" type="CharField">Trash reciever open</field>
+        <field name="title_ru" type="CharField">Открыт мусороприемник</field>
+    </object>
+    <object model="app.errortype" pk="20">
+        <field name="equipment" rel="ManyToOneRel" to="app.equipment">2</field>
+        <field name="code" type="CharField">7</field>
+        <field name="title" type="CharField">No trash bin</field>
+        <field name="title_ru" type="CharField">Отсутствует БО</field>
+    </object>
+    <object model="app.errortype" pk="21">
+        <field name="equipment" rel="ManyToOneRel" to="app.equipment">2</field>
+        <field name="code" type="CharField">8</field>
+        <field name="title" type="CharField">Fire</field>
+        <field name="title_ru" type="CharField">Зафиксировано задымление</field>
+    </object>
+    <object model="app.errortype" pk="22">
+        <field name="equipment" rel="ManyToOneRel" to="app.equipment">2</field>
+        <field name="code" type="CharField">9</field>
+        <field name="title" type="CharField">Hight temp</field>
+        <field name="title_ru" type="CharField">Превышение допустимой температуры внутри УБО</field>
+    </object>
+
+    <object model="app.errortype" pk="23">
+        <field name="equipment" rel="ManyToOneRel" to="app.equipment">3</field>
+        <field name="code" type="CharField">14</field>
+        <field name="title" type="CharField">Motor error</field>
+        <field name="title_ru" type="CharField">Ошибка работы мотора</field>
+    </object>
+    <object model="app.errortype" pk="24">
+        <field name="equipment" rel="ManyToOneRel" to="app.equipment">3</field>
+        <field name="code" type="CharField">15</field>
+        <field name="title" type="CharField">Cycles over</field>
+        <field name="title_ru" type="CharField">Превышено количество циклов прессования</field>
+    </object>
+
+    <object model="app.errortype" pk="25">
+        <field name="equipment" rel="ManyToOneRel" to="app.equipment">1</field>
+        <field name="code" type="CharField">18</field>
+        <field name="title" type="CharField">Low charge</field>
+        <field name="title_ru" type="CharField">Низкий уровень заряда АКБ</field>
+    </object>
+
+    <object model="app.errortype" pk="26">
+        <field name="equipment" rel="ManyToOneRel" to="app.equipment">9</field>
+        <field name="code" type="CharField">19</field>
+        <field name="title" type="CharField">No provider</field>
+        <field name="title_ru" type="CharField">Отсутствует связь с сотовым оператором</field>
+    </object>
+    <object model="app.errortype" pk="27">
+        <field name="equipment" rel="ManyToOneRel" to="app.equipment">9</field>
+        <field name="code" type="CharField">20</field>
+        <field name="title" type="CharField">GSM Error</field>
+        <field name="title_ru" type="CharField">Неисправность GSM / GPRS модуля</field>
+    </object>
+    <object model="app.errortype" pk="28">
+        <field name="equipment" rel="ManyToOneRel" to="app.equipment">9</field>
+        <field name="code" type="CharField">23</field>
+        <field name="title" type="CharField">GPS/Glonass</field>
+        <field name="title_ru" type="CharField">Неисправность GPS / Глонасс модуля</field>
+    </object>
+    <object model="app.errortype" pk="30">
+        <field name="equipment" rel="ManyToOneRel" to="app.equipment">9</field>
+        <field name="code" type="CharField">25</field>
+        <field name="title" type="CharField">No server</field>
+        <field name="title_ru" type="CharField">Отсутствует связь с удаленным сервером</field>
+    </object>
+
+    <object model="app.errortype" pk="29">
+        <field name="equipment" rel="ManyToOneRel" to="app.equipment">10</field>
+        <field name="code" type="CharField">24</field>
+        <field name="title" type="CharField">Vandalism</field>
+        <field name="title_ru" type="CharField">Зафиксированы вандальные действия</field>
+    </object>
+    <object model="app.errortype" pk="31">
+        <field name="equipment" rel="ManyToOneRel" to="app.equipment">10</field>
+        <field name="code" type="CharField">26</field>
+        <field name="title" type="CharField">Config error</field>
+        <field name="title_ru" type="CharField">Ошибка конфигурацинного файла</field>
+    </object>
+    <object model="app.errortype" pk="32">
+        <field name="equipment" rel="ManyToOneRel" to="app.equipment">10</field>
+        <field name="code" type="CharField">27</field>
+        <field name="title" type="CharField">Runtime error</field>
+        <field name="title_ru" type="CharField">Ошибка в ходе работы программы</field>
+    </object>
+</django-objects>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<django-objects version="1.0">
+    <object model="core.wastetype" pk="1">
+        <field name="title" type="CharField">Mix</field>
+        <field name="code" type="CharField">TRA</field>
+        <field name="title_ru" type="CharField">Обычный мусор</field>
+        <field name="density" type="FloatField">0.15</field>
+    </object>
+    <object model="core.wastetype" pk="3">
+        <field name="title" type="CharField">Plastic</field>
+        <field name="code" type="CharField">PL</field>
+        <field name="title_ru" type="CharField">Пластик</field>
+        <field name="density" type="FloatField">0.07</field>
+    </object>
+    <object model="core.wastetype" pk="6">
+        <field name="title" type="CharField">Mixed Paper</field>
+        <field name="code" type="CharField">PAP</field>
+        <field name="title_ru" type="CharField">Картон и бумага</field>
+        <field name="density" type="FloatField">0.11</field>
+    </object>
+    <object model="core.wastetype" pk="10">
+        <field name="title" type="CharField">Raw Garbage - type #1</field>
+        <field name="code" type="CharField">RAW1</field>
+        <field name="title_ru" type="CharField">Вторичное сырье - тип №1</field>
+        <field name="density" type="FloatField">0.094</field>
+    </object>
+    <object model="core.wastetype" pk="11">
+        <field name="title" type="CharField">Raw Garbage - type #2</field>
+        <field name="code" type="CharField">RAW2</field>
+        <field name="title_ru" type="CharField">Вторичное сырье - тип №2</field>
+        <field name="density" type="FloatField">0.076</field>
+    </object>
+</django-objects>

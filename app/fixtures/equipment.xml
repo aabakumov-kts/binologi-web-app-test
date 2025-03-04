@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<django-objects version="1.0">
+    <object model="app.equipment" pk="1">
+        <field name="title" type="CharField">Battery</field>
+        <field name="title_ru" type="CharField">Аккумулятор</field>
+    </object>
+    <object model="app.equipment" pk="2">
+        <field name="title" type="CharField">Recycle Bin</field>
+        <field name="title_ru" type="CharField">Корзина для сбора</field>
+    </object>
+    <object model="app.equipment" pk="3">
+        <field name="title" type="CharField">Engine</field>
+        <field name="title_ru" type="CharField">Двигатель</field>
+    </object>
+    <object model="app.equipment" pk="6">
+        <field name="title" type="CharField">Door</field>
+        <field name="title_ru" type="CharField">Дверь</field>
+    </object>
+    <object model="app.equipment" pk="9">
+        <field name="title" type="CharField">Network</field>
+        <field name="title_ru" type="CharField">Связь</field>
+    </object>
+    <object model="app.equipment" pk="10">
+        <field name="title" type="CharField">Other</field>
+        <field name="title_ru" type="CharField">Разное</field>
+    </object>
+</django-objects>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>{% load analytics bootstrap3 i18n static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="robots" content="noindex, nofollow">
+
+    <title>{% block title %}Binology{% endblock %}</title>
+
+    <link rel="icon" href="{% static 'icons/favicon.ico' %}">
+    <link rel="shortcut icon" href="{% static 'icons/favicon.ico' %}">
+    <link rel="icon" sizes="256x256" href="{% static 'icons/logo-icon.png' %}">
+
+    <link rel="stylesheet"
+          href="{% static 'external/bootstrap/dist/css/bootstrap.min.css' %}">
+    <link rel="stylesheet"
+          href="{% static 'external/bootstrap-datepicker/css/bootstrap-datetimepicker.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+    {% block css %}{% endblock %}
+
+    {% if debug %}
+        <script src="{% static 'external/jquery/dist/jquery.js' %}"></script>
+        <script src="{% static 'external/bootstrap/dist/js/bootstrap.js' %}"></script>
+        <script src="{% static 'external/vue/dist/vue.js' %}"></script>
+        <script src="{% static 'external/vue-resource/dist/vue-resource.js' %}"></script>
+        <script src="{% static 'external/bootstrap-datepicker/js/bootstrap-datetimepicker.js' %}"></script>
+        <script src="{% static 'third-party-js/lodash.js' %}"></script>
+    {% else %}
+        <script src="{% static 'external/jquery/dist/jquery.min.js' %}"></script>
+        <script src="{% static 'external/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'external/vue/dist/vue.min.js' %}"></script>
+        <script src="{% static 'external/vue-resource/dist/vue-resource.min.js' %}"></script>
+        <script src="{% static 'external/bootstrap-datepicker/js/bootstrap-datetimepicker.min.js' %}"></script>
+        <script src="{% static 'third-party-js/lodash.min.js' %}"></script>
+    {% endif %}
+
+    <script src="{% static 'js/account.js' %}"></script>
+    <script src="{% static 'js/state-management.js' %}"></script>
+    <script src="{% static 'third-party-js/font-awesome.js' %}"></script>
+
+    {% if not debug %}
+        <script src="{% static 'third-party-js/sentry-5.27.3.min.js' %}"></script>
+    {% endif %}
+
+    <script src="{% static 'third-party-js/freshwidget.js' %}"></script>
+
+    {% block extrahead %}{% endblock %}
+</head>
+<body class="{{ body_class }}">
+    {% block top_nav %}
+        {% if is_sensor_company %}
+            {% include 'main/top_nav/sensors.html' %}
+        {% else %}
+            {# There's no hybrid option now #}
+            {% include 'main/top_nav/trashbins.html' %}
+        {% endif %}
+    {% endblock %}
+
+    {# TODO: This should be actually translated #}
+    {% if feedback_survey_enabled %}
+        <div class="alert alert-info alert-dismissible feedback-survey-top-cta" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="{% trans 'close'|capfirst %}">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            Help us make SaaS better! <a href="#" class="alert-link">Learn more</a>
+        </div>
+    {% endif %}
+
+    <div class="b-main-content">
+        {% block content %}{% endblock %}
+    </div>
+
+    {% block footer %}
+        {% include '_footer.html' %}
+    {% endblock %}
+
+    {% include '_modals.html' %}
+    {% if not debug %}
+        {% include 'support/sentry.html' %}
+    {% endif %}
+
+    {% if modal_to_display %}
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var modalToDisplay = '{{ modal_to_display }}';
+                $('#' + modalToDisplay + 'Modal').modal();
+            });
+        </script>
+    {% endif %}
+
+    <script type="text/javascript">
+        if (typeof $.fn.dataTable !== "undefined") {
+            $.fn.dataTable.ext.errMode = function() {
+                // Trying to reload current page since there's nothing we can do anyway.
+                // This also sorts out case of login redirect in case of expired session etc.
+                window.location.reload();
+            }
+        }
+
+        {% if feedback_survey_enabled %}
+            $(document).ready(function () {
+                var feedbackPopuKey = "binology:feedback-popup-showed";
+                function showFeedbackModal() {
+                    $('#feedbackSurveyModal').on('hidden.bs.modal', function () {
+                        localStorage.setItem(feedbackPopuKey, 'true');
+                    })
+                    $('#feedbackSurveyModal').modal();
+                }
+
+                var autoOpenHandle = undefined;
+                $('.feedback-survey-top-cta a').on('click', function () {
+                  if (autoOpenHandle) {
+                    clearTimeout(autoOpenHandle);
+                    autoOpenHandle = undefined;
+                  }
+                  showFeedbackModal();
+                });
+
+                if (localStorage.getItem(feedbackPopuKey)) return;
+                autoOpenHandle = setTimeout(() => {
+                    showFeedbackModal();
+                }, 60 * 1000);
+            });
+        {% endif %}
+    </script>
+
+    {% if request.user.is_authenticated %}
+        <script type="text/javascript">
+            var realtimeApiRootUrl = "{{ realtime_api_root_url }}";
+            var realtimeApiAuthToken = "{{ realtime_api_auth_token }}";
+        </script>
+        <script src="{% static 'js/notifications-fetch.js' %}"></script>
+    {% endif %}
+
+    {% block js %}{% endblock %}
+
+    {% render_tracking_code %}
+    {% include 'support/freshdesk.html' %}
+</body>
+</html>

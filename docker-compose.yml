@@ -1,0 +1,85 @@
+version: '3'
+
+services:
+  web-app:
+    image: binology-local/legacy-web-app
+
+    build:
+      context: .
+
+    ports:
+      - '8100:8000'
+
+    networks:
+     - main
+
+    environment:
+      DATABASE_URL: ${WEB_DB_URL}
+      REDIS_HOST: ${REDIS_HOST_NAME}
+      MQTT_BROKER_HOST: ${MQTT_BROKER_HOST}
+      MQTT_USERNAME: ${MQTT_USERNAME}
+      MQTT_PASSWORD: ${MQTT_PASSWORD}
+
+  real-time-api:
+    image: binology-local/legacy-web-app
+
+    command: ["daphne", "-b", "0.0.0.0", "-p", "8000", "--access-log", "-", "electrobin.asgi:application"]
+
+    ports:
+      - '8103:8000'
+
+    networks:
+     - main
+
+    environment:
+      DATABASE_URL: ${WEB_DB_URL}
+      REDIS_HOST: ${REDIS_HOST_NAME}
+      MQTT_BROKER_HOST: ${MQTT_BROKER_HOST}
+      MQTT_USERNAME: ${MQTT_USERNAME}
+      MQTT_PASSWORD: ${MQTT_PASSWORD}
+
+  celery-beat:
+    image: binology-local/legacy-web-app
+
+    command: ["celery", "beat", "-A", "electrobin", "-l", "info"]
+
+    networks:
+      - main
+
+    environment:
+      DATABASE_URL: ${WEB_DB_URL}
+      REDIS_HOST: ${REDIS_HOST_NAME}
+
+  celery-worker:
+    image: binology-local/legacy-web-app
+
+    command: ["celery", "worker", "-A", "electrobin", "-l", "info"]
+
+    networks:
+      - main
+
+    environment:
+      DATABASE_URL: ${WEB_DB_URL}
+      REDIS_HOST: ${REDIS_HOST_NAME}
+      MQTT_BROKER_HOST: ${MQTT_BROKER_HOST}
+      MQTT_USERNAME: ${MQTT_USERNAME}
+      MQTT_PASSWORD: ${MQTT_PASSWORD}
+
+  mqtt-listener:
+    image: binology-local/legacy-web-app
+
+    command: ["python", "apps/sensors/mqtt_listener.py", "${MQTT_BROKER_HOST}"]
+
+    networks:
+      - main
+
+    environment:
+      MQTT_USERNAME: ${MQTT_USERNAME}
+      MQTT_PASSWORD: ${MQTT_PASSWORD}
+      LOG_LEVEL: "DEBUG"
+      REDIS_HOST: ${REDIS_HOST_NAME}
+
+networks:
+  main:
+    external:
+      name: ${NETWORK_NAME}

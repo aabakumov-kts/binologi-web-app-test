@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load i18n core_tags %}
+
+{% block extrahead %}
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.dataTables.min.css">
+{% endblock %}
+
+{% block content %}
+    <h1>{% trans "notifications"|capfirst %}</h1>
+
+    {% include '_alerts.html' %}
+
+    <div class="notifications-table">
+        <a class="b-table-add alt-btn" href="{% url 'notifications_settings' %}">
+            {% trans 'notifications settings'|capfirst %}
+        </a>
+        <a class="b-table-add" href="{% url 'notifications_mark_all_read' %}">
+            {% trans "mark all as read"|capfirst %}
+        </a>
+
+        {% render_table_with_django2_compat notifications_table %}
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="https://cdn.datatables.net/responsive/2.2.6/js/dataTables.responsive.min.js"></script>
+{% endblock %}

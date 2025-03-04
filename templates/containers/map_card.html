@@ -1,0 +1,130 @@
+{% load i18n uac %}
+
+<h4>
+    <i class="b-container-card-previous"></i>
+    {% if shortened_version or not is_master %}
+        <span>{{ title|capfirst }} {{ object.serial_number }}</span>
+    {% else %}
+        <span>{{ title|capfirst }}
+            <select>
+                {% for item in container_nav_links %}
+                    <option value="{{ item.0 }}">{{ item.1 }}</option>
+                {% endfor %}
+            </select>
+        </span>
+    {% endif %}
+    <i class="b-container-card-next"></i>
+    <i class="b-container-card-close"></i>
+</h4>
+<div class="b-container-card-content-container">
+    <div class="b-container-card-section">
+        <h5>{% trans 'information'|capfirst %}</h5>
+        <div class="b-container-card-section-content">
+            <table>
+                {% if request.uac.is_superadmin %}
+                    <tr>
+                        <td>{% trans 'client'|capfirst %}</td>
+                        <td>{{ object.company }}</td>
+                    </tr>
+                {% endif %}
+                <tr>
+                    <td>{% trans 'country'|capfirst %}</td>
+                    <td>{{ object.country }}</td>
+                </tr>
+                <tr>
+                    <td>{% trans 'city'|capfirst %}</td>
+                    <td>{{ object.city }}</td>
+                </tr>
+                <tr>
+                    <td>{% trans 'address'|capfirst %}</td>
+                    <td>{{ object.address|default:_("unspecified") }}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>{% trans 'sector'|capfirst %}</span>
+                        {% include 'info_buttons/sector.html' %}
+                    </td>
+                    <td>{{ object.sector }}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>{% trans 'bin type'|capfirst %}</span>
+                        {% include 'info_buttons/bin_equipment.html' %}
+                    </td>
+                    <td>{{ object.container_type }}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>{% trans 'waste type'|capfirst %}</span>
+                        {% include 'info_buttons/waste_types.html' %}
+                    </td>
+                    <td>{{ object.waste_type }}</td>
+                </tr>
+                {% if object.is_master %}
+                    <tr>
+                        <td>{% trans 'phone number'|capfirst %}</td>
+                        <td>{{ object.phone_number }}</td>
+                    </tr>
+                {% endif %}
+            </table>
+            <p>
+                <span>{{ collection_stats_summary }}</span>
+                {% if last_collection_info %}
+                    <br />
+                    <span>{{ last_collection_info }}</span>
+                {% endif %}
+            </p>
+            {% if trash_recv_stats_summary %}
+                <p>{{ trash_recv_stats_summary }}</p>
+            {% endif %}
+            <div class="b-container-card-status-icons">
+                {% if any_active_errors %}
+                    <p><img src="{{ warning_icon_url }}" alt="" /> {% trans 'there are active errors'|capfirst %}</p>
+                {% endif %}
+                {% if low_battery_level %}
+                    <p><img src="{{ low_battery_level_icon_url }}" alt="" /> {% trans 'low battery level'|capfirst %}</p>
+                {% endif %}
+                {% if any_active_routes %}
+                    <p><img src="{{ bin_on_route_icon_url }}" alt="" /> {% trans 'currently on route to be collected'|capfirst %}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% if shortened_version %}
+        {% include 'containers/_errors_table.html' %}
+        {% include 'containers/_satellites.html' %}
+    {% endif %}
+    <div class="b-container-card-section">
+        <h5>{% trans 'sensors'|capfirst %}</h5>
+        <div class="b-container-card-section-content">
+            {% include 'containers/_sensors.html' with no_links=shortened_version %}
+        </div>
+    </div>
+    {% if not shortened_version %}
+        {% include 'containers/_errors_table.html' %}
+        {% include 'containers/_satellites.html' %}
+        <div class="b-container-card-section">
+            <h5>{% trans 'other reports'|capfirst %}</h5>
+            <div class="b-container-card-section-content collapsed">
+                <ul class="b-carddiv-elements-child">
+                    <li><a href="{% url "reports:trashbin:collection" %}?container={{ object.id }}">{% trans 'collection'|capfirst %}</a></li>
+                    {% if object.is_master %}
+                        <li><a href="{% url "reports:trashbin:errors" %}?container={{ object.id }}">{% trans 'errors'|capfirst %}</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        <div class="b-container-card-section">
+            <a href="#" class="add-to-route"><h5>{% trans 'add to itinerary list'|capfirst %}</h5></a>
+        </div>
+        {% check_feature_enabled feature_flag_model.FULLNESS_FORECAST as fullness_forecast_enabled %}
+        {% if fullness_forecast_enabled %}
+            <div class="b-container-card-section">
+                <a href="{% url "fullness-forecast:trashbin" object.id %}"><h5>{% trans 'fullness forecast'|capfirst %}</h5></a>
+            </div>
+        {% endif %}
+        <div class="b-container-card-section">
+            <a href="{% url 'containers:detail' object.id %}"><h5>{% trans 'detail'|capfirst %}</h5></a>
+        </div>
+    {% endif %}
+</div>

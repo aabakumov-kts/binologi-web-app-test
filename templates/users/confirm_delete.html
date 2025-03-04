@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+    <h1 class="page_header">{% trans 'confirm delete'|capfirst %}</h1>
+    <p><strong>{{ object }}</strong></p>
+    {% if deleting_self %}
+        <p>{% trans 'deleting_self_user_warning' %}</p>
+    {% endif %}
+    <form action="{% url 'users:delete' object.pk %}" method="post">
+        {% csrf_token %}
+        <p>
+            <button type="submit" {% if button_attrs %}{{ button_attrs }}{% endif %}>{% trans 'delete'|capfirst %}</button>
+        </p>
+    </form>
+    <p><a href="{% url 'users:list' %}">{% trans "back to list"|capfirst %}</a></p>
+{% endblock %}

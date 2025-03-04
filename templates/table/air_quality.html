@@ -1,0 +1,50 @@
+{% spaceless %}
+{% load i18n static %}
+
+{% include 'reports/_common_deps.html' %}
+{% include 'trashbins/reports/_common_js_api.html' %}
+
+{% include 'table/_common_switcher.html' %}
+
+<div id="table-container" style="display: none">
+    <table id={{ table.opts.id }} {{ table.opts.attrs }} cellpadding="0" cellspacing="0" border="0">
+        {% include 'table/_common_thead.html' %}
+        {% include 'table/_common_tbody.html' %}
+        {% include 'table/_common_tfoot.html' %}
+    </table>
+</div>
+
+<div id="air-quality-chart-wrapper">
+    <div id="chart-container" class="visible"></div>
+    {% include 'info_buttons/air_quality.html' %}
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    var table = undefined;
+
+    function update_containers() {
+      if ($('#table-container').hasClass('visible')) {
+        if (!table) table = createTable(prepare_query, "{% url "reports:air_quality_table_data" %}");
+        table.api().ajax.reload();
+      } else {
+        var column_chart_source = "{% url "reports:air_quality_chart_data" %}" + "?" + serialize(prepare_query({}));
+        updateFusionChart(fusionChartTypes.scrollStackedColumn, 'chart-container', column_chart_source);
+      }
+    }
+
+    addCommonEventHandlers(update_containers);
+    addTableChartSwitchEventHandlers(
+      update_containers,
+      function() {
+        $('#air-quality-chart-wrapper a.icon-button').hide();
+      },
+      function() {
+        $('#air-quality-chart-wrapper a.icon-button').show();
+      },
+    );
+    update_containers();
+  });
+</script>
+
+{% endspaceless %}

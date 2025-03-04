@@ -1,0 +1,17 @@
+{% load i18n %}
+
+<div class="b-maps-filter  b-maps-filter--{{ filter.name }}" id="{{ filter.name }}">
+    <div class="b-maps-filter-button">
+        <i class="b-maps-filter-icon"></i>
+        <span>{% trans 'waste type'|capfirst %}</span>
+        {% include 'info_buttons/waste_types.html' %}
+    </div>
+
+    <ul class="b-maps-filter-content">
+        {% for option in filter.options %}
+            <li data-id="{{ option.pk }}">
+                {% if option.code %}<b>{{ option.code }}</b>{% endif %}
+                {{ option.title }}</li>
+        {% endfor %}
+    </ul>
+</div>

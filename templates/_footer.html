@@ -1,0 +1,10 @@
+{% load i18n %}
+
+<footer>
+    <span>© 2016-{% now "Y" %}</span>
+    <a href="{% trans 'binology_com_url' %}" target="_blank">Binology</a>
+    <span class="bullet">•</span>
+    <a href="https://binology.freshdesk.com/support/home"
+       target="_blank"
+       rel="nofollow noindex noopener noreferrer">{% trans 'help and support center'|capfirst %}</a>
+</footer>

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load i18n core_tags %}
+
+{% block content %}
+    <h1>{% trans 'driver details'|capfirst %}</h1>
+    <dl>
+        <dt>{% trans 'username'|capfirst %}</dt>
+        <dd>{{ object.username }}</dd>
+        {% if comment %}
+            <dt>{% trans 'comment'|capfirst %}</dt>
+            <dd>{{ comment }}</dd>
+        {% endif %}
+        {% if request.uac.is_superadmin %}
+            <dt>{% trans 'company'|capfirst %}</dt>
+            <dd>{{ object.user_to_company.company }}</dd>
+        {% endif %}
+        <dt>{% trans 'any routes in progress?'|capfirst %}</dt>
+        {% if any_routes_in_progress %}
+            <dd>{% trans 'yes'|capfirst %}</dd>
+            <p><a href="{% url 'routes:list' %}">{% trans 'view routes journal'|capfirst %}</a></p>
+        {% else %}
+            <dd>{% trans 'no'|capfirst %}</dd>
+        {% endif %}
+        <dt>{% trans 'any unavailability period is active?'|capfirst %}</dt>
+        {% if any_period_active_now %}
+            <dd>{% trans 'yes'|capfirst %}</dd>
+        {% else %}
+            <dd>{% trans 'no'|capfirst %}</dd>
+        {% endif %}
+    </dl>
+    <h2>{% trans 'unavailability periods'|capfirst %}</h2>
+    {% include '_alerts.html' %}
+    <div class="tablediv">
+        <a class="b-table-add" href="{% url 'drivers:create_unavailability_period' object.id %}">
+            {% trans 'create'|capfirst %}
+        </a>
+        {% render_table_with_django2_compat availability_table %}
+    </div>
+{% endblock %}

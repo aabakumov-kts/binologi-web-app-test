@@ -1,0 +1,26 @@
+{% load i18n %}
+
+<div class="form-group">
+    <label for="waste_type">
+        <span>{% trans 'waste type'|capfirst %}</span>
+        {% include 'info_buttons/waste_types.html' %}
+    </label>
+    <select class="form-control b-report-select" id="waste_type" name="report_filter_waste_type">
+        <option value=""></option>
+        {% for item in waste_types %}
+            <option value="{{ item.id }}">{{ item.title }}</option>
+        {% endfor %}
+    </select><div class="b-report-select-arrow"></div>
+</div>
+<div class="form-group">
+    <label for="sector">
+        <span>{% trans 'sector'|capfirst %}</span>
+        {% include 'info_buttons/sector.html' %}
+    </label>
+    <select class="form-control b-report-select" id="sector" name="report_filter_sector">
+        <option value=""></option>
+        {% for item in sectors %}
+            <option value="{{ item.id }}">{{ item.name }}</option>
+        {% endfor %}
+    </select><div class="b-report-select-arrow"></div>
+</div>

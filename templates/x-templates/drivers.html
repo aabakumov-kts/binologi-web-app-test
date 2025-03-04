@@ -1,0 +1,67 @@
+{% load i18n table_tags tables static filters %}
+
+<div>
+    <div class="b-route-parameters-row">
+        <h3 class="b-route-parameters-name">{% trans 'drivers'|capfirst %}</h3>
+        <div class="b-route-parameters-count">
+            {% trans 'selected'|capfirst %}: {% verbatim %}{{ selected.length }}{% endverbatim %}
+        </div>
+        <div class="b-route-parameters-comment">{% trans 'choose drivers'|capfirst %}</div>
+        {% verbatim %}
+        <div class="b-route-parameters-expand-container">
+            <button
+                class="b-route-parameters-expand"
+                v-on:click="setStep(1)"
+                v-bind:class="{'selected-section' : isStep(1)}">
+            </button>
+        </div>
+    </div>
+
+    <div v-show="isStep(1)">
+        {% endverbatim %}
+        <table class="b-route-table b-route-table--drivers">
+            <tr>
+                <th></th>
+                <th>{% trans 'username'|capfirst %}</th>
+                <th>{% trans 'comment'|capfirst %}</th>
+                <th>
+                    {% trans 'any routes in progress?'|capfirst %}
+                    {% include 'info_buttons/drivers_availability.html' %}
+                </th>
+            </tr>
+            {% verbatim %}
+            <tr v-for="driver in orderedDrivers">
+                <td>
+                    <input type="checkbox"
+                           checked="checked"
+                           v-bind:id="'driver' + driver.id"
+                           :value="driver"
+                           v-model="selected">
+                </td>
+                <td>
+                    <label v-bind:for="'driver' + driver.id">{{ driver.username }}</label>
+                </td>
+                <td>{{ driver.comment }}</td>
+                <td class="route-status">{{ getActiveRoutesStatus(driver) }}</td>
+            </tr>
+        </table>
+        <p v-if="someDriversUnavailable">
+            {% endverbatim %}
+            <strong>{% trans 'some drivers are unavailable at the moment.'|capfirst %}</strong>
+            <a href="{% url 'drivers:list' %}">{% trans 'view availability'|capfirst %}</a>
+            {% include 'info_buttons/drivers_availability.html' %}
+        </p>
+        {% verbatim %}
+        <p v-if="someDriversWithActiveRoutes">
+            {% endverbatim %}
+            <strong>{% trans 'some drivers have routes in progress.'|capfirst %}</strong>
+            <a href="{% url 'routes:list' %}">{% trans 'view routes journal'|capfirst %}</a>
+            {% include 'info_buttons/drivers_availability.html' %}
+        </p>
+        {% verbatim %}
+        <button class="b-route-next" v-on:click="setStep(2)">
+            {% endverbatim %}
+            {% trans 'next'|capfirst %}
+        </button>
+    </div>
+</div>

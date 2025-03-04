@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load i18n core_tags %}
+
+{% block content %}
+    <h3>{% trans "sensors"|capfirst %}</h3>
+
+    {% include '_alerts.html' %}
+
+    <div class="">
+        {% render_table_with_django2_compat sensors_table %}
+    </div>
+{% endblock %}

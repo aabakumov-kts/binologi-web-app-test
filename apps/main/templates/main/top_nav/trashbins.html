@@ -1,0 +1,110 @@
+{% load i18n urls uac static %}
+
+<div class="b-topdiv">
+    <a class="b-topdiv-logo col-xs-3" href="/"></a>
+    <div class="b-userinfo col-xs-7 col-sm-3">
+        <div class="b-userinfo-icon"></div>
+        <form method="post" action="{% url 'main:logout' %}">
+            {% csrf_token %}
+            <button class="b-userinfo-logout" type="submit"></button>
+        </form>
+        <div class="b-userinfo-name">{{ request.user.username }}</div>
+        <div class="b-userinfo-role">{{ request.uac.role_name }}</div>
+    </div>
+    {% include 'main/_notifications_button.html' with id_value='headerOpenNotificationsButton' %}
+    {% if all_device_types_company %}
+        <form class="switch-mode-button" action="{% url 'main:switch-device-profile' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="profile" value="sensor">
+            <button class="btn btn-info" type="submit">
+                <img src="{% static 'images/sensor-mode.png' %}" alt="" />
+            </button>
+        </form>
+    {% endif %}
+    <ul class="b-topdiv-menu">
+        <li>
+            <a href="{% url 'main:map' %}"{% url_match 'main:map' %}>{% trans "map"|capfirst %}</a>
+        </li>
+
+        <li><a href="{% url 'reports:index' %}"{% url_match 'reports:index' %}>
+            {% trans "reports"|capfirst %}</a>
+            <ul class="b-topdiv-menu b-topdiv-menu-child">
+                <li><a href="{% url 'reports:trashbin:fullness' %}"{% url_match 'reports:trashbin:fullness' %}>
+                        {% trans 'fullness'|capfirst %}</a></li>
+                <li><a href="{% url 'reports:trashbin:collection' %}"{% url_match 'reports:trashbin:collection' %}>
+                        {% trans 'collection'|capfirst %}</a></li>
+                <li><a href="{% url 'reports:trashbin:battery_level' %}"{% url_match 'reports:trashbin:battery_level' %}>
+                        {% trans 'battery_level'|capfirst %}</a></li>
+                <li><a href="{% url 'reports:trashbin:errors' %}"{% url_match 'reports:trashbin:errors' %}>
+                        {% trans 'errors'|capfirst %}</a></li>
+                <li><a href="{% url 'reports:common:track' %}"{% url_match 'reports:common:track' %}>
+                        {% trans 'track'|capfirst %}</a></li>
+                <li><a href="{% url 'reports:trashbin:temperature' %}"{% url_match 'reports:trashbin:temperature' %}>
+                        {% trans 'temperature'|capfirst %}</a></li>
+                <li><a href="{% url 'reports:pressure' %}"{% url_match 'reports:pressure' %}>
+                        {% trans 'pressure'|capfirst %}</a></li>
+                <li><a href="{% url 'reports:sim' %}"{% url_match 'reports:sim' %}>
+                        {% trans 'sim balance'|capfirst %}</a></li>
+{#                Traffic report was disabled since its absolutely fake at the moment #}
+{#                <li><a href="{% url 'reports:traffic' %}"{% url_match 'reports:traffic' %}>#}
+{#                        {% trans 'traffic'|capfirst %}</a></li>#}
+                <li><a href="{% url 'reports:humidity' %}"{% url_match 'reports:humidity' %}>
+                        {% trans 'humidity'|capfirst %}</a></li>
+                {% check_feature_enabled feature_flag_model.AIR_QUALITY as air_quality_enabled %}
+                {% if air_quality_enabled %}
+                    <li><a href="{% url 'reports:air_quality' %}"{% url_match 'reports:air_quality' %}>
+                            {% trans 'air_quality'|capfirst %}</a></li>
+                {% endif %}
+            </ul>
+        </li>
+        <li><a href="{% url 'routes:index' %}"{% url_match 'routes:index' %}>
+            {% trans 'routes'|capfirst %}</a>
+            <ul class="b-topdiv-menu b-topdiv-menu-child">
+                <li>
+                    <a href="{% url 'routes:list' %}"{% url_match 'routes:list' %}>
+                        {% trans 'journal'|capfirst %}
+                    </a>
+                </li>
+{#                TODO: Uncomment when it'll make more sense to create routes directly #}
+{#                <li>#}
+{#                    <a href="{% url 'routes:create' %}"{% url_match 'routes:create' %}>#}
+{#                        {% trans 'create'|capfirst %}#}
+{#                    </a>#}
+{#                </li>#}
+                <li>
+                    <a href="{% url 'drivers:list' %}"{% url_match 'drivers:list' %}>
+                        {% trans 'manage drivers'|capfirst %}
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li><a href="{% url 'settings_index' %}"{% url_match 'settings_index' %}>
+            {% trans "settings"|capfirst %}</a>
+            <ul class="b-topdiv-menu b-topdiv-menu-child">
+                {% if request.uac.is_superadmin %}
+                    <li>
+                        <a href="{% url 'companies:list' %}"{% url_match 'companies:list' %}>
+                            {% trans "companies"|capfirst %}</a></li>
+                {% endif %}
+
+                <li>
+                    <a href="{% url 'containers:list' %}"{% url_match 'containers:list' %}>
+                        {% trans "containers"|capfirst %}</a></li>
+
+                <li>
+                    <a href="{% url 'sectors:list' %}"{% url_match 'sectors:list' %}>
+                        {% trans "sectors"|capfirst %}</a></li>
+
+                {% if request.uac.is_superadmin or request.uac.is_administrator %}
+                    <li>
+                        <a href="{% url 'users:list' %}"{% url_match 'users:list' %}>
+                            {% trans "users"|capfirst %}</a></li>
+                {% endif %}
+
+                <li>
+                    <a href="{% url 'cities:list' %}"{% url_match 'cities:list' %}>
+                        {% trans "cities"|capfirst %}</a></li>
+            </ul>
+        </li>
+    </ul>
+</div>

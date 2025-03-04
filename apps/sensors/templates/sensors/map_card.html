@@ -1,0 +1,161 @@
+{% load i18n uac %}
+
+<h4>
+    {% if shortened_version %}
+        <span>{{ title|capfirst }} {{ object.serial_number }}</span>
+    {% else %}
+        <span>{{ title|capfirst }}
+            <select>
+                {% for item in sensors_nav_links %}
+                    <option value="{{ item.0 }}">{{ item.1 }}</option>
+                {% endfor %}
+            </select>
+        </span>
+    {% endif %}
+    <i class="b-container-card-close"></i>
+</h4>
+<div class="b-container-card-content-container">
+    <div class="b-container-card-section">
+        <h5>{% trans 'information'|capfirst %}</h5>
+        <div class="b-container-card-section-content">
+            <table>
+                {% if request.uac.is_superadmin %}
+                    <tr>
+                        <td>{% trans 'client'|capfirst %}</td>
+                        <td>{{ object.company }}</td>
+                    </tr>
+                {% endif %}
+                <tr>
+                    <td>{% trans 'country'|capfirst %}</td>
+                    <td>{{ object.country }}</td>
+                </tr>
+                <tr>
+                    <td>{% trans 'city'|capfirst %}</td>
+                    <td>{{ object.city }}</td>
+                </tr>
+                <tr>
+                    <td>{% trans 'address'|capfirst %}</td>
+                    <td>{{ object.address|default:_("unspecified") }}</td>
+                </tr>
+                <tr>
+                    <td>{% trans 'container type'|capfirst %}</td>
+                    <td>{{ object.container_type }}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>{% trans 'waste type'|capfirst %}</span>
+                        {% include 'info_buttons/waste_types.html' %}
+                    </td>
+                    <td>{{ object.waste_type }}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span>{% trans 'sector'|capfirst %}</span>
+                        {% include 'info_buttons/sector.html' %}
+                    </td>
+                    <td>{{ object.sector }}</td>
+                </tr>
+                <tr>
+                    <td>{% trans 'phone number'|capfirst %}</td>
+                    <td>{{ object.phone_number }}</td>
+                </tr>
+            </table>
+            <div class="b-container-card-status-icons">
+                {% if low_battery_level %}
+                    <p class=""><img src="{{ low_battery_level_icon_url }}" alt="" /> {% trans 'low battery level'|capfirst %}</p>
+                {% endif %}
+                {% if any_active_routes %}
+                    <p><img src="{{ bin_on_route_icon_url }}" alt="" /> {% trans 'currently on route to be collected'|capfirst %}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="b-container-card-section">
+        <h5>{% trans 'sensors'|capfirst %}</h5>
+        <div class="b-container-card-section-content">
+            <div class="b-container-card-sensors">
+                {% if shortened_version %}
+                    <div class="b-container-card-indicator">
+                        <div class="b-container-card-indicator-value {{ fullness_card_class }}">
+                            <div class="b-container-card-indicator-value-digit">{{ object.fullness }}</div>
+                            <div class="b-container-card-indicator-value-text">%</div>
+                        </div>
+                        <div class="b-container-card-indicator-name">
+                            {% trans 'fullness'|capfirst %}
+                        </div>
+                    </div>
+                    <div class="b-container-card-indicator">
+                        <div class="b-container-card-indicator-value {{ battery_card_class }}">
+                            <div class="b-container-card-indicator-value-digit">{{ object.battery }}</div>
+                            <div class="b-container-card-indicator-value-text">%</div>
+                        </div>
+                        <div class="b-container-card-indicator-name">
+                            {% trans 'battery'|capfirst %}
+                        </div>
+                    </div>
+                    <div class="b-container-card-indicator">
+                        <div class="b-container-card-indicator-value blue">
+                            <div class="b-container-card-indicator-value-digit">{{ object.temperature }}</div>
+                            <div class="b-container-card-indicator-value-text">&deg;C</div>
+                        </div>
+                        <div class="b-container-card-indicator-name">
+                            {% trans 'temperature'|capfirst %}
+                        </div>
+                    </div>
+                {% else %}
+                    <a href="{% url "reports:sensor:fullness" %}?sensor={{ object.id }}">
+                        <div class="b-container-card-indicator">
+                            <div class="b-container-card-indicator-value {{ fullness_card_class }}">
+                                <div class="b-container-card-indicator-value-digit">{{ object.fullness }}</div>
+                                <div class="b-container-card-indicator-value-text">%</div>
+                            </div>
+                            <div class="b-container-card-indicator-name">
+                                {% trans 'fullness'|capfirst %}
+                            </div>
+                        </div>
+                    </a>
+                    <a href="{% url "reports:sensor:battery_level" %}?sensor={{ object.id }}">
+                        <div class="b-container-card-indicator">
+                            <div class="b-container-card-indicator-value {{ battery_card_class }}">
+                                <div class="b-container-card-indicator-value-digit">{{ object.battery }}</div>
+                                <div class="b-container-card-indicator-value-text">%</div>
+                            </div>
+                            <div class="b-container-card-indicator-name">
+                                {% trans 'battery'|capfirst %}
+                            </div>
+                        </div>
+                    </a>
+                    <a href="{% url "reports:sensor:temperature" %}?sensor={{ object.id }}">
+                        <div class="b-container-card-indicator">
+                            <div class="b-container-card-indicator-value blue">
+                                <div class="b-container-card-indicator-value-digit">{{ object.temperature }}</div>
+                                <div class="b-container-card-indicator-value-text">&deg;C</div>
+                            </div>
+                            <div class="b-container-card-indicator-name">
+                                {% trans 'temperature'|capfirst %}
+                            </div>
+                        </div>
+                    </a>
+                    <p>{% trans 'Click on sensor icons above to get to corresponding reports' %}</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% if not shortened_version %}
+        <div class="b-container-card-section">
+            <h5>{% trans 'other reports'|capfirst %}</h5>
+            <div class="b-container-card-section-content collapsed">
+                <ul class="b-carddiv-elements-child">
+                    <li><a href="{% url "reports:sensor:collection" %}?sensor={{ object.id }}">{% trans 'collection'|capfirst %}</a></li>
+                    <li><a href="{% url "reports:sensor:errors" %}?sensor={{ object.id }}">{% trans 'errors'|capfirst %}</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="b-container-card-section">
+            <a href="{% url 'sensors:control-main' object.id %}"><h5>{% trans 'control'|capfirst %}</h5></a>
+        </div>
+        <div class="b-container-card-section">
+            <a href="{% url 'sensors:update' object.id %}"><h5>{% trans 'settings'|capfirst %}</h5></a>
+        </div>
+    {% endif %}
+</div>

@@ -1,0 +1,37 @@
+name: 'Deploy SaaS image'
+description: 'Pulls a new image and rolls it out on a target host'
+inputs:
+  target-host:
+    description: 'Hostname or IP of a target host'
+    required: true
+  image-tag:
+    description: 'The tag of the image to deploy'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Pull new image
+      run: >-
+        /bin/sh -c 'ssh ubuntu@${{ inputs.target-host }} -o "StrictHostKeyChecking no"
+        "docker pull dibinology/legacy-web-app:${{ inputs.image-tag }}"'
+      shell: bash
+
+    - name: Migrate DB
+      run: >-
+        /bin/sh -c 'ssh ubuntu@${{ inputs.target-host }} -o "StrictHostKeyChecking no"
+        "cd docker-compose && export WEB_APP_VERSION=${{ inputs.image-tag }} &&
+        docker-compose -f docker-compose.web-app.yml run --rm mnt-svc python manage.py migrate"'
+      shell: bash
+
+    - name: Restart services
+      run: >-
+        /bin/sh -c 'ssh ubuntu@${{ inputs.target-host }} -o "StrictHostKeyChecking no"
+        "cd docker-compose && docker-compose -f docker-compose.web-app.yml down &&
+        export WEB_APP_VERSION=${{ inputs.image-tag }} && docker-compose -f docker-compose.web-app.yml up -d"'
+      shell: bash
+
+    - name: Docker cleanup
+      run: >-
+        /bin/sh -c 'ssh ubuntu@${{ inputs.target-host }} -o "StrictHostKeyChecking no"
+        "docker system prune -f -a --volumes"'
+      shell: bash

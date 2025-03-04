@@ -1,0 +1,13 @@
+<ul class="b-report-filter-errors" id="errors">
+    {% for item in error_types %}
+        <li id="li_error">
+            <label for="error{{ item.id }}">
+                <input id="error{{ item.id }}"
+                       type="checkbox"
+                       value="{{ item.id }}"
+                       name="errors"/>
+                {{ item.title }}
+            </label>
+        </li>
+    {% endfor %}
+</ul>

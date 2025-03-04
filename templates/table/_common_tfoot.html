@@ -1,0 +1,9 @@
+<tfoot>
+    <tr>
+        {% for column in table.columns %}
+            <th id=filter_{{ column.field }}>
+                {{ header.id }}
+            </th>
+        {% endfor %}
+    </tr>
+</tfoot>

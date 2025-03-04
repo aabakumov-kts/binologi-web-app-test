@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% load i18n table_tags static bootstrap3 %}
+
+{% block content %}
+    <h3 class="page_header">{% trans 'report'|capfirst %} {% trans 'collection'|capfirst %}</h3>
+
+    {% include 'sensors/reports/_common_filters_form.html' %}
+
+    <!--suppress JSJQueryEfficiency -->
+
+    {% include 'reports/_common_deps.html' %}
+    {% include 'sensors/reports/_common_js_api.html' %}
+
+    <div class="b-table-chart-switcher" id="b-table-chart-switcher-js">
+        <a href="#" id="show_table" class="selected">{% trans 'table'|capfirst %}</a>
+        <a href="#" id="show_chart_waste_types">{% trans 'waste types'|capfirst %}</a>
+        <a href="#" id="show_chart_sectors">{% trans 'sectors'|capfirst %}</a>
+    </div>
+
+    <div id="table-container" class="visible">
+        <table id={{ table.opts.id }} {{ table.opts.attrs }} cellpadding="0" cellspacing="0" border="0">
+            {% include 'table/_common_thead.html' %}
+            {% include 'table/_common_tbody.html' %}
+        </table>
+    </div>
+
+    <div id="chart-container" style='display: none;'>
+        <div style="display:inline-block; width: 400px" id="chart-container-waste-types">
+            <div id="chart-container-types"></div>
+        </div>
+
+        <div style="display:inline-block; width: 350px" id="chart-container-sectors">
+            <div id="chart-container-sectors"></div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+      $(document).ready(function () {
+        var table = createTable(prepare_query, "{% url "reports:sensor:collection_table_data" %}", []);
+
+        function update_containers() {
+            if ($('#table-container').hasClass('visible')) {
+                table.api().ajax.reload();
+            }
+
+            var preparedQuery = prepare_query({});
+            var serializedQuery = serialize(preparedQuery);
+
+            if ($('#chart-container-waste-types').hasClass('visible')) {
+                var types_chart_source = "{% url 'reports:sensor:collection_chart_data_waste_types' %}" + "?" + serializedQuery;
+                updateFusionChart(fusionChartTypes.pie, 'chart-container-types', types_chart_source);
+            }
+
+            if ($('#chart-container-sectors').hasClass('visible')) {
+                var sectors_chart_source = "{% url 'reports:sensor:collection_chart_data_sectors' %}" + "?" + serializedQuery;
+                updateFusionChart(fusionChartTypes.pie, 'chart-container-sectors', sectors_chart_source);
+            }
+        }
+
+        addCoreEventHandlers(update_containers);
+        addSensorEventHandlers(update_containers);
+
+        $('#show_table').on('click',function(){
+            $('#table-container').addClass('visible');
+
+            update_containers();
+
+            $('#table-container').show();
+            $('#chart-container').hide();
+            $('#chart-container').removeClass('visible');
+            $('#b-table-chart-switcher-js').find('a').removeClass('selected');
+            $(this).addClass('selected');
+        });
+
+        $('#show_chart_sectors').on('click',function(){
+            $('#table-container').hide();
+            $('#chart-container-waste-types').hide();
+
+            $('#table-container').removeClass('visible');
+            $('#chart-container-waste-types').removeClass('visible');
+
+            $('#chart-container-sectors').addClass('visible');
+            $('#chart-container').addClass('visible');
+
+            update_containers();
+
+            $('#chart-container').show();
+            $('#chart-container-sectors').show();
+
+            $('#b-table-chart-switcher-js').find('a').removeClass('selected');
+            $(this).addClass('selected');
+        });
+
+        $('#show_chart_waste_types').on('click',function(){
+            $('#table-container').hide();
+            $('#chart-container-sectors').hide();
+
+            $('#table-container').removeClass('visible');
+            $('#chart-container-sectors').removeClass('visible');
+
+            $('#chart-container-waste-types').addClass('visible');
+            $('#chart-container').addClass('visible');
+
+            update_containers();
+
+            $('#chart-container').show();
+            $('#chart-container-waste-types').show();
+
+            $('#b-table-chart-switcher-js').find('a').removeClass('selected');
+            $(this).addClass('selected');
+        });
+
+        update_containers();
+      });
+    </script>
+{% endblock %}
+
+{% block js %}
+    <script src="//cdn.fusioncharts.com/fusioncharts/3.14.0/fusioncharts.js"></script>
+    <script src="//cdn.fusioncharts.com/fusioncharts/3.14.0/themes/fusioncharts.theme.fint.js"></script>
+{% endblock %}
+
+{% block title %}
+    {% trans 'report'|capfirst %} {% trans 'collection'|capfirst %}
+{% endblock %}

@@ -1,0 +1,144 @@
+﻿{% extends 'base.html' %}
+{% load i18n static filters bootstrap3 %}
+
+
+{% block content %}
+    <div class="container" style='max-width:1020px; margin-bottom:100px'>
+        <div id="vue-app-container">
+            <h1 class="b-page-header">{% trans 'create routes'|capfirst %}</h1>
+
+            <points :sectors="{{ sectors_json }}" inline-template>
+                <div>
+                    <section class="b-report-filter b-route-filter">
+                        {% with points_templates_prefix|add:'/x-templates/filter.html' as template_name %}
+                            {% include template_name %}
+                        {% endwith %}
+                    </section>
+                    <section class="bordered stripped b-route-parameters">
+                        {% with points_templates_prefix|add:'/x-templates/points.html' as template_name %}
+                            {% include template_name %}
+                        {% endwith %}
+                    </section>
+                </div>
+            </points>
+
+            <section class="bordered stripped b-route-parameters">
+                <drivers :drivers="{{ drivers_json }}" :total-drivers-count="{{ total_drivers_count }}"></drivers>
+            </section>
+
+            {% verbatim %}
+            <section class="bordered stripped b-route-parameters">
+                <div class="b-route-parameters-row">
+                    <h3 class="b-route-parameters-name">{% endverbatim %}
+                        {% trans 'sectors'|capfirst %}
+                        {% include 'info_buttons/sector.html' %}
+                    {% verbatim %}</h3>
+                    <div class="b-route-parameters-count">{% endverbatim %}{% trans 'sectors total'|capfirst %}{% verbatim %}: {{ sectors.length }}
+                    </div>
+                    <div class="b-route-parameters-comment">{% endverbatim %}{% trans 'choose sectors'|capfirst %}{% verbatim %}</div>
+                    <div class="b-route-parameters-expand-container">
+                        <button class="b-route-parameters-expand" v-on:click="setStep(2)" v-bind:class="{'selected-section' : isStep(2)}"></button>
+                    </div>
+                </div>
+
+                <div v-show="isStep(2)">
+                   <table class="b-route-table">
+                        <tr>
+                            <th>{% endverbatim %}{% trans 'drivers'|capfirst %}</th>
+                            <th>{% trans 'sectors'|capfirst %}</th>{% verbatim %}
+                        </tr>
+                        <tr v-for="(driver, di) in orderedDrivers">
+                            <td>{{ driver.username }}</td>
+                            <td>
+                                <a v-for="(sector, si) in orderedSectors"
+                                   v-bind:class="{ 'active' : isActive(di, si), 'hidden' : isHidden(di, si) }"
+                                   v-on:click="bindSector(di, si)"
+                                   class="btn btn-default btn-xs b-route-button">{{ sector.name }}</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+            {% endverbatim %}
+            <div v-if="sendFailed" class="alert alert-danger" role="alert">
+                {% trans 'failed to send routes.'|capfirst %}
+                {% trans 'please try again or contact our customer support service.'|capfirst %}
+            </div>
+            {% verbatim %}
+            <button class="b-route-send" v-on:click="sendRoutes()" :disabled="!canSendRoutes">
+                {% endverbatim %}{% trans 'start route'|capfirst %}{% verbatim %}
+            </button>
+            {% endverbatim %}
+            <div class="clear-fix"></div>
+        </div>
+
+        <!-- Vue components templates -->
+        <script id="drivers-template" type="text/x-template">
+            {% include 'x-templates/drivers.html' %}
+        </script>
+    </div>
+{% endblock %}
+
+
+{% block js %}
+    <script>
+        var fullnessSelected = [
+          {% for item in fullness %}
+            {% array_value_of item 'title' 'fullness' True %}
+          {% endfor %}
+        ];
+        var wasteTypesSelected = [
+          {% for item in waste_types %}
+            {% array_value_of item 'id' 'waste_type' %}
+          {% endfor %}
+        ];
+        var errorTypesSelected = [
+          {% for item in error_types %}
+            {% array_value_of item 'id' 'error_type' %}
+          {% endfor %}
+        ];
+        var sectorsSelected = [
+          {% for item in sectors_list %}
+            {% array_value_of item 'id' 'sector' %}
+          {% endfor %}
+        ];
+        // Courtesy of this SO answer: https://stackoverflow.com/a/41303483/9335150
+        var queryParamPairs = _.chain(window.location.search)
+            .replace('?', '')
+            .split('&')
+            .map(_.partial(_.split, _, '=', 2));
+        var mapBounds = _.pick(queryParamPairs.fromPairs().value(), ['north', 'east', 'south', 'west']);
+
+        function isSerialPair(p) { return p[0] === 'serial'; }
+        function takePairValue(p) { return p[1]; }
+
+        var binSerials = _.chain(queryParamPairs).filter(isSerialPair).map(takePairValue).value();
+        var yesStr = "{% trans 'yes'|capfirst %}";
+        var noStr = "{% trans 'no'|capfirst %}";
+
+        var fetchSensors = {{ fetch_sensors|lower }};
+    </script>
+    <script src="{% static 'js/route.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+            $('.b-route-filter-content').find('li').on('click', function () {
+                $(this).toggleClass('selected');
+                var input = $("#input_" + $(this).attr("id"));
+                input.click();
+            });
+            $('.b-route-table--drivers-expand').on('click', function() {
+                $(this).toggleClass('expanded');
+            });
+        });
+    </script>
+{% endblock %}
+
+
+{% block title %}
+    {% trans 'create routes'|capfirst %}
+{% endblock %}
+
+
+{% block extrahead %}
+    <meta id="token" value="{{ csrf_token }}">
+{% endblock %}

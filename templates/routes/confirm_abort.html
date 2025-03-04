@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+    <h1 class="page_header">{% trans 'confirm route abort'|capfirst %}</h1>
+    <p><strong>{{ object }}</strong></p>
+    {% if aborting_not_supported_by_status %}
+        <p>{% trans 'route_aborting_not_supported_by_status_warning' %}</p>
+    {% endif %}
+    <form action="{% url 'routes:abort' object.pk %}" method="post">
+        {% csrf_token %}
+        <button type="submit" {% if button_attrs %}{{ button_attrs }}{% endif %}>{% trans 'confirm'|capfirst %}</button>
+    </form>
+{% endblock %}

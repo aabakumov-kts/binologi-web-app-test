@@ -1,0 +1,19 @@
+<span class="item-status">
+    {% if inverse %}
+        {% if percentage > 70 %}
+            <i class="fas fa-square status-critical"></i>
+        {% elif percentage > 40 %}
+            <i class="fas fa-square status-warn"></i>
+        {% else %}
+            <i class="fas fa-square status-ok"></i>
+        {% endif %}
+    {% else %}
+        {% if percentage > 70 %}
+            <i class="fas fa-square status-ok"></i>
+        {% elif percentage > 40 %}
+            <i class="fas fa-square status-warn"></i>
+        {% else %}
+            <i class="fas fa-square status-critical"></i>
+        {% endif %}
+    {% endif %}
+</span>

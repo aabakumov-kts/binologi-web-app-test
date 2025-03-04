@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<django-objects version="1.0">
+    <object model="sensors.containertype" pk="1">
+        <field name="volume" type="FloatField">0.08</field>
+        <field name="description" type="CharField">80 l</field>
+        <field name="description_ru" type="CharField">80 л</field>
+        <field name="horizontal_mount_max_range" type="FloatField">0.573</field>
+        <field name="vertical_mount_max_range" type="FloatField">0.675</field>
+        <field name="diagonal_mount_max_range" type="FloatField">1.018</field>
+    </object>
+    <object model="sensors.containertype" pk="2">
+        <field name="volume" type="FloatField">0.12</field>
+        <field name="description" type="CharField">120 l, eurostandard</field>
+        <field name="description_ru" type="CharField">120 л, евростандарт</field>
+        <field name="horizontal_mount_max_range" type="FloatField">0.55</field>
+        <field name="vertical_mount_max_range" type="FloatField">0.935</field>
+        <field name="diagonal_mount_max_range" type="FloatField">1.191</field>
+    </object>
+    <object model="sensors.containertype" pk="3">
+        <field name="volume" type="FloatField">0.24</field>
+        <field name="description" type="CharField">240 l, eurostandard</field>
+        <field name="description_ru" type="CharField">240 л, евростандарт</field>
+        <field name="horizontal_mount_max_range" type="FloatField">0.72</field>
+        <field name="vertical_mount_max_range" type="FloatField">1.07</field>
+        <field name="diagonal_mount_max_range" type="FloatField">1.414</field>
+    </object>
+    <object model="sensors.containertype" pk="4">
+        <field name="volume" type="FloatField">0.36</field>
+        <field name="description" type="CharField">240 l, eurostandard</field>
+        <field name="description_ru" type="CharField">360 л, евростандарт</field>
+        <field name="horizontal_mount_max_range" type="FloatField">0.865</field>
+        <field name="vertical_mount_max_range" type="FloatField">1.1</field>
+        <field name="diagonal_mount_max_range" type="FloatField">1.523</field>
+    </object>
+    <object model="sensors.containertype" pk="5">
+        <field name="volume" type="FloatField">0.77</field>
+        <field name="description" type="CharField">770 l</field>
+        <field name="description_ru" type="CharField">770 л</field>
+        <field name="horizontal_mount_max_range" type="FloatField">1.37</field>
+        <field name="vertical_mount_max_range" type="FloatField">1.365</field>
+        <field name="diagonal_mount_max_range" type="FloatField">2.083</field>
+    </object>
+    <object model="sensors.containertype" pk="6">
+        <field name="volume" type="FloatField">1.1</field>
+        <field name="description" type="CharField">1100 l</field>
+        <field name="description_ru" type="CharField">1100 л</field>
+        <field name="horizontal_mount_max_range" type="FloatField">1.4</field>
+        <field name="vertical_mount_max_range" type="FloatField">1.1</field>
+        <field name="diagonal_mount_max_range" type="FloatField">2.09</field>
+    </object>
+    <object model="sensors.containertype" pk="8">
+        <field name="volume" type="FloatField">8</field>
+        <field name="description" type="CharField">7-8 m3</field>
+        <field name="description_ru" type="CharField">7-8 м3, стандарт в РФ</field>
+        <field name="horizontal_mount_max_range" type="FloatField">3.38</field>
+        <field name="vertical_mount_max_range" type="FloatField">1.35</field>
+        <field name="diagonal_mount_max_range" type="FloatField">4.11</field>
+    </object>
+</django-objects>

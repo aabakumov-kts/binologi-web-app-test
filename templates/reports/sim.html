@@ -1,0 +1,48 @@
+﻿{% extends "base.html" %}
+{% load i18n table_tags static bootstrap3 tables %}
+
+{% block content %}
+    <h3 class="page_header">{% trans 'report'|capfirst %} {% trans 'sim balance'|capfirst %}</h3>
+    <form class="b-report-filter">
+        {% include "reports/_report_time_picker.html" %}
+        <hr/>
+        <div class="row device-filters">
+            <div class="col-md-4">
+                {% include "reports/_left_column_filters.html" %}
+            </div>
+            <div class="col-md-8">
+                {% include "reports/_fullness_filter.html" %}
+                <div class="row">
+                    <div class="col-md-4">
+                        {% include "reports/_container_spec_filter.html" %}
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="balance_from">{% trans 'Balance from'|capfirst %}</label>
+                            <input type="search" placeholder="" class="b-report-search" id="balance_from">
+                        </div>
+                        <div class="form-group">
+                            <label for="balance_to">{% trans 'Balance to'|capfirst %}</label>
+                            <input type="search" placeholder="" class="b-report-search" id="balance_to">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr/>
+        {% include "reports/_container_filter.html" %}
+        <a class="clear-filters" href="#">{% trans 'clear'|capfirst %}</a>
+    </form>
+
+    {% render_sim_table simbalance_data %}
+
+{% endblock %}
+
+{% block js %}
+    <script src="//cdn.fusioncharts.com/fusioncharts/3.14.0/fusioncharts.js"></script>
+    <script src="//cdn.fusioncharts.com/fusioncharts/3.14.0/themes/fusioncharts.theme.fint.js"></script>
+{% endblock %}
+
+{% block title %}
+    {% trans 'report'|capfirst %} {% trans 'sim balance'|capfirst %}
+{% endblock %}
