@@ -122,7 +122,6 @@ jobs:
           key: ${{ secrets.ANSIBLE_SSH_PRIVATE_KEY }}
           options: |
             --extra-vars "web_app_version=${{ github.ref_name }}.${{ github.run_id }}"
-            --limit "dev"
             -vvv
                       
   # trigger-e2e-tests:
