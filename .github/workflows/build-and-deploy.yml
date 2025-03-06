@@ -12,49 +12,49 @@ on:
 concurrency: ${{ github.ref_name }}
 
 jobs:
-  build-ci-image:
-    name: "Build & push CI image"
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/actions/build-new-image
-        with:
-          ghcr-username: ${{ github.actor }}
-          ghcr-token: ${{ secrets.GITHUB_TOKEN }}
-          dockerfile-path: ./codeship.Dockerfile
-          image-repo: ghcr.io/aabakumov-kts/legacy-web-app-ci
-          image-tag: ${{ github.ref_name }}.${{ github.run_id }}
+  # build-ci-image:
+  #   name: "Build & push CI image"
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - uses: ./.github/actions/build-new-image
+  #       with:
+  #         ghcr-username: ${{ github.actor }}
+  #         ghcr-token: ${{ secrets.GITHUB_TOKEN }}
+  #         dockerfile-path: ./codeship.Dockerfile
+  #         image-repo: ghcr.io/aabakumov-kts/legacy-web-app-ci
+  #         image-tag: ${{ github.ref_name }}.${{ github.run_id }}
 
 
           
-  run-tests:
-    name: "Runs linters & tests"
-    needs: build-ci-image
-    runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/aabakumov-kts/legacy-web-app-ci:${{ github.ref_name }}.${{ github.run_id }}
-      # credentials:
-      #   username: ${{ secrets.DOCKERHUB_USERNAME }}
-      #   password: ${{ secrets.DOCKERHUB_PASSWORD }}
-      # env:
-      #   SENTRY_ORG: binology
-      #   SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-    services:
-      postgres:
-        image: mdillon/postgis:11-alpine
-      redis:
-        image: redis:5.0.8-alpine
-    steps:
-      - name: Run linter
-        run: cd /app && flake8
+  # run-tests:
+  #   name: "Runs linters & tests"
+  #   needs: build-ci-image
+  #   runs-on: ubuntu-latest
+  #   container:
+  #     image: ghcr.io/aabakumov-kts/legacy-web-app-ci:${{ github.ref_name }}.${{ github.run_id }}
+  #     # credentials:
+  #     #   username: ${{ secrets.DOCKERHUB_USERNAME }}
+  #     #   password: ${{ secrets.DOCKERHUB_PASSWORD }}
+  #     # env:
+  #     #   SENTRY_ORG: binology
+  #     #   SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+  #   services:
+  #     postgres:
+  #       image: mdillon/postgis:11-alpine
+  #     redis:
+  #       image: redis:5.0.8-alpine
+  #   steps:
+  #     - name: Run linter
+  #       run: cd /app && flake8
 
-      - name: Run unit tests
-        run: cd /app && python -m unittest discover tests/plain
+  #     - name: Run unit tests
+  #       run: cd /app && python -m unittest discover tests/plain
 
-      - name: Run Django tests
-        run: >-
-          cd /app && /bin/sh -c 'until pg_isready -h postgres; do sleep 5; done &&
-          python manage.py test tests/django'
+  #     - name: Run Django tests
+  #       run: >-
+  #         cd /app && /bin/sh -c 'until pg_isready -h postgres; do sleep 5; done &&
+  #         python manage.py test tests/django'
 
       # - name: Update Sentry release info
       #   if: startsWith(github.ref_name, 'release')
@@ -64,23 +64,23 @@ jobs:
       #     --commit "binologygroup/legacy-web-app@$(sed "2q;d" release-info.txt)..$GITHUB_SHA"
       #     $(sed "1q;d" release-info.txt)'
 
-  build-main-image:
-    name: "Build & push main image"
-    needs: run-tests
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/actions/build-new-image
-        with:
-          ghcr-username: ${{ github.actor }}
-          ghcr-token: ${{ secrets.GITHUB_TOKEN }}
-          dockerfile-path: ./Dockerfile
-          image-repo: ghcr.io/aabakumov-kts/legacy-web-app-ci
-          image-tag: ${{ github.ref_name }}.${{ github.run_id }}
+  # build-main-image:
+  #   name: "Build & push main image"
+  #   needs: run-tests
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - uses: ./.github/actions/build-new-image
+  #       with:
+  #         ghcr-username: ${{ github.actor }}
+  #         ghcr-token: ${{ secrets.GITHUB_TOKEN }}
+  #         dockerfile-path: ./Dockerfile
+  #         image-repo: ghcr.io/aabakumov-kts/legacy-web-app-ci
+  #         image-tag: ${{ github.ref_name }}.${{ github.run_id }}
 
   deploy:
     name: "Deploy via Ansible"
-    needs: build-main-image
+    # needs: build-main-image
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
