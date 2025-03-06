@@ -76,45 +76,56 @@ jobs:
           image-repo: dibinology/legacy-web-app
           image-tag: ${{ github.ref_name }}.${{ github.run_id }}
 
-  deploy-main-image:
-    name: "Deploy new image"
+  deploy:
+    name: "Deploy via Ansible"
     needs: build-main-image
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      - name: Define target host - DEV
+      - name: Define environment - DEV
         if: github.ref_name == 'develop'
-        run: echo "TARGET_HOST=dev.saas.binology.com" >> $GITHUB_ENV
+        run: echo "TARGET_ENV=dev" >> $GITHUB_ENV
 
-      - name: Define target host - STAGE
+      - name: Define environment - STAGE
         if: startsWith(github.ref_name, 'release') || startsWith(github.ref_name, 'hotfix')
-        run: echo "TARGET_HOST=stage.saas.binology.com" >> $GITHUB_ENV
+        run: echo "TARGET_ENV=stage" >> $GITHUB_ENV
 
-      - name: Define target host - DEMO
+      - name: Define environment - DEMO
         if: github.ref_name == 'master'
-        run: echo "TARGET_HOST=demo.saas.binology.com" >> $GITHUB_ENV
+        run: echo "TARGET_ENV=demo" >> $GITHUB_ENV
 
-      - name: Install Deploy SSH Key
+      - name: Install Ansible
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ansible
+
+      - name: Install SSH Key
         uses: shimataro/ssh-key-action@v2
         with:
-          key: ${{ secrets.DEPLOY_SSH_KEY }}
-          known_hosts: 'just-a-placeholder-so-we-dont-get-errors'
+          key: ${{ secrets.ANSIBLE_SSH_PRIVATE_KEY }}
+          known_hosts: |
+            51.250.89.169
+            130.193.38.26
+            158.160.49.120
+            158.160.59.197
 
-      - uses: ./.github/actions/deploy-saas-image
+      - name: Deploy using Ansible
+        uses: dawidd6/action-ansible-playbook@v3
         with:
-          target-host: ${{ env.TARGET_HOST }}
-          image-tag: ${{ github.ref_name }}.${{ github.run_id }}
-
-      - uses: ./.github/actions/deploy-saas-image
-        if: github.ref_name == 'master'
-        with:
-          target-host: saas.binology.com
-          image-tag: ${{ github.ref_name }}.${{ github.run_id }}
+          playbook: ansible/master.yml
+          directory: ansible/
+          inventory: ansible/inventory/hosts.ini
+          key: ${{ secrets.ANSIBLE_SSH_PRIVATE_KEY }}
+          options: |
+            --extra-vars "web_app_version=${{ github.ref_name }}.${{ github.run_id }}"
+            --limit ${{ env.TARGET_ENV }}
+            -vvv
 
   trigger-e2e-tests:
     name: "Trigger E2E tests"
-    needs: deploy-main-image
+    needs: deploy
     runs-on: ubuntu-latest
     if: github.ref_name == 'develop' || startsWith(github.ref_name, 'release') || startsWith(github.ref_name, 'hotfix')
     steps:
@@ -138,7 +149,7 @@ jobs:
 
   deploy-release-in-sentry:
     name: "Deploy release in Sentry"
-    needs: deploy-main-image
+    needs: deploy
     runs-on: ubuntu-latest
     if: github.ref_name == 'master' || startsWith(github.ref_name, 'release')
     container:
