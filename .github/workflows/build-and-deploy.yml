@@ -107,11 +107,14 @@ jobs:
         uses: shimataro/ssh-key-action@v2
         with:
           key: ${{ secrets.ANSIBLE_SSH_PRIVATE_KEY }}
+          name: id_rsa
+          path: ~/.ssh/id_rsa_yc
           known_hosts: |
             51.250.89.169
             130.193.38.26
             158.160.49.120
             158.160.59.197
+          if_key_exists: replace
 
       - name: Deploy using Ansible
         uses: dawidd6/action-ansible-playbook@v3
@@ -119,7 +122,7 @@ jobs:
           playbook: master.yml
           directory: ansible/
           inventory: inventory/hosts.ini
-          key: ${{ secrets.ANSIBLE_SSH_PRIVATE_KEY }}
+          key: ~/.ssh/id_rsa_yc
           options: |
             --extra-vars "web_app_version=${{ github.ref_name }}.${{ github.run_id }}"
             -vvv
