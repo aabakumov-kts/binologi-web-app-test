@@ -19,12 +19,14 @@ jobs:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/build-new-image
         with:
-          dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
-          dockerhub-password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          ghcr-username: ${{ github.actor }}
+          ghcr-token: ${{ secrets.GITHUB_TOKEN }}
           dockerfile-path: ./codeship.Dockerfile
-          image-repo: dibinology/legacy-web-app-ci
+          image-repo: ghcr.io/aabakumov-kts/legacy-web-app-ci
           image-tag: ${{ github.ref_name }}.${{ github.run_id }}
 
+
+          
   run-tests:
     name: "Runs linters & tests"
     needs: build-ci-image
@@ -70,10 +72,10 @@ jobs:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/build-new-image
         with:
-          dockerhub-username: ${{ secrets.DOCKERHUB_USERNAME }}
-          dockerhub-password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          ghcr-username: ${{ github.actor }}
+          ghcr-token: ${{ secrets.GITHUB_TOKEN }}
           dockerfile-path: ./Dockerfile
-          image-repo: dibinology/legacy-web-app
+          image-repo: ghcr.io/aabakumov-kts/legacy-web-app-ci
           image-tag: ${{ github.ref_name }}.${{ github.run_id }}
 
   deploy:
