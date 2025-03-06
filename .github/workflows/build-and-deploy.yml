@@ -116,9 +116,9 @@ jobs:
       - name: Deploy using Ansible
         uses: dawidd6/action-ansible-playbook@v3
         with:
-          playbook: ansible/master.yml
+          playbook: master.yml
           directory: ansible/
-          inventory: ansible/inventory/hosts.ini
+          inventory: inventory/hosts.ini
           key: ${{ secrets.ANSIBLE_SSH_PRIVATE_KEY }}
           options: |
             --extra-vars "web_app_version=${{ github.ref_name }}.${{ github.run_id }}"
