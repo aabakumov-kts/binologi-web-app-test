@@ -12,43 +12,8 @@ on:
 concurrency: ${{ github.ref_name }}
 
 jobs:
-  run-tests:
-    name: "Run Linters & Tests"
-    runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: mdillon/postgis:11-alpine
-      redis:
-        image: redis:5.0.8-alpine
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade "pip<24.1"
-          pip install --no-build-isolation -r requirements.txt
-
-      - name: Wait for PostgreSQL to be ready
-        run: until pg_isready -h postgres; do sleep 5; done
-
-      - name: Run linter
-        run: flake8
-
-      - name: Run unit tests
-        run: python -m unittest discover tests/plain
-
-      - name: Run Django tests
-        run: python manage.py test tests/django
-
   build-and-push:
-    name: "Build & Push Docker Image"
-    needs: run-tests
+    name: "Build, Test & Push Docker Image"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -63,9 +28,17 @@ jobs:
       - name: Define Docker Image Tag
         run: echo "DOCKER_IMAGE_TAG=${{ github.ref_name }}-${{ github.run_id }}" >> $GITHUB_ENV
 
-      - name: Build and push Docker image
+      - name: Build Docker Image
+        run: docker build -t dibinology/legacy-web-app:${{ env.DOCKER_IMAGE_TAG }} .
+
+      - name: Run Tests in Docker Container
         run: |
-          docker build -t dibinology/legacy-web-app:${{ env.DOCKER_IMAGE_TAG }} .
+          docker run --rm dibinology/legacy-web-app:${{ env.DOCKER_IMAGE_TAG }} flake8
+          docker run --rm dibinology/legacy-web-app:${{ env.DOCKER_IMAGE_TAG }} python -m unittest discover tests/plain
+          docker run --rm dibinology/legacy-web-app:${{ env.DOCKER_IMAGE_TAG }} python manage.py test tests/django
+
+      - name: Push Docker Image
+        run: |
           docker tag dibinology/legacy-web-app:${{ env.DOCKER_IMAGE_TAG }} dibinology/legacy-web-app:latest
           docker push dibinology/legacy-web-app:${{ env.DOCKER_IMAGE_TAG }}
           docker push dibinology/legacy-web-app:latest
