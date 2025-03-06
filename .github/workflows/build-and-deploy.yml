@@ -107,26 +107,24 @@ jobs:
         uses: shimataro/ssh-key-action@v2
         with:
           key: ${{ secrets.ANSIBLE_SSH_PRIVATE_KEY }}
-          name: id_rsa
-          path: ~/.ssh/id_rsa_yc
           known_hosts: |
             51.250.89.169
             130.193.38.26
             158.160.49.120
             158.160.59.197
-          if_key_exists: replace
 
       - name: Deploy using Ansible
         uses: dawidd6/action-ansible-playbook@v3
         with:
           playbook: master.yml
           directory: ansible/
-          inventory: inventory/hosts.ini
-          key: ~/.ssh/id_rsa_yc
+          key: ${{ secrets.ANSIBLE_SSH_PRIVATE_KEY }}
           options: |
+            -i inventory/hosts.ini
             --extra-vars "web_app_version=${{ github.ref_name }}.${{ github.run_id }}"
+            --limit dev
             -vvv
-                      
+
   # trigger-e2e-tests:
   #   name: "Trigger E2E tests"
   #   needs: deploy
