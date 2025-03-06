@@ -1,5 +1,6 @@
 - name: Deploy Binology SaaS
-  hosts: dev
+  hosts: all
   become: true
+  gather_facts: no
   roles:
     - common
