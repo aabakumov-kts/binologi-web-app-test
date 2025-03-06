@@ -1,5 +1,5 @@
 - name: Deploy Binology SaaS
-  hosts: binology
+  hosts: dev
   become: true
   roles:
     - common
