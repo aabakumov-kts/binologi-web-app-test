@@ -1,0 +1,10 @@
+- name: Deploy Binology SaaS
+  hosts: binology
+  become: true
+  roles:
+    - common
+    # - docker
+    # - redis
+    # - mqtt
+    # - nginx-proxy
+    # - web-app

@@ -1,0 +1,2 @@
+network_name: "primary-network"
+letsencrypt_email: "it@binology.com"
