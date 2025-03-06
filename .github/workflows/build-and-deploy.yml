@@ -32,13 +32,13 @@ jobs:
     needs: build-ci-image
     runs-on: ubuntu-latest
     container:
-      image: dibinology/legacy-web-app-ci:${{ github.ref_name }}.${{ github.run_id }}
-      credentials:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_PASSWORD }}
-      env:
-        SENTRY_ORG: binology
-        SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+      image: ghcr.io/aabakumov-kts/legacy-web-app-ci:${{ github.ref_name }}.${{ github.run_id }}
+      # credentials:
+      #   username: ${{ secrets.DOCKERHUB_USERNAME }}
+      #   password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      # env:
+      #   SENTRY_ORG: binology
+      #   SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
     services:
       postgres:
         image: mdillon/postgis:11-alpine
@@ -56,13 +56,13 @@ jobs:
           cd /app && /bin/sh -c 'until pg_isready -h postgres; do sleep 5; done &&
           python manage.py test tests/django'
 
-      - name: Update Sentry release info
-        if: startsWith(github.ref_name, 'release')
-        run: >-
-          cd /app && /bin/sh -c 'sentry-cli releases new -p legacy-web-app $(sed "1q;d" release-info.txt) &&
-          sentry-cli releases set-commits
-          --commit "binologygroup/legacy-web-app@$(sed "2q;d" release-info.txt)..$GITHUB_SHA"
-          $(sed "1q;d" release-info.txt)'
+      # - name: Update Sentry release info
+      #   if: startsWith(github.ref_name, 'release')
+      #   run: >-
+      #     cd /app && /bin/sh -c 'sentry-cli releases new -p legacy-web-app $(sed "1q;d" release-info.txt) &&
+      #     sentry-cli releases set-commits
+      #     --commit "binologygroup/legacy-web-app@$(sed "2q;d" release-info.txt)..$GITHUB_SHA"
+      #     $(sed "1q;d" release-info.txt)'
 
   build-main-image:
     name: "Build & push main image"
