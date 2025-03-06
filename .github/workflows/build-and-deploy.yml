@@ -122,8 +122,7 @@ jobs:
           options: |
             -i inventory/hosts.ini
             --extra-vars "web_app_version=${{ github.ref_name }}.${{ github.run_id }}"
-            --limit dev
-            -vvv
+            --limit ${{ env.TARGET_ENV }}
 
   # trigger-e2e-tests:
   #   name: "Trigger E2E tests"
