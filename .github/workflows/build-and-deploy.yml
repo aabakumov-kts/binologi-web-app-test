@@ -118,7 +118,7 @@ jobs:
         with:
           playbook: master.yml
           directory: ansible/
-          inventory: ansible/inventory/hosts.ini
+          inventory: inventory/hosts.ini
           key: ${{ secrets.ANSIBLE_SSH_PRIVATE_KEY }}
           options: |
             --extra-vars "web_app_version=${{ github.ref_name }}.${{ github.run_id }}"
