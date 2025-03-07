@@ -1,0 +1,40 @@
+- name: Ensure Docker network exists
+  command: docker network create primary-network
+  register: network_result
+  failed_when: network_result.rc != 0 and 'already exists' not in network_result.stderr
+  changed_when: '"already exists" not in network_result.stderr'
+
+- name: Log in to GitHub Container Registry (GHCR)
+  command: docker login ghcr.io -u $DOCKER_LOGIN --password $DOCKER_PASSWORD
+  environment:
+    DOCKER_LOGIN: "{{ ansible_env.DOCKER_LOGIN | default('github_actor') }}"
+    DOCKER_PASSWORD: "{{ ansible_env.DOCKER_PASSWORD | default('github_token') }}"
+  when: ansible_env.DOCKER_PASSWORD is defined and ansible_env.DOCKER_LOGIN is defined
+
+- name: Pull web app image
+  command: docker pull dibinology/legacy-web-app:{{ web_app_version }}
+
+- name: Run database migrations
+  command: docker compose -f docker-compose.web-app.yml run --rm mnt-svc python manage.py migrate
+  args:
+    chdir: /opt/binology-saas
+
+- name: Start database services
+  command: docker compose -f docker-compose.database.yml up -d
+  args:
+    chdir: /opt/binology-saas
+
+- name: Start MQTT services
+  command: docker compose -f docker-compose.mqtt2.yml up -d
+  args:
+    chdir: /opt/binology-saas
+
+- name: Start reverse proxy services
+  command: docker compose -f docker-compose.reverse-proxy.yml up -d
+  args:
+    chdir: /opt/binology-saas
+
+- name: Start web application services
+  command: docker compose -f docker-compose.web-app.yml up -d
+  args:
+    chdir: /opt/binology-saas

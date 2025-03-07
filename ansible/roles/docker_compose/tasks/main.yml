@@ -20,3 +20,6 @@
     src: env.j2
     dest: /opt/binology-saas/.env
     mode: '0644'
+
+- name: Deploy services
+  import_tasks: deploy.yml
