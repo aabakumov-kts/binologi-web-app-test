@@ -12,7 +12,7 @@
   when: DOCKER_PASSWORD is defined and DOCKER_LOGIN is defined
 
 - name: Pull web app image
-  command: docker pull dibinology/legacy-web-app:{{ web_app_version }}
+  command: docker pull {{ web_app_repo }}:{{ web_app_version }}
 
 - name: Run database migrations
   command: docker compose -f docker-compose.web-app.yml run --rm mnt-svc python manage.py migrate

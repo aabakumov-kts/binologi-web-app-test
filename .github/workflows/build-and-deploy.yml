@@ -9,6 +9,11 @@ on:
       - master
       - main
 
+env:
+  IMAGE_REPO_CI: ghcr.io/aabakumov-kts/legacy-web-app-ci
+  IMAGE_REPO: ghcr.io/aabakumov-kts/legacy-web-app
+  IMAGE_TAG: ${{ github.ref_name }}.${{ github.run_id }}
+
 concurrency: ${{ github.ref_name }}
 
 jobs:
@@ -22,20 +27,15 @@ jobs:
   #         ghcr-username: ${{ github.actor }}
   #         ghcr-token: ${{ secrets.GITHUB_TOKEN }}
   #         dockerfile-path: ./codeship.Dockerfile
-  #         image-repo: ghcr.io/aabakumov-kts/legacy-web-app-ci
-  #         image-tag: ${{ github.ref_name }}.${{ github.run_id }}
+  #         image-repo: ${{ env.IMAGE_REPO_CI }}
+  #         image-tag: ${{ env.IMAGE_TAG }}
 
-
-          
   # run-tests:
   #   name: "Runs linters & tests"
   #   needs: build-ci-image
   #   runs-on: ubuntu-latest
   #   container:
-  #     image: ghcr.io/aabakumov-kts/legacy-web-app-ci:${{ github.ref_name }}.${{ github.run_id }}
-  #     # credentials:
-  #     #   username: ${{ secrets.DOCKERHUB_USERNAME }}
-  #     #   password: ${{ secrets.DOCKERHUB_PASSWORD }}
+  #     image: ${{ env.IMAGE_REPO_CI }}:${{ env.IMAGE_TAG }}
   #     # env:
   #     #   SENTRY_ORG: binology
   #     #   SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
@@ -75,8 +75,8 @@ jobs:
   #         ghcr-username: ${{ github.actor }}
   #         ghcr-token: ${{ secrets.GITHUB_TOKEN }}
   #         dockerfile-path: ./Dockerfile
-  #         image-repo: ghcr.io/aabakumov-kts/legacy-web-app-ci
-  #         image-tag: ${{ github.ref_name }}.${{ github.run_id }}
+  #         image-repo: ${{ env.IMAGE_REPO }}
+  #         image-tag: ${{ env.IMAGE_TAG }}
 
   deploy:
     name: "Deploy via Ansible"
@@ -124,8 +124,9 @@ jobs:
           key: ${{ secrets.ANSIBLE_SSH_PRIVATE_KEY }}
           options: |
             -i inventory/hosts.ini
-            --extra-vars "web_app_version=develop.13702941880 DOCKER_LOGIN=${{ github.actor }} DOCKER_PASSWORD=${{ secrets.GITHUB_TOKEN }}"
+            --extra-vars "web_app_repo=${{ env.IMAGE_REPO }} web_app_version=${{ env.IMAGE_TAG }} DOCKER_LOGIN=${{ github.actor }} DOCKER_PASSWORD=${{ secrets.GITHUB_TOKEN }}"
             --limit ${{ env.TARGET_ENV }}
+
 
   # trigger-e2e-tests:
   #   name: "Trigger E2E tests"
