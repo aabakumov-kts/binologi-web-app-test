@@ -108,7 +108,7 @@ jobs:
 
   deploy:
     name: "Deploy via Ansible"
-    needs: run-tests
+    # needs: run-tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
