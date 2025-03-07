@@ -121,7 +121,7 @@ jobs:
           key: ${{ secrets.ANSIBLE_SSH_PRIVATE_KEY }}
           options: |
             -i inventory/hosts.ini
-            --extra-vars "web_app_version=${{ github.ref_name }}.${{ github.run_id }}"
+            --extra-vars "web_app_version=develop.13702941880"
             --limit ${{ env.TARGET_ENV }}
 
   # trigger-e2e-tests:
