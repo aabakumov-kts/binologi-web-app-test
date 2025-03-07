@@ -12,8 +12,10 @@ on:
 concurrency: ${{ github.ref_name }}
 
 env:
-  IMAGE_REPO: ghcr.io/aabakumov-kts/legacy-web-app
+  IMAGE_REPO: ghcr.io/${{ github.repository }}
   IMAGE_TAG: ${{ github.ref_name }}.${{ github.run_id }}
+  CI_IMAGE_REPO: ghcr.io/${{ github.repository }}-ci
+  CI_IMAGE_TAG: ${{ github.ref_name }}.${{ github.run_id }}
   DOCKER_LOGIN: ${{ github.actor }}
   DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
 
@@ -75,7 +77,7 @@ jobs:
       - build-ci-image
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/binology/legacy-web-app-ci:${{ github.ref_name }}.${{ github.run_id }} #заменить на репо binology
+      image: ghcr.io/${{ github.repository }}-ci:${{ github.ref_name }}.${{ github.run_id }}
       env:
         SENTRY_ORG: binology
         SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
