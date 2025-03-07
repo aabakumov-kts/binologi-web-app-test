@@ -17,66 +17,66 @@ env:
 concurrency: ${{ github.ref_name }}
 
 jobs:
-  # build-ci-image:
-  #   name: "Build & push CI image"
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - uses: ./.github/actions/build-new-image
-  #       with:
-  #         ghcr-username: ${{ github.actor }}
-  #         ghcr-token: ${{ secrets.GITHUB_TOKEN }}
-  #         dockerfile-path: ./codeship.Dockerfile
-  #         image-repo: ${{ env.IMAGE_REPO_CI }}
-  #         image-tag: ${{ env.IMAGE_TAG }}
+  build-ci-image:
+    name: "Build & push CI image"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/build-new-image
+        with:
+          ghcr-username: ${{ github.actor }}
+          ghcr-token: ${{ secrets.GITHUB_TOKEN }}
+          dockerfile-path: ./codeship.Dockerfile
+          image-repo: ${{ env.IMAGE_REPO_CI }}
+          image-tag: ${{ env.IMAGE_TAG }}
 
-  # run-tests:
-  #   name: "Runs linters & tests"
-  #   needs: build-ci-image
-  #   runs-on: ubuntu-latest
-  #   container:
-  #     image: ${{ env.IMAGE_REPO_CI }}:${{ env.IMAGE_TAG }}
-  #     # env:
-  #     #   SENTRY_ORG: binology
-  #     #   SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-  #   services:
-  #     postgres:
-  #       image: mdillon/postgis:11-alpine
-  #     redis:
-  #       image: redis:5.0.8-alpine
-  #   steps:
-  #     - name: Run linter
-  #       run: cd /app && flake8
+  run-tests:
+    name: "Runs linters & tests"
+    needs: build-ci-image
+    runs-on: ubuntu-latest
+    container:
+      image: ${{ env.IMAGE_REPO_CI }}:${{ env.IMAGE_TAG }}
+      # env:
+      #   SENTRY_ORG: binology
+      #   SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+    services:
+      postgres:
+        image: mdillon/postgis:11-alpine
+      redis:
+        image: redis:5.0.8-alpine
+    steps:
+      - name: Run linter
+        run: cd /app && flake8
 
-  #     - name: Run unit tests
-  #       run: cd /app && python -m unittest discover tests/plain
+      - name: Run unit tests
+        run: cd /app && python -m unittest discover tests/plain
 
-  #     - name: Run Django tests
-  #       run: >-
-  #         cd /app && /bin/sh -c 'until pg_isready -h postgres; do sleep 5; done &&
-  #         python manage.py test tests/django'
+      - name: Run Django tests
+        run: >-
+          cd /app && /bin/sh -c 'until pg_isready -h postgres; do sleep 5; done &&
+          python manage.py test tests/django'
 
-  #     - name: Update Sentry release info
-  #       if: startsWith(github.ref_name, 'release')
-  #       run: >-
-  #         cd /app && /bin/sh -c 'sentry-cli releases new -p legacy-web-app $(sed "1q;d" release-info.txt) &&
-  #         sentry-cli releases set-commits
-  #         --commit "binologygroup/legacy-web-app@$(sed "2q;d" release-info.txt)..$GITHUB_SHA"
-  #         $(sed "1q;d" release-info.txt)'
+      - name: Update Sentry release info
+        if: startsWith(github.ref_name, 'release')
+        run: >-
+          cd /app && /bin/sh -c 'sentry-cli releases new -p legacy-web-app $(sed "1q;d" release-info.txt) &&
+          sentry-cli releases set-commits
+          --commit "binologygroup/legacy-web-app@$(sed "2q;d" release-info.txt)..$GITHUB_SHA"
+          $(sed "1q;d" release-info.txt)'
 
-  # build-main-image:
-  #   name: "Build & push main image"
-  #   needs: run-tests
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - uses: ./.github/actions/build-new-image
-  #       with:
-  #         ghcr-username: ${{ github.actor }}
-  #         ghcr-token: ${{ secrets.GITHUB_TOKEN }}
-  #         dockerfile-path: ./Dockerfile
-  #         image-repo: ${{ env.IMAGE_REPO }}
-  #         image-tag: ${{ env.IMAGE_TAG }}
+  build-main-image:
+    name: "Build & push main image"
+    needs: run-tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/build-new-image
+        with:
+          ghcr-username: ${{ github.actor }}
+          ghcr-token: ${{ secrets.GITHUB_TOKEN }}
+          dockerfile-path: ./Dockerfile
+          image-repo: ${{ env.IMAGE_REPO }}
+          image-tag: ${{ env.IMAGE_TAG }}
 
   deploy:
     name: "Deploy via Ansible"
