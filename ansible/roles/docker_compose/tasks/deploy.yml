@@ -5,11 +5,11 @@
   changed_when: '"already exists" not in network_result.stderr'
 
 - name: Log in to GitHub Container Registry (GHCR)
-  command: docker login ghcr.io -u $DOCKER_LOGIN --password $DOCKER_PASSWORD
+  shell: echo "{{ DOCKER_PASSWORD }}" | docker login ghcr.io -u "{{ DOCKER_LOGIN }}" --password-stdin
   environment:
     DOCKER_LOGIN: "{{ ansible_env.DOCKER_LOGIN | default('github_actor') }}"
     DOCKER_PASSWORD: "{{ ansible_env.DOCKER_PASSWORD | default('github_token') }}"
-  when: ansible_env.DOCKER_PASSWORD is defined and ansible_env.DOCKER_LOGIN is defined
+  when: DOCKER_PASSWORD is defined and DOCKER_LOGIN is defined
 
 - name: Pull web app image
   command: docker pull dibinology/legacy-web-app:{{ web_app_version }}

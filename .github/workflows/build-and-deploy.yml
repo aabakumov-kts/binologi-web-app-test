@@ -124,7 +124,7 @@ jobs:
           key: ${{ secrets.ANSIBLE_SSH_PRIVATE_KEY }}
           options: |
             -i inventory/hosts.ini
-            --extra-vars "web_app_version=develop.13702941880"
+            --extra-vars "web_app_version=develop.13702941880 DOCKER_LOGIN=${{ github.actor }} DOCKER_PASSWORD=${{ secrets.GITHUB_TOKEN }}"
             --limit ${{ env.TARGET_ENV }}
 
   # trigger-e2e-tests:
