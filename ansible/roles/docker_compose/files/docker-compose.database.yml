@@ -1,0 +1,15 @@
+services:
+  redis:
+    image: redis:5.0.8
+    ports:
+      - "6379:6379"
+    networks:
+      main:
+        aliases:
+         - ${REDIS_HOST_NAME}
+    restart: always
+
+networks:
+  main:
+    name: ${NETWORK_NAME}
+    external: true

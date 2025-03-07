@@ -1,0 +1,23 @@
+services:
+  mqtt-broker2:
+    image: eclipse-mosquitto:1.6.12
+    ports:
+      - "18883:1883"
+    volumes:
+      - config:/mosquitto/config
+      - data:/mosquitto/data
+      - log:/mosquitto/log
+    networks:
+      - main
+    restart: always
+    mem_limit: 150m
+
+networks:
+  main:
+    name: ${NETWORK_NAME}
+    external: true
+
+volumes:
+  config:
+  data:
+  log:
