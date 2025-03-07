@@ -1,6 +1,6 @@
 env_name: "Dev"
 web_app_version: "latest"
-web_db_url: "postgres://binology-dev:<password>@rc1a-83dfod75ossq02ev.mdb.yandexcloud.net:6432/binology_web_dev"
+web_db_url: "postgres://binology-dev:SZW0MeGK2rPm9i1b3eDYECYt@rc1a-83dfod75ossq02ev.mdb.yandexcloud.net:6432/binology_web_dev"
 redis_host_name: "redis-host"
 mqtt_broker_host: "mqtt-broker2"
 mqtt_username: "mqtt-listener"
