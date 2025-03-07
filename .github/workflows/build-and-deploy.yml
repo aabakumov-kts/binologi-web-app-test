@@ -50,7 +50,7 @@ jobs:
       IMAGE_REPO: ghcr.io/aabakumov-kts/legacy-web-app
       IMAGE_TAG: ${{ github.ref_name }}.${{ github.run_id }}
     container:
-      image: ${{ env.IMAGE_REPO }}:${{ env.IMAGE_TAG }}
+      image: ghcr.io/aabakumov-kts/legacy-web-app:${{ github.ref_name }}.${{ github.run_id }} #заменить на репо binology
       env:
         SENTRY_ORG: binology
         SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
