@@ -9,18 +9,17 @@ on:
       - master
       - main
 
-env:
-  IMAGE_REPO: ghcr.io/aabakumov-kts/legacy-web-app
-  IMAGE_TAG: ${{ github.ref_name }}.${{ github.run_id }}
-  DOCKER_LOGIN: ${{ github.actor }}
-  DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
-
 concurrency: ${{ github.ref_name }}
 
 jobs:
   build-main-image:
     name: "Build & push main image"
     runs-on: ubuntu-latest
+    env:
+      IMAGE_REPO: ghcr.io/aabakumov-kts/legacy-web-app
+      IMAGE_TAG: ${{ github.ref_name }}.${{ github.run_id }}
+      DOCKER_LOGIN: ${{ github.actor }}
+      DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -47,6 +46,9 @@ jobs:
     name: "Runs linters & tests"
     needs: build-main-image
     runs-on: ubuntu-latest
+    env:
+      IMAGE_REPO: ghcr.io/aabakumov-kts/legacy-web-app
+      IMAGE_TAG: ${{ github.ref_name }}.${{ github.run_id }}
     container:
       image: ${{ env.IMAGE_REPO }}:${{ env.IMAGE_TAG }}
       env:
@@ -81,6 +83,11 @@ jobs:
     name: "Deploy via Ansible"
     needs: run-tests
     runs-on: ubuntu-latest
+    env:
+      IMAGE_REPO: ghcr.io/aabakumov-kts/legacy-web-app
+      IMAGE_TAG: ${{ github.ref_name }}.${{ github.run_id }}
+      DOCKER_LOGIN: ${{ github.actor }}
+      DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -120,7 +127,6 @@ jobs:
             -i inventory/hosts.ini
             --extra-vars "web_app_repo=${{ env.IMAGE_REPO }} web_app_version=${{ env.IMAGE_TAG }} DOCKER_LOGIN=${{ env.DOCKER_LOGIN }} DOCKER_PASSWORD=${{ env.DOCKER_PASSWORD }}"
             --limit ${{ env.TARGET_ENV }}
-
 
   # trigger-e2e-tests:
   #   name: "Trigger E2E tests"
