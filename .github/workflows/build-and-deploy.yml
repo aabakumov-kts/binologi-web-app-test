@@ -80,7 +80,7 @@ jobs:
 
   deploy:
     name: "Deploy via Ansible"
-    # needs: build-main-image
+    needs: build-main-image
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
