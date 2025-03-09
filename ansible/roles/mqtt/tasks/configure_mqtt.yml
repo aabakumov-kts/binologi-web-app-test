@@ -16,3 +16,8 @@
 - name: Copy mosquitto.conf to container
   command: docker cp /opt/binology-saas/mosquitto.conf binology-saas-mqtt-broker2-1:/mosquitto/config/mosquitto.conf
   notify: Restart MQTT
+
+- name: Remove temporary mosquitto.conf
+  file:
+    path: /opt/binology-saas/mosquitto.conf
+    state: absent
