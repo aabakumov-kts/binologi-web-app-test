@@ -1,0 +1,8 @@
+- name: Create Django superuser
+  command: >
+    docker exec binology-saas-web-app-1 python manage.py shell -c "
+    from django.contrib.auth import get_user_model;
+    User = get_user_model();
+    if not User.objects.filter(username='{{ django_admin_username }}').exists():
+        User.objects.create_superuser('{{ django_admin_username }}', '{{ django_admin_email }}', '{{ django_admin_password }}')"
+  no_log: true
