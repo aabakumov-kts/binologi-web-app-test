@@ -14,5 +14,10 @@
   changed_when: "'Creating superuser' in superuser_result.stdout"
   failed_when: "superuser_result.rc != 0 and 'Superuser already exists' not in superuser_result.stdout"
 
+- name: Debug superuser result
+  debug:
+    var: superuser_result
+
+
 
   # no_log: true
