@@ -1,0 +1,4 @@
+- name: Restart MQTT
+  command: docker compose -f docker-compose.mqtt2.yml restart
+  args:
+    chdir: /opt/binology-saas

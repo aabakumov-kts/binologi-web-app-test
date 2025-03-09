@@ -1,0 +1,16 @@
+- name: Generate passwords.txt on remote host
+  template:
+    src: passwords.txt.j2
+    dest: /opt/binology-saas/passwords.txt
+
+- name: Copy passwords.txt to MQTT container
+  command: docker cp /opt/binology-saas/passwords.txt binology-saas-mqtt-broker2-1:/mosquitto/config/passwords.txt
+
+- name: Generate mosquitto.conf on remote host
+  template:
+    src: mosquitto.conf.j2
+    dest: /opt/binology-saas/mosquitto.conf
+
+- name: Copy mosquitto.conf to MQTT container
+  command: docker cp /opt/binology-saas/mosquitto.conf binology-saas-mqtt-broker2-1:/mosquitto/config/mosquitto.conf
+  notify: Restart MQTT
