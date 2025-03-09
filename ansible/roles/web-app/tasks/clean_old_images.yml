@@ -1,0 +1,4 @@
+- name: Remove old docker images
+  command: docker image prune -af
+  register: image_cleanup_result
+  changed_when: image_cleanup_result.stdout != "Total reclaimed space: 0B"
