@@ -1,10 +1,12 @@
-- name: Generate passwords.txt on remote host
-  template:
-    src: passwords.txt.j2
-    dest: /opt/binology-saas/passwords.txt
+- name: Ensure MQTT password file exists
+  command: docker exec binology-saas-mqtt-broker2-1 touch /mosquitto/config/passwords.txt
 
-- name: Copy passwords.txt to MQTT container
-  command: docker cp /opt/binology-saas/passwords.txt binology-saas-mqtt-broker2-1:/mosquitto/config/passwords.txt
+- name: Add MQTT users (hashed passwords)
+  command: docker exec binology-saas-mqtt-broker2-1 mosquitto_passwd -b /mosquitto/config/passwords.txt {{ item.username }} {{ item.password }}
+  with_items:
+    - { username: "{{ mqtt_username }}", password: "{{ mqtt_password }}" }
+    - { username: "{{ mqtt_sensor_username }}", password: "{{ mqtt_sensor_password }}" }
+  no_log: true
 
 - name: Generate mosquitto.conf on remote host
   template:
