@@ -1,4 +1,4 @@
 network_name: "primary-network"
 letsencrypt_email: "it@binology.com"
 log_level: "DEBUG"
-web_app_repo: ghcr.io/aabakumov-kts/binologi-web-app-test
+web_app_repo: ""
