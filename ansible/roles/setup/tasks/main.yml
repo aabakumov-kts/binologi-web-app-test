@@ -2,4 +2,3 @@
 - import_tasks: copy_files.yml
 - import_tasks: generate_env.yml
 - import_tasks: create_network.yml
-- import_tasks: docker_login.yml
