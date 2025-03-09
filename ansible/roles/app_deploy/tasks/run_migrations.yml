@@ -1,4 +1,0 @@
-- name: Run migrations
-  command: docker compose -f docker-compose.web-app.yml run --rm mnt-svc python manage.py migrate
-  args:
-    chdir: /opt/binology-saas

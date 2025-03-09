@@ -1,1 +1,1 @@
-- import_tasks: start_db.yml
+- import_tasks: start_redis.yml
