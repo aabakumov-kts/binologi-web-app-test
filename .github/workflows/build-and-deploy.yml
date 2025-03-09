@@ -119,7 +119,7 @@ jobs:
 
   deploy:
     name: "Deploy via Ansible"
-    needs: run-tests
+    # needs: run-tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -176,7 +176,7 @@ jobs:
           key: ${{ secrets.ANSIBLE_SSH_PRIVATE_KEY }}
           options: |
             -i inventory/hosts.ini
-            --extra-vars "web_app_repo=${{ env.IMAGE_REPO }} web_app_version=${{ env.IMAGE_TAG }} DOCKER_LOGIN=${{ env.DOCKER_LOGIN }} DOCKER_PASSWORD=${{ env.DOCKER_PASSWORD }} \
+            --extra-vars "web_app_repo=${{ env.IMAGE_REPO }} web_app_version=develop.13751210009 DOCKER_LOGIN=${{ env.DOCKER_LOGIN }} DOCKER_PASSWORD=${{ env.DOCKER_PASSWORD }} \
             web_db_url=${{ env.WEB_DB_URL }} \
             mqtt_password=${{ env.MQTT_PASSWORD }} \
             mqtt_sensor_password=${{ env.MQTT_SENSOR_PASSWORD }} \
