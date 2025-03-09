@@ -3,8 +3,8 @@
   become: true
   gather_facts: no
   roles:
-    - app_setup
-    - redis
-    - mqtt
-    - reverse-proxy
-    - web-app
+    - { role: setup, tags: "setup" }
+    - { role: redis, tags: "redis" }
+    - { role: mqtt, tags: "mqtt" }
+    - { role: reverse-proxy, tags: "reverse-proxy" }
+    - { role: web-app, tags: "web-app" }

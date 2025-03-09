@@ -149,6 +149,7 @@ jobs:
             -i inventory/hosts.ini
             --extra-vars "web_app_repo=${{ env.IMAGE_REPO }} web_app_version=develop.13727166643 DOCKER_LOGIN=${{ env.DOCKER_LOGIN }} DOCKER_PASSWORD=${{ env.DOCKER_PASSWORD }}"
             --limit ${{ env.TARGET_ENV }}
+            --tags "web-app"
 
   # trigger-e2e-tests:
   #   name: "Trigger E2E tests"
