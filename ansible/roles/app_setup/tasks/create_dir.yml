@@ -1,0 +1,5 @@
+- name: Create compose dir
+  file:
+    path: /opt/binology-saas
+    state: directory
+    mode: '0755'

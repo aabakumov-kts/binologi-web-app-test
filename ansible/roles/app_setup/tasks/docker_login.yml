@@ -1,0 +1,6 @@
+- name: Log in to container registry
+  shell: echo "{{ DOCKER_PASSWORD }}" | docker login ghcr.io -u "{{ DOCKER_LOGIN }}" --password-stdin
+  environment:
+    DOCKER_LOGIN: "{{ ansible_env.DOCKER_LOGIN | default('github_actor') }}"
+    DOCKER_PASSWORD: "{{ ansible_env.DOCKER_PASSWORD | default('github_token') }}"
+  when: DOCKER_PASSWORD is defined and DOCKER_LOGIN is defined

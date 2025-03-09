@@ -1,0 +1,10 @@
+- name: Copy docker-compose files
+  copy:
+    src: "{{ item }}"
+    dest: "/opt/binology-saas/{{ item }}"
+    mode: '0644'
+  with_items:
+    - docker-compose.database.yml
+    - docker-compose.mqtt2.yml
+    - docker-compose.reverse-proxy.yml
+    - docker-compose.web-app.yml

@@ -3,6 +3,5 @@
   become: true
   gather_facts: no
   roles:
-    - common
-    - docker
-    - docker_compose
+    - app_setup
+    - app_deploy

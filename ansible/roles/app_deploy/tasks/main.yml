@@ -1,0 +1,3 @@
+- import_tasks: pull_images.yml
+- import_tasks: run_migrations.yml
+- import_tasks: start_services.yml

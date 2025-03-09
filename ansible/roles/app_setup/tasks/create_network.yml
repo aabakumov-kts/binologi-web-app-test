@@ -1,0 +1,5 @@
+- name: Create docker network
+  command: docker network create primary-network
+  register: network_result
+  failed_when: network_result.rc != 0 and 'already exists' not in network_result.stderr
+  changed_when: '"already exists" not in network_result.stderr'

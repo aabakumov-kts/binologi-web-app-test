@@ -1,0 +1,19 @@
+- name: Start database services
+  command: docker compose -f docker-compose.database.yml up -d
+  args:
+    chdir: /opt/binology-saas
+
+- name: Start MQTT services
+  command: docker compose -f docker-compose.mqtt2.yml up -d
+  args:
+    chdir: /opt/binology-saas
+
+- name: Start reverse proxy services
+  command: docker compose -f docker-compose.reverse-proxy.yml up -d
+  args:
+    chdir: /opt/binology-saas
+
+- name: Start web application services
+  command: docker compose -f docker-compose.web-app.yml up -d
+  args:
+    chdir: /opt/binology-saas
