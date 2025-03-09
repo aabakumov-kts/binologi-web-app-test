@@ -4,4 +4,7 @@
   gather_facts: no
   roles:
     - app_setup
-    - app_deploy
+    - redis
+    - mqtt
+    - reverse-proxy
+    - web-app

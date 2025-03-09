@@ -1,0 +1,4 @@
+- name: Start web-app
+  command: docker compose -f docker-compose.web-app.yml up -d
+  args:
+    chdir: /opt/binology-saas

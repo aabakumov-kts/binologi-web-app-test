@@ -1,0 +1,4 @@
+- name: Start redis services
+  command: docker compose -f docker-compose.database.yml up -d
+  args:
+    chdir: /opt/binology-saas

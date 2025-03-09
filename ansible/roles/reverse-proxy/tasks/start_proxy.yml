@@ -1,0 +1,4 @@
+- name: Start reverse-proxy services
+  command: docker compose -f docker-compose.reverse-proxy.yml up -d
+  args:
+    chdir: /opt/binology-saas

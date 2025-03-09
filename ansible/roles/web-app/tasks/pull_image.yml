@@ -1,0 +1,2 @@
+- name: Pull web-app image
+  command: docker pull {{ web_app_repo }}:{{ web_app_version }}

@@ -1,0 +1,4 @@
+- name: Start MQTT services
+  command: docker compose -f docker-compose.mqtt2.yml up -d
+  args:
+    chdir: /opt/binology-saas
