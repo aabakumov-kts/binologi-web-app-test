@@ -1,18 +1,18 @@
-- name: Ensure MQTT password file exists
+- name: Create passwords.txt
   command: docker exec binology-saas-mqtt-broker2-1 touch /mosquitto/config/passwords.txt
 
-- name: Add MQTT users (hashed passwords)
+- name: Add MQTT users
   command: docker exec binology-saas-mqtt-broker2-1 mosquitto_passwd -b /mosquitto/config/passwords.txt {{ item.username }} {{ item.password }}
   with_items:
     - { username: "{{ mqtt_username }}", password: "{{ mqtt_password }}" }
     - { username: "{{ mqtt_sensor_username }}", password: "{{ mqtt_sensor_password }}" }
   no_log: true
 
-- name: Generate mosquitto.conf on remote host
+- name: Generate mosquitto.conf
   template:
     src: mosquitto.conf.j2
     dest: /opt/binology-saas/mosquitto.conf
 
-- name: Copy mosquitto.conf to MQTT container
+- name: Copy mosquitto.conf to container
   command: docker cp /opt/binology-saas/mosquitto.conf binology-saas-mqtt-broker2-1:/mosquitto/config/mosquitto.conf
   notify: Restart MQTT
