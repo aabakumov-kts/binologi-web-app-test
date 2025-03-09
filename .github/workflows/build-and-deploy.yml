@@ -9,15 +9,15 @@ on:
       - master
       - main
 
-      workflow_dispatch:
-        inputs:
-          environment:
-            description: 'Deploy Prod'
-            required: true
-            default: 'prod'
-            type: choice
-            options:
-              - prod
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deploy Prod'
+        required: true
+        default: 'prod'
+        type: choice
+        options:
+          - prod
 
 concurrency: ${{ github.ref_name }}
 
