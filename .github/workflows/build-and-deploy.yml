@@ -9,6 +9,16 @@ on:
       - master
       - main
 
+      workflow_dispatch:
+        inputs:
+          environment:
+            description: 'Deploy Prod'
+            required: true
+            default: 'prod'
+            type: choice
+            options:
+              - prod
+
 concurrency: ${{ github.ref_name }}
 
 env:
@@ -116,12 +126,30 @@ jobs:
 
       - name: Define environment
         run: |
-          if [[ "${{ github.ref_name }}" == "develop" ]]; then
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" && "${{ github.event.inputs.environment }}" == "prod" ]]; then
+            echo "TARGET_ENV=prod" >> $GITHUB_ENV
+            echo "WEB_DB_URL=${{ secrets.PG_URL_PROD }}" >> $GITHUB_ENV
+            echo "MQTT_PASSWORD=${{ secrets.MQTT_PASSWORD_PROD }}" >> $GITHUB_ENV
+            echo "MQTT_SENSOR_PASSWORD=${{ secrets.MQTT_SENSOR_PASSWORD_PROD }}" >> $GITHUB_ENV
+            echo "ONESIGNAL_REST_API_KEY=${{ secrets.ONESIGNAL_REST_API_KEY_PROD }}" >> $GITHUB_ENV
+          elif [[ "${{ github.ref_name }}" == "develop" ]]; then
             echo "TARGET_ENV=dev" >> $GITHUB_ENV
+            echo "WEB_DB_URL=${{ secrets.PG_URL_DEV }}" >> $GITHUB_ENV
+            echo "MQTT_PASSWORD=${{ secrets.MQTT_PASSWORD_DEV }}" >> $GITHUB_ENV
+            echo "MQTT_SENSOR_PASSWORD=${{ secrets.MQTT_SENSOR_PASSWORD_DEV }}" >> $GITHUB_ENV
+            echo "ONESIGNAL_REST_API_KEY=${{ secrets.ONESIGNAL_REST_API_KEY_DEV }}" >> $GITHUB_ENV
           elif [[ "${{ github.ref_name }}" == "master" ]]; then
             echo "TARGET_ENV=demo" >> $GITHUB_ENV
+            echo "WEB_DB_URL=${{ secrets.PG_URL_DEMO }}" >> $GITHUB_ENV
+            echo "MQTT_PASSWORD=${{ secrets.MQTT_PASSWORD_DEMO }}" >> $GITHUB_ENV
+            echo "MQTT_SENSOR_PASSWORD=${{ secrets.MQTT_SENSOR_PASSWORD_DEMO }}" >> $GITHUB_ENV
+            echo "ONESIGNAL_REST_API_KEY=${{ secrets.ONESIGNAL_REST_API_KEY_DEMO }}" >> $GITHUB_ENV
           elif [[ "${{ github.ref_name }}" == release* || "${{ github.ref_name }}" == hotfix* ]]; then
             echo "TARGET_ENV=stage" >> $GITHUB_ENV
+            echo "WEB_DB_URL=${{ secrets.PG_URL_STAGE }}" >> $GITHUB_ENV
+            echo "MQTT_PASSWORD=${{ secrets.MQTT_PASSWORD_STAGE }}" >> $GITHUB_ENV
+            echo "MQTT_SENSOR_PASSWORD=${{ secrets.MQTT_SENSOR_PASSWORD_STAGE }}" >> $GITHUB_ENV
+            echo "ONESIGNAL_REST_API_KEY=${{ secrets.ONESIGNAL_REST_API_KEY_STAGE }}" >> $GITHUB_ENV
           fi
 
       - name: Install Ansible
@@ -147,9 +175,13 @@ jobs:
           key: ${{ secrets.ANSIBLE_SSH_PRIVATE_KEY }}
           options: |
             -i inventory/hosts.ini
-            --extra-vars "web_app_repo=${{ env.IMAGE_REPO }} web_app_version=develop.13727166643 DOCKER_LOGIN=${{ env.DOCKER_LOGIN }} DOCKER_PASSWORD=${{ env.DOCKER_PASSWORD }}"
+            --extra-vars "web_app_repo=${{ env.IMAGE_REPO }} web_app_version=${{ env.IMAGE_TAG }} DOCKER_LOGIN=${{ env.DOCKER_LOGIN }} DOCKER_PASSWORD=${{ env.DOCKER_PASSWORD }} \
+            web_db_url=${{ env.WEB_DB_URL }} \
+            mqtt_password=${{ env.MQTT_PASSWORD }} \
+            mqtt_sensor_password=${{ env.MQTT_SENSOR_PASSWORD }} \
+            onesignal_rest_api_key=${{ env.ONESIGNAL_REST_API_KEY }}"
             --limit ${{ env.TARGET_ENV }}
-            --tags "web-app"
+# --tags "web-app"
 
   # trigger-e2e-tests:
   #   name: "Trigger E2E tests"

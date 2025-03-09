@@ -2,6 +2,3 @@ network_name: "primary-network"
 letsencrypt_email: "it@binology.com"
 log_level: "DEBUG"
 web_app_repo: "" # передается через github workflow
-django_admin_username: "avskrylev"
-django_admin_email: "avskrylev@yandex.ru"
-django_admin_password: "99eYocY2jcN2KI8yWN0uozPr"
